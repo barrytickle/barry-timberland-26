@@ -1,11 +1,10 @@
 {
-  "name": "cearls/timberland",
+  "name": "barrytickle/barry-timberland-26",
   "type": "wordpress-theme",
   "description": "A modern WordPress theme using Timber, ACF, Tailwind CSS and Alpine JS",
   "license": "MIT",
   "authors": [{
-    "name": "Chris Earls",
-    "email": "cgearls@gmail.com"
+    "name": "Barry Tickle"
   }],
   "require": {
     "timber/timber": "^2.0"
