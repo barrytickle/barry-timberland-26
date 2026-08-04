@@ -7,6 +7,8 @@
 
 declare(strict_types=1);
 
+use Timber\Menu;
+use Timber\Site;
 use Timber\Timber;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
@@ -15,7 +17,7 @@ Timber::init();
 Timber::$dirname = array('views', 'blocks');
 Timber::$autoescape = true;
 
-final class Barry_Timberland_26 extends Timber\Site {
+final class Barry_Timberland_26 extends Site {
 	private const TEXT_DOMAIN = 'barry-timberland-26';
 
 	public function __construct() {
@@ -65,14 +67,14 @@ final class Barry_Timberland_26 extends Timber\Site {
 		return $context;
 	}
 
-	private function get_menu_for_location(string $location): ?Timber\Menu {
+	private function get_menu_for_location(string $location): ?Menu {
 		$locations = get_nav_menu_locations();
 		if (empty($locations[$location])) {
 			return null;
 		}
 
 		$menu = Timber::get_menu((int) $locations[$location]);
-		return $menu instanceof Timber\Menu ? $menu : null;
+		return $menu instanceof Menu ? $menu : null;
 	}
 
 	public function register_case_study_post_type(): void {
