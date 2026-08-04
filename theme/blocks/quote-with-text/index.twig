@@ -1,0 +1,14 @@
+{% set surface = fields.background_style|default('white') %}
+<section id="{{ fields.anchor_id|default(block.anchor|default('')) }}" class="section-space surface-{{ surface }}">
+  <div class="site-container grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+    <div>
+      {% if fields.image %}{% include 'components/image.twig' with { image: fields.image, size: 'large', alt: fields.image.alt|default(''), class: 'aspect-[4/5] w-full rounded-[1.5rem] object-cover' } only %}{% else %}<div class="grid aspect-[4/5] place-items-center rounded-[1.5rem] bg-violet-soft p-8 text-muted">Optional portrait or project image</div>{% endif %}
+    </div>
+    <div class="lg:pt-8">
+      {% include 'components/icon.twig' with { name: 'quote', class: 'h-10 w-10 text-violet' } %}
+      <blockquote class="mt-8 text-[clamp(2rem,4vw,4rem)] font-bold leading-[1.08] tracking-[-.04em]">{{ fields.quote|default(is_preview ? 'Use this block for an honest client quote or a personal point of view.' : '') }}</blockquote>
+      {% if fields.attribution_name %}<p class="mt-7 font-bold">{{ fields.attribution_name }}{% if fields.attribution_role %}<span class="font-normal text-muted"> — {{ fields.attribution_role }}</span>{% endif %}</p>{% endif %}
+      {% if fields.body %}<div class="rich-text mt-10 max-w-2xl border-t border-line pt-8">{{ fields.body|raw }}</div>{% endif %}
+    </div>
+  </div>
+</section>

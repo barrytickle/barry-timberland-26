@@ -1,0 +1,33 @@
+{% set selected = project|default(null) %}
+{% set heading = fields.heading|default(selected ? selected.title : '') %}
+{% set body = fields.body|default(selected ? selected.meta('project_summary') : '') %}
+{% set services = fields.services|default(selected ? selected.meta('project_services') : '') %}
+{% set image = fields.image|default(selected ? selected.meta('project_browser_image')|default(selected.thumbnail) : null) %}
+{% set link = fields.link|default(selected ? { url: selected.link, title: 'View case study' } : null) %}
+{% set accent = fields.accent_colour|default(selected ? selected.meta('project_accent_colour') : '') %}
+{% set number = fields.number|default('0' ~ block_index|default('1')) %}
+{% set surface = fields.background_style|default('paper') %}
+
+<section id="{{ fields.anchor_id|default(block.anchor|default('')) }}" class="section-space surface-{{ surface }}">
+  <div class="site-container-wide project-feature project-feature--{{ image_side }}">
+    <div class="project-feature__copy">
+      <p class="text-sm font-black tracking-[.16em] text-violet-dark">{{ number }}</p>
+      {% include 'components/eyebrow.twig' with { text: fields.eyebrow|default(selected ? selected.meta('project_client') : 'Featured project'), class: 'mt-5' } %}
+      {% if heading %}<h2 class="project-title mt-5">{{ heading }}</h2>{% elseif is_preview %}<h2 class="project-title mt-5 text-muted">Choose a project or add a heading.</h2>{% endif %}
+      {% if body %}<div class="body-large mt-6 text-muted">{{ body|raw }}</div>{% endif %}
+      {% if services %}
+        <div class="project-feature__meta">
+          {% for service in services is iterable ? services : services|split(',') %}<span class="project-feature__tag">{{ service.label|default(service)|trim }}</span>{% endfor %}
+        </div>
+      {% endif %}
+      {% if link %}<div class="mt-8">{% include 'components/button.twig' with { link: link, variant: 'outline', icon: 'arrow-right' } %}</div>{% endif %}
+    </div>
+    <div class="project-feature__media rounded-[1.75rem] p-3 sm:p-5"{% if accent %} style="background-color: {{ accent|e('html_attr') }}"{% endif %}>
+      {% if fields.browser_frame is same as(false) %}
+        {% include 'components/image.twig' with { image: image, alt: image.alt|default(heading), size: 'bt26-project', class: 'w-full rounded-2xl shadow-2xl', is_preview: is_preview } only %}
+      {% else %}
+        {% include 'components/browser-frame.twig' with { image: image, alt: image.alt|default(heading ~ ' website'), label: fields.browser_label|default(selected ? selected.meta('project_client') : ''), is_preview: is_preview } %}
+      {% endif %}
+    </div>
+  </div>
+</section>

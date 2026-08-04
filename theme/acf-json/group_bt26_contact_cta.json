@@ -1,0 +1,10 @@
+{
+  "key":"group_bt26_contact_cta","title":"ContactCTA","fields":[
+    {"key":"field_bt26_contact_icon","label":"Icon","name":"icon","type":"select","choices":{"paper-plane":"Paper Plane","mail":"Mail","arrow-up-right":"Arrow"},"default_value":"paper-plane"},
+    {"key":"field_bt26_contact_heading","label":"Heading","name":"heading","type":"text","required":1},
+    {"key":"field_bt26_contact_body","label":"Body","name":"body","type":"wysiwyg","tabs":"visual","toolbar":"basic","media_upload":0},
+    {"key":"field_bt26_contact_link","label":"Link","name":"link","type":"link","return_format":"array"},
+    {"key":"field_bt26_contact_background","label":"Outer Background","name":"background_style","type":"select","choices":{"paper":"Paper","white":"White","violet-soft":"Violet Soft"},"default_value":"paper"},
+    {"key":"field_bt26_contact_anchor","label":"Anchor ID","name":"anchor_id","type":"text"}
+  ],"location":[[{"param":"block","operator":"==","value":"acf/contact-cta"}]],"position":"normal","style":"default","active":true
+}

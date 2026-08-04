@@ -1,0 +1,13 @@
+<section id="{{ fields.anchor_id|default(block.anchor|default('')) }}" class="section-space surface-{{ fields.background_style|default('paper') }}">
+  <div class="site-container">
+    <div class="relative overflow-hidden rounded-[2rem] bg-violet-soft p-7 sm:p-12 lg:p-16">
+      <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full border-[3rem] border-white/45" aria-hidden="true"></div>
+      <div class="relative max-w-4xl">
+        <span class="grid h-14 w-14 place-items-center rounded-full bg-white text-violet-dark">{% include 'components/icon.twig' with { name: fields.icon|default('paper-plane') } %}</span>
+        <h2 class="section-title mt-7">{{ fields.heading|default(is_preview ? 'Have a project worth talking about?' : '') }}</h2>
+        {% if fields.body %}<div class="body-large mt-6 max-w-2xl text-ink-soft">{{ fields.body|raw }}</div>{% endif %}
+        {% if fields.link %}<div class="mt-8">{% include 'components/button.twig' with { link: fields.link, variant: 'violet', icon: 'arrow-right' } %}</div>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>

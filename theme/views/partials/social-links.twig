@@ -1,0 +1,11 @@
+{% if site_settings.social_links %}
+  <ul class="flex flex-wrap gap-3" aria-label="Social links">
+    {% for social in site_settings.social_links %}
+      {% if social.url %}
+        <li><a class="grid min-h-11 min-w-11 place-items-center rounded-full border border-line-strong transition hover:border-violet hover:text-violet-dark" href="{{ social.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ social.label|default(social.platform|title) }}">
+          {% include 'components/icon.twig' with { name: social.platform } %}
+        </a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}

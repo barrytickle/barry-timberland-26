@@ -1,0 +1,13 @@
+{% set columns = fields.columns|default('2') %}
+<section id="{{ fields.anchor_id|default(block.anchor|default('')) }}" class="section-space bg-paper">
+  <div class="site-container-wide">
+    <div class="site-container max-w-none px-0">
+      {% include 'components/eyebrow.twig' with { text: fields.eyebrow|default(is_preview ? 'More work' : '') } %}
+      <h2 class="section-title mt-5">{{ fields.heading|default(is_preview ? 'A few things I’ve helped bring to life.' : '') }}</h2>
+      {% if fields.intro %}<div class="body-large mt-6 max-w-2xl text-muted">{{ fields.intro|raw }}</div>{% endif %}
+    </div>
+    <div class="mt-12 grid gap-7 {{ columns == '3' ? 'md:grid-cols-2 xl:grid-cols-3' : 'md:grid-cols-2' }}">
+      {% for project in projects %}{% include 'partials/project-card.twig' %}{% else %}<p class="text-muted">Add published case studies to populate this grid.</p>{% endfor %}
+    </div>
+  </div>
+</section>

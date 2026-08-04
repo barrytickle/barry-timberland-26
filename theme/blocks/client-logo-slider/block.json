@@ -1,0 +1,1 @@
+{"apiVersion":2,"name":"acf/client-logo-slider","title":"Client Logo Slider","description":"Reduced-motion-aware client logo strip.","category":"bt26-portfolio","icon":"images-alt2","acf":{"mode":"preview","renderCallback":"acf_block_render_callback"},"supports":{"align":false,"anchor":true,"jsx":false},"example":{"attributes":{"mode":"preview","data":{"is_preview":true}}}}

@@ -1,0 +1,17 @@
+<figure class="browser-frame {{ class|default('') }}">
+  <div class="browser-frame__bar" aria-hidden="true">
+    <span class="browser-frame__dot"></span><span class="browser-frame__dot"></span><span class="browser-frame__dot"></span>
+    {% if label %}<span class="browser-frame__label">{{ label }}</span>{% endif %}
+  </div>
+  <div class="browser-frame__media">
+    {% include 'components/image.twig' with {
+      image: image,
+      alt: alt|default(''),
+      size: size|default('bt26-project'),
+      loading: loading|default('lazy'),
+      fetchpriority: fetchpriority|default('auto'),
+      class: 'h-full w-full object-cover object-top',
+      is_preview: is_preview|default(false)
+    } only %}
+  </div>
+</figure>

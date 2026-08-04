@@ -1,5 +1,10 @@
-{% extends "base.twig" %}
-
+{% extends 'base.twig' %}
 {% block content %}
-    {{ post.content }}
+  <article class="site-container section-space">
+    <header class="max-w-4xl">
+      <p class="eyebrow">{{ post.date }}</p>
+      <h1 class="page-title mt-6">{{ post.title }}</h1>
+    </header>
+    <div class="rich-text mt-12 max-w-3xl">{{ post.content|raw }}</div>
+  </article>
 {% endblock %}

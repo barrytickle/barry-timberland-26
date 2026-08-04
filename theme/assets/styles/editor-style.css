@@ -1,28 +1,11 @@
+@config '../../../tailwind.config.js';
 @import 'tailwindcss';
 @import './theme.css';
-
+@import './main.css';
 @plugin '@tailwindcss/typography';
 
-body {
-  @apply font-sans;
-}
-
-.wp-block{
-  @apply max-w-(--breakpoint-xl);
-}
-
-.wp-block-post-content {
-  @apply max-w-(--breakpoint-xl) mx-auto my-6;
-}
-
-.mce-content-body, .acf_content, .mceContentBody {
-  @apply prose prose-lg max-w-none;
-}
-
-h1.wp-block-post-title {
-  @apply text-4xl font-bold;
-}
-
-.acf-innerblocks-container {
-  @apply w-full;
-}
+.editor-styles-wrapper { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); }
+.editor-styles-wrapper .wp-block { max-width: 90rem; }
+.editor-styles-wrapper .wp-block-post-title { width: min(100% - 2.5rem, 80rem); margin: 2rem auto; font-size: var(--bt26-page-title); font-weight: 800; letter-spacing: -.05em; }
+.editor-styles-wrapper .acf-block-preview { overflow: hidden; }
+.editor-styles-wrapper .acf-block-preview a { pointer-events: none; }

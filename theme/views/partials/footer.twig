@@ -1,0 +1,54 @@
+{% set settings = site_settings|default({}) %}
+<footer class="border-t border-line bg-white">
+  {% if settings.footer_cta_heading or settings.footer_cta_link %}
+    <div class="site-container pt-16 sm:pt-24">
+      <div class="grid gap-8 rounded-[2rem] bg-violet-soft p-7 sm:p-12 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div class="max-w-3xl">
+          <p class="eyebrow">Have a project in mind?</p>
+          <h2 class="section-title mt-5">{{ settings.footer_cta_heading|default("Let’s make something useful.") }}</h2>
+          {% if settings.footer_cta_body %}<div class="body-large mt-5 max-w-2xl text-ink-soft">{{ settings.footer_cta_body|raw }}</div>{% endif %}
+        </div>
+        {% include 'components/button.twig' with { link: settings.footer_cta_link, variant: 'violet', icon: 'paper-plane' } %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="site-container grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-12 lg:py-24">
+    <div class="lg:col-span-4">
+      <a class="text-3xl font-black tracking-[-0.06em] no-underline" href="{{ site.url }}">{{ settings.site_mark_text|default('BT.') }}</a>
+      <p class="mt-5 max-w-sm text-lg leading-8 text-muted">{{ settings.footer_intro|default(settings.site_tagline|default(site.description)) }}</p>
+      <div class="mt-7">{% include 'partials/social-links.twig' %}</div>
+    </div>
+
+    <div class="lg:col-span-2">
+      <h2 class="text-sm font-extrabold uppercase tracking-[.14em]">Explore</h2>
+      {% if footer_primary_menu %}<ul class="mt-5 space-y-3">{% for item in footer_primary_menu.items %}<li><a class="text-muted no-underline hover:text-violet-dark" href="{{ item.link }}">{{ item.title }}</a></li>{% endfor %}</ul>{% endif %}
+    </div>
+    <div class="lg:col-span-2">
+      <h2 class="text-sm font-extrabold uppercase tracking-[.14em]">More</h2>
+      {% if footer_secondary_menu %}<ul class="mt-5 space-y-3">{% for item in footer_secondary_menu.items %}<li><a class="text-muted no-underline hover:text-violet-dark" href="{{ item.link }}">{{ item.title }}</a></li>{% endfor %}</ul>{% endif %}
+    </div>
+    <div class="lg:col-span-2">
+      <h2 class="text-sm font-extrabold uppercase tracking-[.14em]">Services</h2>
+      {% if settings.footer_services %}<ul class="mt-5 space-y-3">{% for service in settings.footer_services %}<li>{% if service.url %}<a class="text-muted no-underline hover:text-violet-dark" href="{{ service.url }}">{{ service.label }}</a>{% else %}<span class="text-muted">{{ service.label }}</span>{% endif %}</li>{% endfor %}</ul>{% endif %}
+    </div>
+    <div class="lg:col-span-2">
+      <h2 class="text-sm font-extrabold uppercase tracking-[.14em]">Contact</h2>
+      <div class="mt-5 space-y-3 text-muted">
+        {% if settings.email_address %}<a class="block break-words no-underline hover:text-violet-dark" href="mailto:{{ settings.email_address }}">{{ settings.email_address }}</a>{% endif %}
+        {% if settings.location_label %}<p>{{ settings.location_label }}</p>{% endif %}
+        {% if settings.availability_enabled and settings.availability_label %}<p class="flex items-start gap-2"><span class="mt-2 h-2 w-2 rounded-full bg-success"></span>{{ settings.availability_label }}</p>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-line">
+    <div class="site-container flex flex-col gap-4 py-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+      <p>{{ settings.copyright_override|default('© ' ~ current_year ~ ' ' ~ site.name) }}</p>
+      <div class="flex flex-wrap gap-5">
+        {% if settings.privacy_policy_link %}<a href="{{ settings.privacy_policy_link.url }}">{{ settings.privacy_policy_link.title|default('Privacy') }}</a>{% endif %}
+        {% if settings.terms_link %}<a href="{{ settings.terms_link.url }}">{{ settings.terms_link.title|default('Terms') }}</a>{% endif %}
+      </div>
+    </div>
+  </div>
+</footer>

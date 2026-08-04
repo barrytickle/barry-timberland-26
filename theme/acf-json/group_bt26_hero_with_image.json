@@ -1,0 +1,17 @@
+{
+  "key":"group_bt26_hero_with_image","title":"HeroWithImage","fields":[
+    {"key":"field_bt26_hero_eyebrow","label":"Eyebrow","name":"eyebrow","type":"text"},
+    {"key":"field_bt26_hero_heading","label":"Heading","name":"heading","type":"text","required":1},
+    {"key":"field_bt26_hero_body","label":"Body","name":"body","type":"wysiwyg","tabs":"visual","toolbar":"basic","media_upload":0},
+    {"key":"field_bt26_hero_primary_link","label":"Primary Link","name":"primary_link","type":"link","return_format":"array"},
+    {"key":"field_bt26_hero_secondary_link","label":"Secondary Link","name":"secondary_link","type":"link","return_format":"array"},
+    {"key":"field_bt26_hero_image","label":"Supporting Image","name":"supporting_image","type":"image","return_format":"array","preview_size":"large","library":"all"},
+    {"key":"field_bt26_hero_alt","label":"Image Alt Override","name":"supporting_image_alt_override","type":"text","instructions":"Leave empty to use the Media Library alt text."},
+    {"key":"field_bt26_hero_browser_label","label":"Browser Label","name":"browser_label","type":"text"},
+    {"key":"field_bt26_hero_experience","label":"Experience Note","name":"experience_note","type":"text"},
+    {"key":"field_bt26_hero_profile","label":"Profile Image","name":"profile_image","type":"image","return_format":"array","preview_size":"thumbnail","library":"all"},
+    {"key":"field_bt26_hero_background","label":"Background Style","name":"background_style","type":"select","choices":{"paper":"Paper","white":"White","violet-soft":"Violet Soft"},"default_value":"paper","return_format":"value"},
+    {"key":"field_bt26_hero_anchor","label":"Anchor ID","name":"anchor_id","type":"text"}
+  ],
+  "location":[[{"param":"block","operator":"==","value":"acf/hero-with-image"}]],"position":"normal","style":"default","active":true
+}

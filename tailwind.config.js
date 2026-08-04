@@ -2,11 +2,10 @@ import typography from '@tailwindcss/typography'
 
 export default {
   content: [
-    './theme/views/**/*.twig',
-    './theme/blocks/**/*.twig',
+    './theme/**/*.php',
+    './theme/**/*.twig',
+    './theme/**/*.js',
+    './theme/**/*.json',
   ],
-  theme: { extend: {} },
-  plugins: [
-    typography,
-  ],
+  plugins: [typography],
 }

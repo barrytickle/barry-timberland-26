@@ -1,0 +1,1 @@
+{"apiVersion":2,"name":"acf/about-split","title":"About Split","description":"About section with image, interests and CTA.","category":"bt26-portfolio","icon":"admin-users","acf":{"mode":"preview","renderCallback":"acf_block_render_callback"},"supports":{"align":false,"anchor":true,"jsx":false},"example":{"attributes":{"mode":"preview","data":{"is_preview":true}}}}

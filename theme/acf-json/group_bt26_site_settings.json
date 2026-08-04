@@ -1,0 +1,43 @@
+{
+  "key": "group_bt26_site_settings",
+  "title": "Global Site Settings",
+  "fields": [
+    {"key":"field_bt26_settings_tab_branding","label":"Branding","name":"","type":"tab","placement":"top"},
+    {"key":"field_bt26_settings_site_logo","label":"Site Logo","name":"site_logo","type":"image","return_format":"array","preview_size":"medium","library":"all"},
+    {"key":"field_bt26_settings_site_mark","label":"Site Mark Text","name":"site_mark_text","type":"text","default_value":"BT."},
+    {"key":"field_bt26_settings_tagline","label":"Site Tagline","name":"site_tagline","type":"textarea","rows":3},
+    {"key":"field_bt26_settings_tab_header","label":"Header","name":"","type":"tab","placement":"top"},
+    {"key":"field_bt26_settings_header_cta","label":"Header CTA","name":"header_cta","type":"link","return_format":"array"},
+    {"key":"field_bt26_settings_header_sticky","label":"Sticky Header","name":"header_sticky","type":"true_false","default_value":1,"ui":1},
+    {"key":"field_bt26_settings_tab_contact","label":"Contact","name":"","type":"tab","placement":"top"},
+    {"key":"field_bt26_settings_email","label":"Email Address","name":"email_address","type":"email"},
+    {"key":"field_bt26_settings_location","label":"Location Label","name":"location_label","type":"text","default_value":"Liverpool, UK"},
+    {"key":"field_bt26_settings_availability","label":"Availability Label","name":"availability_label","type":"text"},
+    {"key":"field_bt26_settings_availability_enabled","label":"Show Availability","name":"availability_enabled","type":"true_false","default_value":0,"ui":1},
+    {"key":"field_bt26_settings_tab_social","label":"Social","name":"","type":"tab","placement":"top"},
+    {"key":"field_bt26_settings_social","label":"Social Links","name":"social_links","type":"repeater","layout":"table","button_label":"Add social link","sub_fields":[
+      {"key":"field_bt26_settings_social_platform","label":"Platform","name":"platform","type":"select","choices":{"github":"GitHub","linkedin":"LinkedIn","mail":"Email"},"return_format":"value"},
+      {"key":"field_bt26_settings_social_url","label":"URL","name":"url","type":"url"},
+      {"key":"field_bt26_settings_social_label","label":"Accessible Label","name":"label","type":"text"}
+    ]},
+    {"key":"field_bt26_settings_tab_footer","label":"Footer","name":"","type":"tab","placement":"top"},
+    {"key":"field_bt26_settings_footer_intro","label":"Footer Introduction","name":"footer_intro","type":"textarea","rows":3},
+    {"key":"field_bt26_settings_footer_services","label":"Footer Services","name":"footer_services","type":"repeater","layout":"table","button_label":"Add service","sub_fields":[
+      {"key":"field_bt26_settings_footer_service_label","label":"Label","name":"label","type":"text","required":1},
+      {"key":"field_bt26_settings_footer_service_url","label":"Optional URL","name":"url","type":"url"}
+    ]},
+    {"key":"field_bt26_settings_footer_cta_heading","label":"Footer CTA Heading","name":"footer_cta_heading","type":"text"},
+    {"key":"field_bt26_settings_footer_cta_body","label":"Footer CTA Body","name":"footer_cta_body","type":"wysiwyg","tabs":"visual","toolbar":"basic","media_upload":0},
+    {"key":"field_bt26_settings_footer_cta_link","label":"Footer CTA Link","name":"footer_cta_link","type":"link","return_format":"array"},
+    {"key":"field_bt26_settings_copyright","label":"Copyright Override","name":"copyright_override","type":"text"},
+    {"key":"field_bt26_settings_privacy","label":"Privacy Policy Link","name":"privacy_policy_link","type":"link","return_format":"array"},
+    {"key":"field_bt26_settings_terms","label":"Terms Link","name":"terms_link","type":"link","return_format":"array"}
+  ],
+  "location": [[{"param":"options_page","operator":"==","value":"bt26-site-settings"}]],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "active": true,
+  "show_in_rest": 0
+}

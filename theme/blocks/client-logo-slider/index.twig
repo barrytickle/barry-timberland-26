@@ -1,0 +1,20 @@
+<section id="{{ fields.anchor_id|default(block.anchor|default('')) }}" class="section-space-sm border-y border-line bg-paper">
+  <div class="site-container">
+    {% include 'components/eyebrow.twig' with { text: fields.eyebrow|default(is_preview ? 'Experience includes' : '') } %}
+  </div>
+  {% if fields.logos %}
+    <div class="{{ fields.autoplay ? 'logo-marquee' : '' }} mt-10" style="--marquee-speed: {{ fields.speed|default(28) }}s; --pause-state: {{ fields.pause_on_hover ? 'paused' : 'running' }};">
+      <div class="{{ fields.autoplay ? 'logo-marquee__track' : 'site-container logo-list' }}" aria-label="Client logos">
+        {% set repetitions = fields.autoplay ? 2 : 1 %}
+        {% for repetition in 1..repetitions %}
+          <div class="logo-list {{ fields.autoplay ? 'px-8 md:px-12' : '' }}"{% if repetition == 2 %} aria-hidden="true"{% endif %}>
+            {% for item in fields.logos %}
+              {% set content %}{% include 'components/image.twig' with { image: item.logo, size: 'medium', alt: item.name, class: 'max-h-14 w-auto object-contain' } only %}{% endset %}
+              {% if item.url %}<a class="logo-item" href="{{ item.url }}" aria-label="Visit {{ item.name }}">{{ content|raw }}</a>{% else %}<div class="logo-item">{{ content|raw }}</div>{% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% elseif is_preview %}<div class="site-container mt-8 text-muted">Add authorised client logos in the block settings.</div>{% endif %}
+</section>

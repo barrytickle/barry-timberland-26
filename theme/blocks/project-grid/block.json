@@ -1,0 +1,1 @@
+{"apiVersion":2,"name":"acf/project-grid","title":"Project Grid","description":"Automatic or curated case-study grid.","category":"bt26-portfolio","icon":"grid-view","acf":{"mode":"preview","renderCallback":"acf_block_render_callback"},"supports":{"align":false,"anchor":true,"jsx":false},"example":{"attributes":{"mode":"preview","data":{"is_preview":true}}}}

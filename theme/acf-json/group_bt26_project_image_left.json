@@ -1,0 +1,17 @@
+{
+  "key":"group_bt26_project_image_left","title":"ProjectImageLeft","fields":[
+    {"key":"field_bt26_pl_project","label":"Case Study","name":"project","type":"post_object","post_type":["case_study"],"return_format":"id","ui":1},
+    {"key":"field_bt26_pl_number","label":"Number Override","name":"number","type":"text"},
+    {"key":"field_bt26_pl_eyebrow","label":"Eyebrow Override","name":"eyebrow","type":"text"},
+    {"key":"field_bt26_pl_heading","label":"Heading Override","name":"heading","type":"text"},
+    {"key":"field_bt26_pl_body","label":"Body Override","name":"body","type":"wysiwyg","tabs":"visual","toolbar":"basic","media_upload":0},
+    {"key":"field_bt26_pl_services","label":"Services Override","name":"services","type":"text","instructions":"Comma-separated labels."},
+    {"key":"field_bt26_pl_link","label":"Link Override","name":"link","type":"link","return_format":"array"},
+    {"key":"field_bt26_pl_image","label":"Image Override","name":"image","type":"image","return_format":"array","preview_size":"large"},
+    {"key":"field_bt26_pl_accent","label":"Accent Colour Override","name":"accent_colour","type":"color_picker","enable_opacity":0},
+    {"key":"field_bt26_pl_browser","label":"Browser Frame","name":"browser_frame","type":"true_false","default_value":1,"ui":1},
+    {"key":"field_bt26_pl_label","label":"Browser Label","name":"browser_label","type":"text"},
+    {"key":"field_bt26_pl_background","label":"Background Style","name":"background_style","type":"select","choices":{"paper":"Paper","white":"White","violet-soft":"Violet Soft"},"default_value":"white"},
+    {"key":"field_bt26_pl_anchor","label":"Anchor ID","name":"anchor_id","type":"text"}
+  ],"location":[[{"param":"block","operator":"==","value":"acf/project-image-left"}]],"position":"normal","style":"default","active":true
+}
