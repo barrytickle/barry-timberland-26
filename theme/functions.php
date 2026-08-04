@@ -15,7 +15,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 Timber::init();
 Timber::$dirname = array('views', 'blocks');
-Timber::$autoescape = true;
+
+add_filter(
+	'timber/twig/environment/options',
+	static function (array $options): array {
+		$options['autoescape'] = 'html';
+		return $options;
+	}
+);
 
 final class Barry_Timberland_26 extends Site {
 	private const TEXT_DOMAIN = 'barry-timberland-26';
