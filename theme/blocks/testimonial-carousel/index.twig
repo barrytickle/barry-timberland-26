@@ -1,0 +1,25 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/testimonial-carousel.html #}
+{% set quote = fields.quote|default("I had the pleasure of working with Ivan on a recent project, and I was blown away by their creativity and attention to detail. I highly recommend them for anyone looking for a talented and professional designer.") %}
+{% set people = fields.people|default([
+	{ initials: 'TB', name: 'Toby Brossman', role: 'Founder of Pipefy', featured: false },
+	{ initials: 'RJ', name: 'Richard Jonas', role: 'CEO of Teamwork', featured: true },
+	{ initials: 'FJ', name: 'Fredy Jonathan', role: 'CEO of Dojo', featured: false }
+]) %}
+{% set palette = ['bg-ink-300 text-ink-700', 'bg-ink-400 text-white', 'bg-ink-500 text-white'] %}
+
+<div class="text-center" data-component="testimonial-carousel">
+	<blockquote class="mx-auto max-w-3xl h5 font-medium leading-snug">“{{ quote }}”</blockquote>
+	<div class="mt-10 flex items-end justify-center gap-10">
+		{% for person in people %}
+			<figure{% if not person.featured %} class="opacity-40"{% endif %}>
+				<span class="grid {{ person.featured ? 'h-16 w-16' : 'h-14 w-14' }} place-items-center rounded-full {{ palette[loop.index0 % 3] }} body-16 font-semibold">{{ person.initials }}</span>
+				<figcaption class="mt-3 body-16 font-semibold{% if not person.featured %} text-ink-500{% endif %}">{{ person.name }}</figcaption>
+				<p class="body-14 {{ person.featured ? 'text-ink-500' : 'text-ink-400' }}">{{ person.role }}</p>
+			</figure>
+		{% endfor %}
+	</div>
+</div>
+{% endif %}

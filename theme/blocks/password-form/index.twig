@@ -1,0 +1,21 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/password-form.html #}
+{% set heading = fields.heading|default("Protected") %}
+{% set heading_highlight = fields.heading_highlight|default("Page") %}
+{% set body = fields.body|default("The page you’re looking for is password protected. Please enter the password to view this page.") %}
+{% set submit_label = fields.submit_label|default("Submit") %}
+{% set submit_href = "#" %}
+
+<section class="mx-auto flex max-w-[1200px] flex-col items-center px-6 py-20 text-center lg:px-[72px]" data-component="password-form">
+	<h1 class="h1">{{ heading }} <span class="text-ink-400">{{ heading_highlight }}</span></h1>
+	<p class="body-18 mt-6 max-w-xl text-ink-500">{{ body }}</p>
+	<form class="mt-14 w-full max-w-lg text-left" onsubmit="return false">
+		{% include 'components/form-field.twig' with { label: 'Password', name: 'password', type: 'password', placeholder: 'Enter your password' } %}
+		<div class="mt-10 flex justify-center">
+			{% include 'components/button.twig' with { href: submit_href, label: submit_label, variant: 'filled', size: 'lg' } %}
+		</div>
+	</form>
+</section>
+{% endif %}

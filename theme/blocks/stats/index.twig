@@ -1,0 +1,17 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/stats.html #}
+{% set stats = fields.stats|default([
+	{ value: '8+', label: 'Years experience' },
+	{ value: '120', label: 'Projects delivered' },
+	{ value: '40', label: 'Happy clients' },
+	{ value: '12', label: 'Awards won' }
+]) %}
+
+<div class="grid grid-cols-2 gap-8 border-y border-ink-300 py-12 lg:grid-cols-4" data-component="stats">
+	{% for stat in stats %}
+		<div><p class="h2">{{ stat.value }}</p><p class="body-16 mt-2 text-ink-500">{{ stat.label }}</p></div>
+	{% endfor %}
+</div>
+{% endif %}

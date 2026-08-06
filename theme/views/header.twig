@@ -1,1 +1,29 @@
-<header class="sticky w-full top-0 mb-3 z-50 js-header bg-dark-900"></header>
+{% set logo_text_highlight = options.logo_text_highlight|default('show') %}
+{% set logo_text = options.logo_text|default('casy.') %}
+{% set fallback_links = [
+	{ label: 'Home', url: site.url },
+	{ label: 'About', url: site.url ~ '/about/' },
+	{ label: 'Works', url: site.url ~ '/works/' },
+	{ label: 'Insights', url: site.url ~ '/blog/' },
+	{ label: 'Contact', url: site.url ~ '/contact/' }
+] %}
+{% set cta = options.header_cta|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+
+<header class="sticky top-0 z-40 bg-white/85 backdrop-blur" data-component="navbar" id="navbar">
+	<div class="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-5 lg:px-[72px]">
+		<a class="text-2xl font-semibold tracking-tightest text-ink" href="{{ site.url }}"><span class="text-ink-400">{{ logo_text_highlight }}</span>{{ logo_text }}</a>
+		<nav class="flex items-center gap-8 body-16 font-medium" aria-label="Primary navigation">
+			{% if header_menu and header_menu.items %}
+				{% for item in header_menu.items %}<a class="text-ink-600 hover:text-ink transition {{ 'current-menu-item' in item.classes ? 'text-ink font-semibold' : '' }}" href="{{ item.link }}"{% if 'current-menu-item' in item.classes %} aria-current="page"{% endif %}>{{ item.title }}</a>{% endfor %}
+			{% else %}
+				{% for item in fallback_links %}<a class="text-ink-600 hover:text-ink transition" href="{{ item.url }}">{{ item.label }}</a>{% endfor %}
+			{% endif %}
+		</nav>
+		<div class="flex items-center gap-3">
+			<a class="group hidden items-center gap-2.5 rounded-full border border-ink px-6 py-3.5 body-16 font-semibold text-ink transition hover:bg-ink hover:text-white sm:inline-flex" href="{{ cta.url }}"{% if cta.target %} target="{{ cta.target }}"{% endif %}>
+				{{ cta.title }}
+				<svg class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+			</a>
+		</div>
+	</div>
+</header>

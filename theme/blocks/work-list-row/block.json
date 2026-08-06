@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/work-list-row",
+  "title": "Work List (Rows)",
+  "description": "Compact list of work items, each a single linked row with title, date, description and tags.",
+  "category": "custom",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

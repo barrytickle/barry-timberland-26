@@ -1,0 +1,16 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/blog-list-row.html #}
+{% set posts = fields.posts|default([
+	{ title: 'Sportly', date: 'May 5, 2023', excerpt: 'Website Redesign: Improving user experience and modernizing design.', tags: 'UIUX, Branding' },
+	{ title: 'Pipefy', date: 'April 2, 2023', excerpt: 'Brand Identity: Crafting a cohesive visual language across touchpoints.', tags: 'Branding' },
+	{ title: 'Teamwork', date: 'March 14, 2023', excerpt: 'Mobile App: Designing an onboarding flow that converts.', tags: 'Mobile App, UIUX' }
+]) %}
+
+<div class="divide-y divide-ink-200 border-y border-ink-200" data-component="blog-list-row">
+	{% for post in posts %}
+		{% include 'components/blog-row-item.twig' with { title: post.title, date: post.date, excerpt: post.excerpt, tags: post.tags|default('')|split(',')|map(t => t|trim) } %}
+	{% endfor %}
+</div>
+{% endif %}

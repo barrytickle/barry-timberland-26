@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/awards-feature",
+  "title": "Awards Feature",
+  "description": "Featured award with image well beside a divided list of further mentions.",
+  "category": "custom",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

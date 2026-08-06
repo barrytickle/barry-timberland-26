@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/experience-list",
+  "title": "Experience List",
+  "description": "A bordered list of role, company and date-range rows.",
+  "category": "custom",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

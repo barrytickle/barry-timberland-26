@@ -1,0 +1,21 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/work-list-row.html #}
+{% set items = fields.items|default([
+	{ title: 'Payrole', date: 'May 5, 2023', description: 'Website Redesign: Improving user experience and modernizing design.', tags: 'UIUX, Branding', href: site.url ~ '/works/payrole/' },
+	{ title: 'Sportly', date: 'April 12, 2023', description: 'Mobile App Design: A fresh, friendly payments experience for everyday spending.', tags: 'Mobile App, UIUX', href: site.url ~ '/works/sportly/' },
+	{ title: 'Wepay', date: 'March 2, 2023', description: 'Brand identity and design system for a fintech platform.', tags: 'Branding, Design System', href: site.url ~ '/works/wepay/' }
+]) %}
+
+{% for item in items %}
+	<a class="group grid grid-cols-1 items-center gap-4 border-b border-ink-300 py-8 md:grid-cols-[300px_1fr_auto]" data-component="work-list-row" href="{{ item.href }}">
+		<div>
+			<h4 class="h6 text-[1.5rem]">{{ item.title }}</h4>
+			<p class="body-16 mt-1 text-ink-500">{{ item.date }}</p>
+		</div>
+		<p class="body-16 max-w-md text-ink-600">{{ item.description }}</p>
+		{% include 'components/tag-list.twig' with { tags: item.tags|split(',')|map(t => t|trim) } %}
+	</a>
+{% endfor %}
+{% endif %}

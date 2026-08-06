@@ -1,0 +1,19 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/hero.html #}
+{% set eyebrow = fields.eyebrow|default("Hello! I’m Ivan.") %}
+{% set heading = fields.heading|default("Designing digital product with emphasis on") %}
+{% set heading_highlight = fields.heading_highlight|default("visual design") %}
+{% set cta = fields.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+{% set supporting_text = fields.supporting_text|default("A multidisciplinary designer harnessing the power of design to achieve online goals.") %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px] lg:py-24" data-component="hero">
+	<p class="body-22 mb-6 text-ink-700">{{ eyebrow }}</p>
+	<h1 class="h1 max-w-5xl">{{ heading }} <span class="text-ink-400">{{ heading_highlight }}</span></h1>
+	<div class="mt-12 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
+		{% include 'components/button.twig' with { href: cta.url, label: cta.title, target: cta.target, variant: 'filled', size: 'lg' } %}
+		<p class="body-18 max-w-md text-ink-600 lg:text-right">{{ supporting_text }}</p>
+	</div>
+</section>
+{% endif %}

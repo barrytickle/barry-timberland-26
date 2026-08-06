@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/blog-list-row",
+  "title": "Blog List Row",
+  "description": "A divided list of blog post rows with title, date, excerpt and tags.",
+  "category": "custom",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

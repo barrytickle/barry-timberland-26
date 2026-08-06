@@ -30,6 +30,7 @@ class Timberland extends Timber\Site {
 		add_filter( 'timber/twig', array( $this, 'add_twig_functions' ) );
 		add_action( 'block_categories_all', array( $this, 'block_categories_all' ) );
 		add_action( 'acf/init', array( $this, 'acf_register_blocks' ) );
+		add_action( 'acf/init', array( $this, 'register_options_pages' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_assets' ) );
 
 		parent::__construct();
@@ -69,6 +70,7 @@ class Timberland extends Timber\Site {
 		if ($header_menu && !empty($header_menu->items)) {
 			$context['header_cta'] = end($header_menu->items);
 		}
+		$context['header_menu'] = $header_menu;
 
 		// Require block functions files
 		foreach ( glob( __DIR__ . '/blocks/*/functions.php' ) as $file ) {
@@ -178,6 +180,24 @@ class Timberland extends Timber\Site {
 		);
 	}
 
+	public function register_options_pages() {
+		if ( ! function_exists( 'acf_add_options_page' ) ) {
+			return;
+		}
+
+		acf_add_options_page(
+			array(
+				'page_title' => 'Site Settings',
+				'menu_title' => 'Site Settings',
+				'menu_slug'  => 'site-settings',
+				'capability' => 'manage_options',
+				'redirect'   => false,
+				'icon_url'   => 'dashicons-admin-generic',
+				'position'   => 61,
+			)
+		);
+	}
+
 	public function acf_register_blocks() {
 		$blocks = array();
 
@@ -204,13 +224,23 @@ new Timberland();
 /**
  * Don't edit this one
  */
-function acf_block_render_callback( $block, $content ) {
+function acf_block_render_callback( $block, $content = '', $is_preview = false, $post_id = 0 ) {
 	$context           = Timber::context();
 	$context['post']   = Timber::get_post();
 	$context['block']  = $block;
 	$context['fields']  = get_fields();
     $block_name        = explode( '/', $block['name'] )[1];
     $template          = 'blocks/'. $block_name . '/index.twig';
+
+	$context['is_preview']    = (bool) $is_preview;
+	$context['preview_image'] = null;
+
+	if ( $is_preview ) {
+		$preview_path = get_template_directory() . '/assets/component-previews/desktop/' . $block_name . '.png';
+		if ( file_exists( $preview_path ) ) {
+			$context['preview_image'] = get_template_directory_uri() . '/assets/component-previews/desktop/' . $block_name . '.png';
+		}
+	}
 
 	Timber::render( $template, $context );
 }

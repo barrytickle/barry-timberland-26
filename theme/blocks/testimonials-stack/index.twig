@@ -1,0 +1,29 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/testimonials-stack.html #}
+{% set heading = fields.heading|default("Let’s see what my clients say") %}
+{% set testimonials = fields.testimonials|default([
+	{ quote: "I had the pleasure of working with Ivan on a recent project, and I was blown away by their creativity and attention to detail.", initials: 'RJ', name: 'Richard Jonas', role: 'CEO of Teamwork', brand: 'teamwork' },
+	{ quote: "Ivan is an exceptionally talented designer who consistently exceeded our expectations, with designs that captured our brand's essence.", initials: 'RV', name: 'Rachel Voskov', role: 'CEO of Pipefy', brand: 'pipefy' },
+	{ quote: "Working with Ivan was a game-changer for our business. His keen eye for detail enhanced the overall usability of our product.", initials: 'JM', name: 'Jacob McDany', role: 'CEO of Rackspace', brand: 'rackspace' }
+]) %}
+
+<div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]" data-component="testimonials-stack">
+	<h2 class="h3">{{ heading }}</h2>
+	<div class="space-y-8">
+		{% for t in testimonials %}
+			<div class="border-b border-ink-200 pb-8">
+				<blockquote class="body-18 text-ink-700">"{{ t.quote }}"</blockquote>
+				<div class="mt-6 flex items-center justify-between">
+					<div class="flex items-center gap-4">
+						<span class="grid h-12 w-12 place-items-center rounded-full bg-ink-300 body-14 font-semibold text-ink-700">{{ t.initials }}</span>
+						<div><p class="body-16 font-semibold">{{ t.name }}</p><p class="body-14 text-ink-500">{{ t.role }}</p></div>
+					</div>
+					<span class="body-18 font-semibold text-ink-400">{{ t.brand }}<span class="text-ink-300">.</span></span>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+{% endif %}

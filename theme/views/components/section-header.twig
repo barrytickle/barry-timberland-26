@@ -1,0 +1,5 @@
+{# Params: heading, link_href, link_label #}
+<div class="mb-12 flex flex-wrap items-center justify-between gap-4" data-component="section-header">
+	<h2 class="h3">{{ heading }}</h2>
+	{% if link_href %}{% include 'components/button.twig' with { href: link_href, label: link_label|default('View All'), variant: 'outlined', size: 'md' } %}{% endif %}
+</div>

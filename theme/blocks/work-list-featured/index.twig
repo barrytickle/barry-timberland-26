@@ -1,0 +1,38 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/work-list-featured.html
+   Note: the source fragment shows a single featured item; this block loops
+   the same markup over a list so multiple case studies can be featured. #}
+{% set items = fields.items|default([
+	{ title: 'Sportly', date: 'May 5, 2023', description: 'Website Redesign: Improving user experience and modernizing design.', tags: 'UIUX, Branding', href: site.url ~ '/works/sportly/' },
+	{ title: 'Wepay', date: 'April 12, 2023', description: 'Mobile App Design: A fresh, friendly payments experience for everyday spending.', tags: 'Mobile App, UIUX', href: site.url ~ '/works/wepay/' }
+]) %}
+
+{% for item in items %}
+	<div class="py-8" data-component="work-list-featured">
+		<div class="grid grid-cols-1 items-start gap-4 md:grid-cols-[300px_1fr_auto]">
+			<div>
+				<h4 class="h6 text-[1.5rem]">{{ item.title }}</h4>
+				<p class="body-16 mt-1 text-ink-500">{{ item.date }}</p>
+			</div>
+			<p class="body-16 max-w-md text-ink-600">{{ item.description }}</p>
+			{% include 'components/tag-list.twig' with { tags: item.tags|split(',')|map(t => t|trim) } %}
+		</div>
+		<a class="group relative mt-8 block" href="{{ item.href }}">
+			{% if item.image %}
+				<div class="aspect-[16/7] overflow-hidden rounded-card">
+					<img class="h-full w-full object-cover" src="{{ item.image.url }}" alt="{{ item.image.alt|default(item.title) }}">
+				</div>
+			{% else %}
+				<div class="grid aspect-[16/7] place-items-center overflow-hidden rounded-card bg-muted">
+					<svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
+				</div>
+			{% endif %}
+			<span class="absolute bottom-6 right-6 grid h-16 w-20 place-items-center rounded-full border border-ink bg-white text-ink transition group-hover:bg-ink group-hover:text-white">
+				<svg class="h-5 w-5 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+			</span>
+		</a>
+	</div>
+{% endfor %}
+{% endif %}

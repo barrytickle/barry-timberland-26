@@ -1,0 +1,32 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/licenses-gallery.html #}
+{% set placeholder_icon %}<svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>{% endset %}
+
+{% set items = fields.items|default([
+	{ wrapper: 'row-span-2', aspect: 'aspect-[3/4]' },
+	{ wrapper: '', aspect: 'aspect-[1/1]' },
+	{ wrapper: '', aspect: 'aspect-[1/1]' },
+	{ wrapper: 'col-span-2', aspect: 'aspect-[16/9]' }
+]) %}
+
+<div class="grid grid-cols-2 gap-4 md:grid-cols-3" data-component="licenses-gallery">
+	{% for item in items %}
+		{% set well %}
+			<div class="grid {{ item.aspect }} place-items-center overflow-hidden rounded-card bg-muted">
+				{% if item.image %}
+					<img class="h-full w-full object-cover" src="{{ item.image.url }}" alt="{{ item.image.alt }}">
+				{% else %}
+					{{ placeholder_icon }}
+				{% endif %}
+			</div>
+		{% endset %}
+		{% if item.wrapper %}
+			<div class="{{ item.wrapper }}">{{ well }}</div>
+		{% else %}
+			{{ well }}
+		{% endif %}
+	{% endfor %}
+</div>
+{% endif %}

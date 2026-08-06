@@ -1,0 +1,10 @@
+{# Converted from Showcasy UI kit: components/changelog-entry.html #}
+{# Params: version, release_label (default "Release"), date, items (array of strings) #}
+<div class="relative pl-12 pb-14" data-component="changelog-entry">
+	<span class="absolute left-0 top-1.5 h-4 w-4 rounded-full bg-ink"></span>
+	<h3 class="h5">{{ version }}</h3>
+	<p class="body-16 mt-2"><span class="text-ink-500">{{ release_label|default('Release') }} : </span><span class="font-semibold text-ink">{{ date }}</span></p>
+	<ul class="mt-4 list-disc space-y-1.5 pl-5">
+		{% for item in items|default([]) %}<li class="body-16 text-ink-500">{{ item }}</li>{% endfor %}
+	</ul>
+</div>

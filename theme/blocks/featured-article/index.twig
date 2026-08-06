@@ -1,0 +1,22 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/featured-article.html #}
+{% set heading = fields.heading|default("Exploring the Power of Minimalism in Visual Design") %}
+{% set excerpt = fields.excerpt|default("Dive into the world of minimalistic design and discover how simplicity, clean lines, and negative space can enhance user experiences.") %}
+{% set href = fields.href|default(site.url ~ '/blog/exploring-the-power-of-minimalism-in-visual-design/') %}
+{% set image = fields.image|default(null) %}
+
+<div class="grid items-center gap-8 rounded-3xl border border-ink-200 bg-white/60 p-6 lg:grid-cols-2 lg:p-8" data-component="featured-article">
+	{% if image %}
+		<div class="aspect-[4/3] overflow-hidden rounded-card bg-muted"><img src="{{ image.url }}" alt="{{ image.alt }}" class="h-full w-full object-cover"/></div>
+	{% else %}
+		<div class="grid aspect-[4/3] place-items-center overflow-hidden rounded-card bg-muted"><svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg></div>
+	{% endif %}
+	<div>
+		<h3 class="h4">{{ heading }}</h3>
+		<p class="body-18 mt-5 text-ink-500">{{ excerpt }}</p>
+		<div class="mt-7">{% include 'components/button.twig' with { href: href, label: 'Read article', variant: 'icon', size: 'md' } %}</div>
+	</div>
+</div>
+{% endif %}

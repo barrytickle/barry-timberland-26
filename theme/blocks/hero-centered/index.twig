@@ -1,0 +1,27 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/hero-centered.html #}
+{% set heading_highlight = fields.heading_highlight|default("I’m Ivan,") %}
+{% set heading = fields.heading|default("a passionate designer specializing in digital solutions") %}
+{% set cta = fields.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+{% set social_links = fields.social_links|default([
+	{ label: 'Instagram', href: '#' },
+	{ label: 'Behance', href: '#' },
+	{ label: 'Dribbble', href: '#' }
+]) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 text-center lg:px-[72px]" data-component="hero-centered">
+	<h1 class="h1 mx-auto max-w-5xl"><span class="text-ink-400">{{ heading_highlight }}</span> {{ heading }}</h1>
+	<div class="mt-10 flex justify-center">
+		{% include 'components/button.twig' with { href: cta.url, label: cta.title, target: cta.target, variant: 'filled', size: 'lg' } %}
+	</div>
+	<div class="mt-8 flex justify-center gap-8">
+		{% for link in social_links %}
+			<a class="group inline-flex items-center gap-1.5 body-14 font-semibold text-ink hover:text-ink-500" href="{{ link.href }}">{{ link.label|upper }}
+				<svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+			</a>
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

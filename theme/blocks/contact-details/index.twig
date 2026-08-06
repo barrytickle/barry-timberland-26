@@ -1,0 +1,29 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/contact-details.html #}
+{% set email = fields.email|default("hello@showcasy.com") %}
+{% set location = fields.location|default("London, UK") %}
+{% set socials = fields.socials|default([
+	{ label: 'Instagram', href: '#' },
+	{ label: 'Behance', href: '#' },
+	{ label: 'Twitter', href: '#' }
+]) %}
+
+<div class="flex flex-col gap-8" data-component="contact-details">
+	<div>
+		<p class="body-14 text-ink-500">Email</p>
+		<p class="body-22 mt-1 font-semibold">{{ email }}</p>
+	</div>
+	<div>
+		<p class="body-14 text-ink-500">Based in</p>
+		<p class="body-22 mt-1 font-semibold">{{ location }}</p>
+	</div>
+	<div>
+		<p class="body-14 text-ink-500 mb-3">Follow</p>
+		<div class="flex flex-wrap gap-3">
+			{% for social in socials %}<a class="rounded-full border border-ink px-5 py-2.5 body-14 font-medium transition hover:bg-ink hover:text-white" href="{{ social.href }}">{{ social.label }}</a>{% endfor %}
+		</div>
+	</div>
+</div>
+{% endif %}

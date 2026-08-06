@@ -1,0 +1,19 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/awards-list.html #}
+{% set awards = fields.awards|default([
+	{ title: 'Awwward Winner', meta: '2022 - AWWWARDS', href: '#' },
+	{ title: 'Site of The Day', meta: '2022 - CSS Winners', href: '#' },
+	{ title: 'Best UI Design', meta: '2022 - CSS Design Awards', href: '#' }
+]) %}
+
+<div class="divide-y divide-ink-300 border-y border-ink-300" data-component="awards-list">
+	{% for award in awards %}
+		<a class="group flex items-center justify-between gap-6 py-7" href="{{ award.href }}">
+			<div><h4 class="h6 text-[1.5rem]">{{ award.title }}</h4><p class="body-16 mt-1 text-ink-500">{{ award.meta }}</p></div>
+			<svg class="h-7 w-7 shrink-0 text-ink transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+		</a>
+	{% endfor %}
+</div>
+{% endif %}

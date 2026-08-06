@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/about-intro",
+  "title": "About Intro",
+  "description": "Two-column intro section with heading, supporting copy, CTA and a right-aligned skills list.",
+  "category": "custom",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

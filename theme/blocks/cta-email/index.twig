@@ -1,0 +1,36 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/cta-email.html #}
+{% set eyebrow = fields.eyebrow|default("Have a nice work? Let’s talk with me") %}
+{% set email = fields.email|default("hello@kazarov.com") %}
+{% set nav_links = fields.nav_links|default([
+	{ label: 'Home', href: site.url },
+	{ label: 'About', href: site.url ~ '/about/' },
+	{ label: 'Works', href: site.url ~ '/works/' },
+	{ label: 'Insights', href: site.url ~ '/blog/' }
+]) %}
+{% set social_links = fields.social_links|default([
+	{ label: 'in', href: '#' },
+	{ label: 'Be', href: '#' },
+	{ label: 'X', href: '#' },
+	{ label: 'Dr', href: '#' }
+]) %}
+
+<section class="bg-ink px-6 py-16 text-white lg:px-[72px]" data-component="cta-email">
+	<div class="mx-auto max-w-[1200px]">
+		<p class="body-16 font-semibold uppercase tracking-wider text-ink-400">{{ eyebrow }}</p>
+		<a class="group mt-6 inline-flex items-center gap-4 h2 text-white hover:text-ink-200" href="mailto:{{ email }}">{{ email }}
+			<svg class="h-5 w-5 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+		</a>
+		<div class="mt-12 flex flex-col gap-6 border-t border-ink-800 pt-8 sm:flex-row sm:items-center sm:justify-between">
+			<nav class="flex flex-wrap gap-8 body-14 font-semibold">
+				{% for link in nav_links %}<a class="hover:text-ink-300" href="{{ link.href }}">{{ link.label|upper }}</a>{% endfor %}
+			</nav>
+			<div class="flex gap-3 body-14 font-semibold">
+				{% for link in social_links %}<a class="grid h-10 w-10 place-items-center rounded-full border border-ink-700 hover:border-white" href="{{ link.href }}">{{ link.label }}</a>{% endfor %}
+			</div>
+		</div>
+	</div>
+</section>
+{% endif %}

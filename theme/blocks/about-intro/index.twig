@@ -1,0 +1,22 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/about-intro.html #}
+{% set heading = fields.heading|default("A visual designer focused on creating emotional digital experience") %}
+{% set body = fields.body|default("Concentrate on your primary objective which is expanding your business, and leave it to me to ensure that your business is efficiently portrayed in the digital realm.") %}
+{% set cta_href = fields.cta_href|default(site.url ~ '/about/') %}
+{% set skills = fields.skills|default('UIUX, BRANDING, MOBILE APP, WEBSITE DESIGN')|split(',')|map(s => s|trim) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="about-intro">
+	<div class="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
+		<div>
+			<h2 class="h3">{{ heading }}</h2>
+			<p class="body-18 mt-6 max-w-xl text-ink-500">{{ body }}</p>
+			<div class="mt-8">{% include 'components/button.twig' with { href: cta_href, label: 'About Me', variant: 'outlined', size: 'md' } %}</div>
+		</div>
+		<ul class="flex flex-col justify-center gap-4 text-right body-22 font-medium text-ink-500">
+			{% for skill in skills %}<li>{{ skill }}</li>{% endfor %}
+		</ul>
+	</div>
+</section>
+{% endif %}

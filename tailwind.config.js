@@ -19,6 +19,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        tight: ['"Inter Tight"', "ui-sans-serif", "system-ui", "sans-serif"],
+      },
+
       colors: {
         dark: {
           950: "#0e1012",
@@ -31,6 +35,22 @@ export default {
           300: "#C2C6DD",
           200: "#d3d2d4",
           100: "#e9e9ea",
+        },
+        // Monochrome "ink" ramp + muted surface tint, from the Showcasy UI kit.
+        muted: "#ebebeb",
+        ink: {
+          DEFAULT: "#030712",
+          950: "#030712",
+          900: "#111827",
+          800: "#1f2937",
+          700: "#374151",
+          600: "#4b5563",
+          500: "#6b7280",
+          400: "#aeb2ba",
+          300: "#d1d5db",
+          200: "#e5e7eb",
+          100: "#f9fafb",
+          0: "#ffffff",
         },
       },
 
@@ -55,6 +75,33 @@ export default {
       transitionDuration: {
         250: "250ms",
       },
+
+      letterSpacing: { tightest: "-0.02em" },
+      borderRadius: { card: "24px" },
+      maxWidth: { container: "1056px" },
+
+      // Semantic type scale from the Showcasy UI kit — also exposed as
+      // .h1-.h6 / .body-* / .display in theme.scss.
+      fontSize: {
+        display: ["2.25rem", { lineHeight: "1", fontWeight: "500" }],
+        h1: ["clamp(3.25rem,7vw,6.5rem)", { lineHeight: "1", letterSpacing: "-0.02em", fontWeight: "700" }],
+        h2: ["clamp(2.5rem,5.5vw,4.5rem)", { lineHeight: "1", letterSpacing: "-0.02em", fontWeight: "600" }],
+        h3: ["clamp(2.25rem,5vw,4rem)", { lineHeight: "1", letterSpacing: "-0.02em", fontWeight: "600" }],
+        h4: ["clamp(2rem,4.5vw,3.5rem)", { lineHeight: "1", letterSpacing: "-0.02em", fontWeight: "600" }],
+        h5: ["clamp(1.75rem,3.5vw,2.5rem)", { lineHeight: "1", letterSpacing: "-0.02em", fontWeight: "600" }],
+        h6: ["clamp(1.5rem,2.5vw,2rem)", { lineHeight: "1", letterSpacing: "-0.02em", fontWeight: "600" }],
+        "body-28": ["1.75rem", { lineHeight: "1.2", letterSpacing: "0.03em" }],
+        "body-22": ["1.375rem", { lineHeight: "1.3", letterSpacing: "0.02em" }],
+        "body-18": ["1.125rem", { lineHeight: "1.5", letterSpacing: "0.02em" }],
+        "body-16": ["1rem", { lineHeight: "1.5", letterSpacing: "0.02em" }],
+        "body-14": ["0.875rem", { lineHeight: "1.5", letterSpacing: "0.01em" }],
+        "body-12": ["0.75rem", { lineHeight: "1.5", letterSpacing: "0.01em" }],
+      },
+
+      keyframes: {
+        marquee: { from: { transform: "translateX(0)" }, to: { transform: "translateX(-50%)" } },
+      },
+      animation: { marquee: "marquee 28s linear infinite" },
     },
   },
   plugins: [typography],

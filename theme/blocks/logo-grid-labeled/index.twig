@@ -1,0 +1,21 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/logo-grid-labeled.html #}
+{% set items = fields.items|default([
+	{ wordmark: 'pipefy', weight: 'font-semibold', label: 'UIUX & Branding', year: '2022' },
+	{ wordmark: 'django', weight: 'font-bold', label: 'UIUX & Branding', year: '2022' },
+	{ wordmark: 'rackspace.', weight: 'font-semibold', label: 'UIUX & Branding', year: '2022' },
+	{ wordmark: 'portal', weight: 'font-semibold', label: 'UIUX & Branding', year: '2022' }
+]) %}
+
+<div class="grid grid-cols-2 gap-8 lg:grid-cols-4" data-component="logo-grid-labeled">
+	{% for item in items %}
+		<div>
+			<p class="body-28 {{ item.weight }} text-ink-400">{{ item.wordmark }}</p>
+			<p class="body-16 mt-4 font-medium text-ink">{{ item.label }}</p>
+			<p class="body-14 text-ink-500">{{ item.year }}</p>
+		</div>
+	{% endfor %}
+</div>
+{% endif %}

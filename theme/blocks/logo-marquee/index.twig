@@ -1,0 +1,23 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/logo-marquee.html
+   Reuses the .marquee / .marquee-track CSS + @keyframes marquee already merged into theme/assets/styles/theme.scss — no new CSS/JS needed.
+   The list is duplicated so the CSS animation (translateX -50%) loops seamlessly. #}
+{% set logos = fields.logos|default([
+	{ label: 'pipefy', weight: 'font-semibold' },
+	{ label: 'teamwork.', weight: 'font-bold' },
+	{ label: 'dojo', weight: 'font-semibold italic' },
+	{ label: 'django', weight: 'font-bold' },
+	{ label: 'rackspace.', weight: 'font-semibold' },
+	{ label: 'portal', weight: 'font-semibold' }
+]) %}
+
+<div class="marquee overflow-hidden border-y border-ink-300/60 py-10" data-component="logo-marquee">
+	<div class="marquee-track items-center gap-16 px-8 text-ink-500">
+		{% for logo in logos|merge(logos) %}
+			<span class="body-28 shrink-0 {{ logo.weight }}">{{ logo.label }}</span>
+		{% endfor %}
+	</div>
+</div>
+{% endif %}

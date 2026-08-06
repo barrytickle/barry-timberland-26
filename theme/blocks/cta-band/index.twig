@@ -1,0 +1,17 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: components/cta-band.html #}
+{% set heading = fields.heading|default("Have a project in mind? Let’s create something great together.") %}
+{% set cta = fields.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px] lg:py-24" data-component="cta-band">
+	<div class="rounded-3xl bg-ink px-8 py-16 text-center lg:py-24">
+		<h2 class="h2 mx-auto max-w-3xl text-white">{{ heading }}</h2>
+		<div class="mt-10 flex justify-center">
+			{# Note: the source kit's own markup used bg-ink on a bg-ink band, making the button invisible. Using a white button here instead, which is the only sensible choice on a dark band. #}
+			<a class="group inline-flex items-center gap-3 rounded-full bg-white px-8 py-5 body-18 font-semibold text-ink transition hover:bg-ink-100" href="{{ cta.url }}"{% if cta.target %} target="{{ cta.target }}"{% endif %}>{{ cta.title }} <svg class="h-5 w-5 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+		</div>
+	</div>
+</section>
+{% endif %}

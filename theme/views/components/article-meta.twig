@@ -1,0 +1,8 @@
+{# Params: initials, name, date, read_time, bg (Tailwind bg-ink-* class) #}
+<div class="flex items-center gap-4" data-component="article-meta">
+	<span class="grid h-14 w-14 place-items-center rounded-full {{ bg|default('bg-ink-400') }} body-16 font-semibold text-white">{{ initials }}</span>
+	<div>
+		<p class="body-16 font-semibold">{{ name }}</p>
+		<p class="body-14 text-ink-500">{{ date }}{% if read_time %} · {{ read_time }}{% endif %}</p>
+	</div>
+</div>

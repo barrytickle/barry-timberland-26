@@ -1,0 +1,6 @@
+{# Params: tags - array of strings #}
+<div class="flex flex-wrap gap-3" data-component="tags">
+	{% for tag in tags|default([]) %}
+		<span class="rounded-full border border-ink px-4 py-1.5 body-14 font-medium text-ink">{{ tag }}</span>
+	{% endfor %}
+</div>

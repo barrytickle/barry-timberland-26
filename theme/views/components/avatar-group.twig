@@ -1,0 +1,11 @@
+{# Params: avatars - array of { initials, bg (Tailwind bg-ink-* class), text (Tailwind text-* class) } #}
+{% set avatars = avatars|default([
+	{ initials: 'TB', bg: 'bg-ink-300', text: 'text-ink-700' },
+	{ initials: 'RJ', bg: 'bg-ink-400', text: 'text-white' },
+	{ initials: 'FJ', bg: 'bg-ink-500', text: 'text-white' }
+]) %}
+<div class="flex -space-x-3" data-component="avatars">
+	{% for avatar in avatars %}
+		<span class="grid border-2 border-white h-12 w-12 place-items-center rounded-full {{ avatar.bg }} body-14 font-semibold {{ avatar.text }}">{{ avatar.initials }}</span>
+	{% endfor %}
+</div>

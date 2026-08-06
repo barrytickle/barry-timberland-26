@@ -1,0 +1,9 @@
+{# Params: font_name (default 'Inter Tight'), href #}
+<div class="grid items-center gap-8 rounded-3xl border border-ink-200 bg-white/60 p-8 lg:grid-cols-2 lg:p-12" data-component="credit-block">
+	<div>
+		<h3 class="h5">{{ font_name|default('Inter Tight') }}</h3>
+		<p class="body-16 mt-3 text-ink-500"><span class="font-bold text-ink">Bold</span> <span class="font-semibold text-ink">SemiBold</span> <span class="font-medium text-ink">Medium</span> <span class="font-normal text-ink">Regular</span></p>
+		{% include 'components/button.twig' with { href: href|default('#'), label: 'Visit Font Website', variant: 'outlined', size: 'sm' } %}
+	</div>
+	<p class="text-right text-[8rem] font-semibold leading-none tracking-tightest text-ink lg:text-[11rem]">Aa</p>
+</div>
