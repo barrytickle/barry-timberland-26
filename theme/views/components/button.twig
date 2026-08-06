@@ -1,7 +1,0 @@
-{% if link and link.url %}
-  {% set variant_class = variant == 'outline' ? 'button-outline' : (variant == 'violet' ? 'button-violet' : 'button-primary') %}
-  <a class="button {{ variant_class }} {{ class|default('') }}" href="{{ link.url }}"{% if link.target %} target="{{ link.target }}" rel="noopener noreferrer"{% endif %}>
-    <span>{{ link.title|default(label|default('Learn more')) }}</span>
-    {% if icon %}{% include 'components/icon.twig' with { name: icon } %}{% endif %}
-  </a>
-{% endif %}

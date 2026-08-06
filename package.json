@@ -1,6 +1,6 @@
 {
-  "name": "barry-timberland-26",
-  "version": "1.0.0",
+  "name": "timberland",
+  "version": "2.1.0",
   "type": "module",
   "private": true,
   "scripts": {
@@ -8,14 +8,14 @@
     "build": "vite build"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.8",
-    "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.1.8",
-    "alpinejs": "^3.14.9",
-    "autoprefixer": "^10.4.21",
+    "@tailwindcss/typography": "^0.5.13",
+    "alpinejs": "^3.14.1",
+    "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.8",
-    "vite": "^6.3.5"
-  }
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.7",
+    "vite": "^6.2.0",
+    "sass-embedded": "^1.85.1"
+  },
+  "dependencies": {}
 }

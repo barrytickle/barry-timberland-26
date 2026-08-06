@@ -1,10 +1,5 @@
-{% extends 'base.twig' %}
+{% extends "base.twig" %}
+
 {% block content %}
-  <article>
-    {% if post.content %}
-      {{ post.content|raw }}
-    {% else %}
-      <header class="site-container section-space"><h1 class="page-title">{{ post.title }}</h1></header>
-    {% endif %}
-  </article>
+    {{ post.content }}
 {% endblock %}

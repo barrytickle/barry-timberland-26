@@ -1,9 +1,8 @@
-{% extends 'base.twig' %}
+{% extends "base.twig" %}
+
 {% block content %}
-  <section class="site-container section-space text-center">
-    {% include 'components/eyebrow.twig' with { text: 'Error 404' } %}
-    <h1 class="page-title mx-auto mt-6">That page has wandered off.</h1>
-    <p class="body-large mx-auto mt-6 max-w-xl text-muted">It may have moved, or the address might not be quite right.</p>
-    <div class="mt-9">{% include 'components/button.twig' with { link: { url: site.url, title: 'Back to the homepage' }, variant: 'violet', icon: 'arrow-right' } %}</div>
-  </section>
+    <div class="max-w-7xl mx-auto px-2 py-28 text-center">
+        <h1 class="text-5xl font-bold text-indigo-800">Page Not Found</h1>
+        <p class="text-2xl mt-8">Sorry, we couldn't find what you're looking for.</p>
+    </div>
 {% endblock %}

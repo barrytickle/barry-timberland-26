@@ -1,10 +1,21 @@
-{% extends 'base.twig' %}
+{% extends "base.twig" %}
+
 {% block content %}
-  <header class="site-container section-space-sm">
-    {% include 'components/eyebrow.twig' with { text: title|default('Journal') } %}
-    <h1 class="page-title mt-5">{{ title|default(site.name) }}</h1>
-  </header>
-  <div class="site-container grid gap-7 pb-24 md:grid-cols-2 lg:grid-cols-3">
-    {% for post in posts %}{% include 'partials/project-card.twig' with { project: post, generic: true } %}{% else %}<p>No posts found.</p>{% endfor %}
-  </div>
+	<div class="max-w-screen-xl mx-auto">
+		{% if '/blog/' in pathname %}
+			<div class="w-full max-w-3xl mx-auto text-center lg:max-w-5xl">
+				<p class="inline-flex items-center justify-center px-6 py-2 text-sm font-medium tracking-wide text-white rounded-r-full rounded-tl-full bg-gradient-to-r from-dark-600 to-dark-700">Blog</p>
+				<h1 class="mt-4 text-4xl font-extrabold text-white md:mt-5 sm:text-5xl md:text-6xl">My thoughts</h1>
+				<p class="max-w-xl mx-auto mt-4 text-xl md:mt-5 text-dark-300 lg:max-w-3xl">My latest thoughts and passions</p>
+			</div>
+		{% endif %}
+	</div>
+	<div class="max-w-screen-xl mx-auto">
+		{% for post in all_posts %}
+			{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
+		{% endfor %}
+	</div>
+
+
+	{# {% include 'partial/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %} #}
 {% endblock %}

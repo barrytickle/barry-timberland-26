@@ -10,11 +10,10 @@
  *
  * @package WordPress
  * @subpackage Timberland
- * @since Timberland 2.2.0
+ * @since Timberland 2.1.0
  */
 
 $context   = Timber::context();
-$context['posts'] = Timber::get_posts();
 $templates = array( 'index.twig' );
 if ( is_home() ) {
 	array_unshift( $templates, 'front-page.twig', 'home.twig' );

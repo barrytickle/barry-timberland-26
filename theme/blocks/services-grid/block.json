@@ -1,1 +1,0 @@
-{"apiVersion":2,"name":"acf/services-grid","title":"Services Grid","description":"Accessible grid of portfolio services.","category":"bt26-portfolio","icon":"screenoptions","acf":{"mode":"preview","renderCallback":"acf_block_render_callback"},"supports":{"align":false,"anchor":true,"jsx":false},"example":{"attributes":{"mode":"preview","data":{"is_preview":true}}}}

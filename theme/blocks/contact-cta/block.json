@@ -1,1 +1,0 @@
-{"apiVersion":2,"name":"acf/contact-cta","title":"Contact CTA","description":"Simple violet contact call-to-action panel.","category":"bt26-portfolio","icon":"email-alt","acf":{"mode":"preview","renderCallback":"acf_block_render_callback"},"supports":{"align":false,"anchor":true,"jsx":false},"example":{"attributes":{"mode":"preview","data":{"is_preview":true}}}}

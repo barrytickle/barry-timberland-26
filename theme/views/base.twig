@@ -1,21 +1,28 @@
 <!doctype html>
 <html {{ site.language_attributes }}>
-<head>
-  <meta charset="{{ site.charset }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="pingback" href="{{ site.pingback_url }}">
-  {{ function('wp_head') }}
-</head>
-<body class="{{ body_class }}" data-template="base.twig">
-  {{ function('wp_body_open') }}
-  <a class="skip-link" href="#main-content">Skip to content</a>
-  {% include 'partials/header.twig' %}
+	<head>
+		<meta charset="{{ site.charset }}"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="pingback" href="{{ site.pingback_url }}"/>
+		<link rel="icon" type="image/png" href="{{options.favicon.url}}"/>
+		<style>
+			[x-cloak] {
+				display: none;
+			}
+		</style>
+		{{function('wp_head')}}
+	</head>
 
-  <main id="main-content" tabindex="-1">
-    {% block content %}{% endblock %}
-  </main>
+	<body class="{{body_class}} bg-dark-900 text-white" data-template="base.twig">
+		{% include 'header.twig' %}
 
-  {% include 'partials/footer.twig' %}
-  {{ function('wp_footer') }}
-</body>
+		{% block content %}
+			Sorry, no content
+		{% endblock %}
+
+		{% block footer %}
+			{% include 'footer.twig' %}
+			{{ function('wp_footer') }}
+		{% endblock %}
+	</body>
 </html>

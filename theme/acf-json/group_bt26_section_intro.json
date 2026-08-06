@@ -1,9 +1,0 @@
-{
-  "key":"group_bt26_section_intro","title":"SectionIntro","fields":[
-    {"key":"field_bt26_intro_eyebrow","label":"Eyebrow","name":"eyebrow","type":"text"},
-    {"key":"field_bt26_intro_heading","label":"Heading","name":"heading","type":"text","required":1},
-    {"key":"field_bt26_intro_body","label":"Body","name":"body","type":"wysiwyg","tabs":"visual","toolbar":"basic","media_upload":0},
-    {"key":"field_bt26_intro_alignment","label":"Alignment","name":"alignment","type":"button_group","choices":{"split":"Split","left":"Left","centre":"Centre"},"default_value":"split","return_format":"value"},
-    {"key":"field_bt26_intro_anchor","label":"Anchor ID","name":"anchor_id","type":"text"}
-  ],"location":[[{"param":"block","operator":"==","value":"acf/section-intro"}]],"position":"normal","style":"default","active":true
-}

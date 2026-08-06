@@ -1,114 +1,88 @@
-# Barry Timberland 26
+# Timberland :evergreen_tree:
 
-A clean, light editorial WordPress portfolio theme built with Timber 2, Twig, ACF Pro, native ACF blocks, Tailwind CSS 4, Vite and Alpine.js.
+Timberland is an opinionated WordPress theme using [Timber](https://www.upstatement.com/timber/), [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/), [Vite](https://vitejs.dev/), [Tailwind](https://tailwindcss.com/) and [Alpine.js](https://github.com/alpinejs/alpine).
 
-## Requirements and setup
+As of version 1.0, Timberland now uses the WordPress block editor to visually edit the site. This is made possible by the [ACF Blocks feature](https://www.advancedcustomfields.com/resources/blocks/).
 
-- PHP 8.1 or newer
-- WordPress 6.5 or newer
-- ACF Pro
-- Node.js 20 or newer
-- Composer 2
+## Installation
 
-From the repository root:
+1. Download the zip for this theme (or clone it) and move it to `wp-content/themes` in your WordPress installation.
+2. Run `composer install` in the theme directory.
+3. Run `npm install` in the theme directory.
+4. Activate the theme in Appearance > Themes.
+5. Make sure you have installed [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/)
 
-```bash
-composer install
-npm install
-npm run build
+## Development
+
+Timberland builds your css and js files using Vite. This allows you to use the latest Javascript and CSS features.
+
+To get started:
+1. Run `npm run build` to generate assets that can be used in the admin block editor. This only needs to be run as often as you want to see updated block previews in the admin.
+2. Run `npm run dev` to start the Vite dev server.
+
+### Live Reload
+
+Live reload is enabled by default.
+
+### Versioning
+
+To assist with long-term caching, file hashing (e.g. `main-e1457bfd.js`) is enabled by default. This is useful for cache-busting purposes.
+
+## Production
+
+When you're ready for production, run `npm run build` from the theme directory. You can test production assets in development by setting the vite → environment property to "production" in config.json.
+
+If you're developing locally and moving files to your production environment, only the `theme` and `vendor` directories are needed inside the `timberland` theme directory. The theme directory structure should look like the following:
+
+```
+  timberland/
+  ├── theme/
+  ├── vendor/
 ```
 
-The WordPress-installable theme lives in `theme/`; Composer dependencies live in `vendor/` one level above it.
+## Blocks
 
-## Local development
+A block is a self-contained page section and includes its own template, script, style, functions and block.json files.
 
-Set `vite.environment` to `development` in `config.json`, then run:
-
-```bash
-npm run dev
+```
+  example/
+  ├── block.json
+  ├── functions.php 
+  ├── index.twig
+  ├── script.js
+  ├── style.css
 ```
 
-Vite serves assets from `http://localhost:3000`. For production or local development without the Vite server, set the environment to `production` and run `npm run build`.
+To create a new block, create a directory in `theme/blocks`. Add your `index.twig` and `block.json` files and it's ready to be used with the WordPress block editor. You can optionally add style.css, script.js and functions.php files. An example block is provided for reference. Add editable fields by creating a new ACF field group and setting the location rule to your new block. You can now use these fields with your block in the block editor.
 
-## Tailwind 4 and design tokens
+### Accessing Fields
 
-Tailwind remains on version 4. Semantic colours, typography, breakpoints and other theme tokens live in `theme/assets/styles/theme.css` using Tailwind 4's `@theme` syntax. `tailwind.config.js` is intentionally minimal and scans all PHP, Twig, JavaScript and JSON files under `theme/`.
+You access your block's fields in the index.twig file by using the `fields` variable. The example below shows how to display a block's field. We'll use "heading" as the example ACF field name, but it could be whatever name you give your field.
 
-Do not downgrade Tailwind or duplicate the token set in JavaScript.
+`{{ fields.heading }}`
 
-## ACF Local JSON
+Here's an example of how to loop through a repeater field where "features" is the ACF field name and the repeater field has a heading field.
 
-Field groups are committed in `theme/acf-json`. ACF is configured to load and save JSON there. After pulling changes, open **Custom Fields → Field Groups** and use **Sync available** if ACF presents it.
-
-The committed groups cover Site Settings, case-study details and every custom portfolio block. Keys beginning `group_bt26_` and `field_bt26_` are stable identifiers.
-
-## Menus and Site Settings
-
-Assign menus under **Appearance → Menus → Manage Locations**:
-
-- Primary navigation
-- Footer primary navigation
-- Footer secondary navigation
-
-Header and footer content is configured under **Site Settings** in WordPress. Complete the Branding, Header, Contact, Social and Footer tabs. The header CTA is intentionally separate from the primary menu.
-
-## Case studies
-
-The theme registers a public **Case Studies** post type at `/work/`. It supports the block editor, thumbnails, excerpts, revisions and ordering. Add only projects Barry can legitimately present as his own work; CRO-only engagements can be discussed elsewhere without being represented as builds.
-
-Suggested initial entries:
-
-1. Physio123
-2. Liverpool Guitar Lessons
-3. barrytickle.com
-4. Liverpool Piano Lessons
-
-Project outcomes are always editor-provided. The theme does not contain fabricated percentages, metrics or testimonials.
-
-## Homepage
-
-Create a normal page, set it as the static front page under **Settings → Reading**, then insert the **Editorial portfolio homepage** pattern. Its recommended sequence is:
-
-1. Hero with Image
-2. Section Intro
-3. Project — Image Right
-4. Project — Image Left
-5. Project — Image Right
-6. About Split
-7. Services Grid
-8. Client Logo Slider
-9. Contact CTA
-
-The homepage remains fully editable as blocks; there is no hard-coded homepage template.
-
-## Assets
-
-Original interface icons from the supplied Codex pack are in `theme/assets/icons`. Icon names are validated against an allowlist before rendering. Upload real project screenshots and authorised client logos to the WordPress Media Library and select them through ACF. Do not use the supplied text-only brand placeholders as official logos.
-
-## Migration from barry-timberland-25
-
-- Reassign menus to the three explicit menu locations; menu names/slugs are no longer used as API identifiers.
-- Re-enter global branding, contact, social and footer content in the new Site Settings field group.
-- Existing `case_study` posts remain usable, but the archive URL changes from the old custom setup to `/work/`. Visit **Settings → Permalinks** and save once after activation.
-- Map old hero and case-study block content into the new blocks in the editor. Similar field names were retained where practical, but no destructive database migration is performed.
-- Upload screenshots into the new `project_browser_image` field and ensure Media Library alt text is meaningful.
-- Replace any old hard-coded footer columns with the new WordPress menu assignments and Site Settings repeaters.
-
-## Production build and deployment
-
-```bash
-npm ci
-npm run build
-composer install --no-dev --optimize-autoloader
+```
+{% for feature in fields.features %}
+{{ feature.heading }}
+{% endfor %}
 ```
 
-Deploy `theme/` and `vendor/`. Vite writes hashed assets and a manifest to `theme/assets/dist`; the theme reads the manifest rather than relying on fixed filenames.
+## Directory Structure
 
-## Troubleshooting
+`theme/` contains all of the WordPress core templates files.
 
-- **Unstyled page:** run `npm run build`, or start `npm run dev` when `config.json` is set to development.
-- **Blocks missing:** install/activate ACF Pro, then sync Local JSON field groups.
-- **Menus missing:** assign menus to the registered locations rather than relying on their names.
-- **404 at `/work/`:** resave WordPress permalinks after activating the theme.
-- **Images missing:** choose Media Library images in the relevant ACF fields; placeholders only appear inside editor previews.
-- **Composer error:** run `composer install` from the repository root, not from the nested `theme/` folder.
+`theme/acf-json/` contain all of your Advanced Custom Fields json files. These files are automatically created/updated using ACF's Local JSON feature.
+
+`theme/assets/` contain all of your fonts, images, styles and scripts.
+
+`theme/blocks/` contain all of your site's blocks. These blocks are available to use on any page via the block editor. Each block has its own template, script and style files.
+
+`theme/patterns/` contains all of your sites's block patterns. Block Patterns are a collection of predefined blocks that you can insert into pages and posts and then customize with your own content. 
+
+`theme/views/` contains all of your Twig templates. These pretty much correspond 1 to 1 with the PHP files that respond to the WordPress template hierarchy. At the end of each PHP template, you'll notice a `Timber::render()` function whose first parameter is the Twig file where that data (or `$context`) will be used.
+
+## License
+
+MIT © Chris Earls

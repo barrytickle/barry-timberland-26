@@ -1,9 +1,11 @@
-import './styles/main.css'
-import.meta.glob('../blocks/**/*.css', { eager: true })
-import Alpine from 'alpinejs'
+import "./styles/main.scss";
+import.meta.glob("../blocks/**/*.css", { eager: true });
 
-window.Alpine = Alpine
+import Alpine from "alpinejs";
 
-import.meta.glob('../blocks/**/*.js', { eager: true })
+window.Alpine = Alpine;
 
-window.Alpine.start()
+import.meta.glob("../blocks/**/*.js", { eager: true });
+import.meta.glob("./scripts/**/*.js", { eager: true });
+
+window.Alpine.start();
