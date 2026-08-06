@@ -14,7 +14,7 @@
 <section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]" data-component="work-grid">
 	<div class="mb-12 flex flex-wrap items-center justify-between gap-4" data-component="section-header">
 		<h2 class="h3">{{ title }}</h2>
-		<a class="group inline-flex items-center gap-2.5 rounded-full border border-ink px-6 py-3.5 body-16 font-semibold text-ink transition hover:bg-ink hover:text-white" href="{{ button.url }}"{% if button.target %} target="{{ button.target }}"{% endif %}>
+		<a class="group inline-flex items-center gap-2.5 rounded-full border border-ink px-6 py-3.5 body-16 font-semibold text-ink transition duration-200 hover:bg-ink hover:text-white" href="{{ button.url }}"{% if button.target %} target="{{ button.target }}"{% endif %}>
 			{{ button.title }}
 			<svg class="h-4 w-4 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
 		</a>

@@ -20,7 +20,7 @@
 			{% endif %}
 		</nav>
 		<div class="flex items-center gap-3">
-			<a class="group hidden items-center gap-2.5 rounded-full border border-ink px-6 py-3.5 body-16 font-semibold text-ink transition hover:bg-ink hover:text-white sm:inline-flex" href="{{ cta.url }}"{% if cta.target %} target="{{ cta.target }}"{% endif %}>
+			<a class="group hidden items-center gap-2.5 rounded-full border border-ink px-6 py-3.5 body-16 font-semibold text-ink transition duration-200 hover:bg-ink hover:text-white sm:inline-flex" href="{{ cta.url }}"{% if cta.target %} target="{{ cta.target }}"{% endif %}>
 				{{ cta.title }}
 				<svg class="h-4 w-4 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
 			</a>

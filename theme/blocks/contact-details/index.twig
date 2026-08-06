@@ -17,7 +17,7 @@
 			{% include 'components/form-field.twig' with { label: 'Name', name: 'name', type: 'text', placeholder: 'Hello…' } %}
 			{% include 'components/form-field.twig' with { label: 'Email', name: 'email', type: 'email', placeholder: 'Where can I reply?' } %}
 			{% include 'components/form-field.twig' with { label: 'Message', name: 'message', type: 'textarea', placeholder: 'Tell me about your project…', rows: 4 } %}
-			<button class="group inline-flex items-center gap-3 rounded-full bg-ink px-8 py-5 body-18 font-semibold text-white transition hover:bg-ink-800" type="submit">
+			<button class="group inline-flex items-center gap-3 rounded-full bg-ink px-8 py-5 body-18 font-semibold text-white transition duration-200 hover:bg-ink-800" type="submit">
 				{{ submit_label }}
 				<svg class="h-5 w-5 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
 			</button>
@@ -34,7 +34,7 @@
 			<div>
 				<p class="body-14 text-ink-500 mb-3">Follow</p>
 				<div class="flex flex-wrap gap-3">
-					{% for social in socials %}<a class="rounded-full border border-ink px-5 py-2.5 body-14 font-medium transition hover:bg-ink hover:text-white" href="{{ social.href }}">{{ social.label }}</a>{% endfor %}
+					{% for social in socials %}<a class="rounded-full border border-ink px-5 py-2.5 body-14 font-medium transition duration-200 hover:bg-ink hover:text-white" href="{{ social.href }}">{{ social.label }}</a>{% endfor %}
 				</div>
 			</div>
 		</div>
