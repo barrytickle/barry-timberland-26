@@ -17,7 +17,7 @@
 			{% for award in awards %}
 				<a class="group flex items-center justify-between gap-6 py-7" href="{{ award.href }}">
 					<div><h4 class="h6 text-[1.5rem]">{{ award.title }}</h4><p class="body-16 mt-1 text-ink-500">{{ award.meta }}</p></div>
-					<svg class="h-7 w-7 shrink-0 text-ink transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+					<svg class="h-7 w-7 shrink-0 text-ink transition duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
 				</a>
 			{% endfor %}
 		</div>

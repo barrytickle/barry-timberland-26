@@ -14,7 +14,7 @@
 {% set variant = variant|default('filled') %}
 {% set show_icon = icon is not defined or icon %}
 {% set data_attributes = data_attributes|default({}) %}
-{% set arrow %}<svg class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>{% endset %}
+{% set arrow %}<svg class="h-4 w-4 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>{% endset %}
 
 {% if variant == 'filter' %}
   <button type="button" class="rounded-full border px-5 py-2.5 body-14 font-medium transition {{ active|default(false) ? 'border-ink-400 bg-ink-200 text-ink active' : 'border-ink-200 bg-white text-ink-600 hover:border-ink-400' }}" {% for key, value in data_attributes %} {{ key }}="{{ value }}"{% endfor %} >{{ label }}</button>
