@@ -10,9 +10,9 @@
 	{ wordmark: 'portal', weight: 'font-semibold', label: 'UIUX & Branding', year: '2022' }
 ]) %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="logo-grid-labeled">
 	<h2 class="h3 mb-12">{{ heading }}</h2>
-	<div class="grid grid-cols-2 gap-8 lg:grid-cols-4" data-component="logo-grid-labeled">
+	<div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
 		{% for item in items %}
 			<div>
 				<p class="body-28 {{ item.weight }} text-ink-400">{{ item.wordmark }}</p>

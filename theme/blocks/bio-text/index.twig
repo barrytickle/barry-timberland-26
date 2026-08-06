@@ -7,7 +7,7 @@
 {% set paragraph_2 = fields.paragraph_2|default("My work spans product design, branding and front-end — concentrate on your primary objective, and leave it to me to make sure your business is portrayed beautifully in the digital realm.") %}
 {% set cta = fields.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]">
+<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]" data-component="bio-text">
 	<div class="grid gap-10 lg:grid-cols-2">
 		{% if image %}
 			<div class="aspect-[4/5] overflow-hidden rounded-card">

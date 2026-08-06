@@ -10,10 +10,10 @@
 	{ title: 'Site of The Day', meta: '2022 - AWWWARDS', href: '#' }
 ]) %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="awards-list">
 	<div class="grid gap-10 lg:grid-cols-[0.9fr_1.6fr]">
 		<h2 class="h3">{{ heading }}</h2>
-		<div class="divide-y divide-ink-300 border-y border-ink-300" data-component="awards-list">
+		<div class="divide-y divide-ink-300 border-y border-ink-300">
 			{% for award in awards %}
 				<a class="group flex items-center justify-between gap-6 py-7" href="{{ award.href }}">
 					<div><h4 class="h6 text-[1.5rem]">{{ award.title }}</h4><p class="body-16 mt-1 text-ink-500">{{ award.meta }}</p></div>

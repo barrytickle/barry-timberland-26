@@ -8,9 +8,11 @@
 	{ title: 'Teamwork', date: 'March 14, 2023', excerpt: 'Mobile App: Designing an onboarding flow that converts.', tags: 'Mobile App, UIUX' }
 ]) %}
 
-<div class="divide-y divide-ink-200 border-y border-ink-200" data-component="blog-list-row">
+<section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]" data-component="blog-list-row">
+<div class="divide-y divide-ink-200 border-y border-ink-200">
 	{% for post in posts %}
 		{% include 'components/blog-row-item.twig' with { title: post.title, date: post.date, excerpt: post.excerpt, tags: post.tags|default('')|split(',')|map(t => t|trim) } %}
 	{% endfor %}
 </div>
+</section>
 {% endif %}

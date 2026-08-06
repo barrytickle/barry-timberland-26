@@ -11,7 +11,7 @@
 	{ title: 'Northwind', category: 'UIUX', href: site.url ~ '/works/northwind/' }
 ]) %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]">
+<section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]" data-component="work-grid">
 	<div class="grid gap-x-8 gap-y-14 sm:grid-cols-2">
 		{% for item in items %}
 			{% include 'components/work-card.twig' with { title: item.title, category: item.category, href: item.href, image: item.image.url|default(null) } %}

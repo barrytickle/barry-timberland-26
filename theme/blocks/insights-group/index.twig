@@ -10,7 +10,7 @@
 	{ title: 'The Power of Typography in Visual Design', excerpt: 'Uncover the significance of typography and how type shapes communication and impact.', href: site.url ~ '/blog/typography/' }
 ]) %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="insights-group">
 	{% include 'components/section-header.twig' with { heading: heading, link_href: cta.url, link_label: cta.title } %}
 	<div class="grid gap-8 md:grid-cols-3">
 		{% for article in articles %}

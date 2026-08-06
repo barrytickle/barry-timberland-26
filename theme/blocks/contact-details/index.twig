@@ -11,8 +11,8 @@
 	{ label: 'Twitter', href: '#' }
 ]) %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]">
-	<div class="grid gap-14 lg:grid-cols-[1.3fr_0.7fr]" data-component="contact-details">
+<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]" data-component="contact-details">
+	<div class="grid gap-14 lg:grid-cols-[1.3fr_0.7fr]">
 		<form class="max-w-2xl" data-component="form-fields" method="post" onsubmit="return false">
 			{% include 'components/form-field.twig' with { label: 'Name', name: 'name', type: 'text', placeholder: 'Hello…' } %}
 			{% include 'components/form-field.twig' with { label: 'Email', name: 'email', type: 'email', placeholder: 'Where can I reply?' } %}

@@ -15,7 +15,7 @@
 	{ wrapper: 'col-span-2', aspect: 'aspect-[16/9]' }
 ]) %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]">
+<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]" data-component="licenses-gallery">
 	<h2 class="h4">{{ heading }}</h2>
 	<p class="body-16 mt-3 text-ink-500">{{ description }}</p>
 	<div class="mt-8">
@@ -23,7 +23,7 @@
 			<h3 class="h6">{{ gallery_heading }}</h3>
 			<p class="body-14 text-ink-500">{{ gallery_url }}</p>
 		</div>
-		<div class="grid grid-cols-2 gap-4 md:grid-cols-3" data-component="licenses-gallery">
+		<div class="grid grid-cols-2 gap-4 md:grid-cols-3">
 			{% for item in items %}
 				{% set well %}
 					<div class="grid {{ item.aspect }} place-items-center overflow-hidden rounded-card bg-muted">

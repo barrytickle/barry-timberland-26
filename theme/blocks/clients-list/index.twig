@@ -10,9 +10,9 @@
 	{ name: 'Rackspace', date: 'May 5, 2023', wordmark: 'rackspace.', href: '#' }
 ]) %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="clients-list">
 	<h2 class="h3 mb-10">{{ heading }}</h2>
-	<div class="divide-y divide-ink-300 border-y border-ink-300" data-component="clients-list">
+	<div class="divide-y divide-ink-300 border-y border-ink-300">
 		{% for client in clients %}
 			<a class="group flex items-center justify-between gap-6 py-6" href="{{ client.href }}">
 				<div><h4 class="h6 text-[1.35rem]">{{ client.name }}</h4><p class="body-14 mt-1 text-ink-500">{{ client.date }}</p></div>

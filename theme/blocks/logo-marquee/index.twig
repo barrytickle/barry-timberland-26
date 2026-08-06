@@ -13,8 +13,8 @@
 	{ label: 'portal', weight: 'font-semibold' }
 ]) %}
 
-<section class="py-10">
-	<div class="marquee overflow-hidden border-y border-ink-300/60 py-10" data-component="logo-marquee">
+<section class="py-10" data-component="logo-marquee">
+	<div class="marquee overflow-hidden border-y border-ink-300/60 py-10">
 		<div class="marquee-track items-center gap-16 px-8 text-ink-500">
 			{% for logo in logos|merge(logos) %}
 				<span class="body-28 shrink-0 {{ logo.weight }}">{{ logo.label }}</span>

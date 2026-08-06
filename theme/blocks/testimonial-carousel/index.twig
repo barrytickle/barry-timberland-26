@@ -17,13 +17,13 @@
 	</div>
 {% endmacro %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="testimonial-carousel">
 	{% if testimonials|length <= 1 %}
-		<div class="text-center" data-component="testimonial-carousel">
+		<div class="text-center">
 			{% if testimonials|length %}{{ _self.person(testimonials[0]) }}{% endif %}
 		</div>
 	{% else %}
-		<div class="swiper testimonial-carousel-swiper" data-component="testimonial-carousel">
+		<div class="swiper testimonial-carousel-swiper">
 			<div class="swiper-wrapper">
 				{% for t in testimonials %}
 					<div class="swiper-slide text-center">{{ _self.person(t) }}</div>
