@@ -8,11 +8,17 @@
 	{ label: 'Contact', url: site.url ~ '/contact/' }
 ] %}
 {% set cta = options.header_cta|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+{% set social_links = options.social_links|default([
+	{ label: 'Instagram', url: '#' },
+	{ label: 'Behance', url: '#' },
+	{ label: 'Twitter', url: '#' }
+]) %}
+{% set newsletter_heading = options.newsletter_heading|default('Stay connected w/ me.') %}
 
 <header class="sticky top-0 z-40 bg-white/85 backdrop-blur" data-component="navbar" id="navbar">
 	<div class="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-5 lg:px-[72px]">
 		<a class="text-2xl font-semibold tracking-tightest text-ink" href="{{ site.url }}"><span class="text-ink-400">{{ logo_text_highlight }}</span>{{ logo_text }}</a>
-		<nav class="flex items-center gap-8 body-16 font-medium" aria-label="Primary navigation">
+		<nav class="hidden items-center gap-8 body-16 font-medium lg:flex" aria-label="Primary navigation">
 			{% if header_menu and header_menu.items %}
 				{% for item in header_menu.items %}<a class="text-ink-600 hover:text-ink transition {{ 'current-menu-item' in item.classes ? 'text-ink font-semibold' : '' }}" href="{{ item.link }}"{% if 'current-menu-item' in item.classes %} aria-current="page"{% endif %}>{{ item.title }}</a>{% endfor %}
 			{% else %}
@@ -24,6 +30,48 @@
 				{{ cta.title }}
 				<svg class="h-4 w-4 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
 			</a>
+			<button aria-label="Open menu" class="grid h-[52px] w-[52px] place-items-center rounded-full border border-ink text-ink transition duration-200 hover:bg-ink hover:text-white lg:hidden" data-component="mobile-menu-open">
+				<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"></path></svg>
+			</button>
 		</div>
 	</div>
 </header>
+
+<div class="fixed inset-0 z-50 hidden overflow-y-auto bg-ink px-6 py-10 text-white lg:hidden" data-component="mobile-menu">
+	<div class="mx-auto max-w-[1200px]">
+		<div class="flex items-center justify-between border-b border-ink-800 pb-8">
+			<a class="text-2xl font-semibold tracking-tightest" href="{{ site.url }}"><span class="text-ink-500">{{ logo_text_highlight }}</span>{{ logo_text }}</a>
+			<button aria-label="Close menu" class="grid h-12 w-12 place-items-center rounded-full border border-ink-700 transition duration-200 hover:border-white" data-component="mobile-menu-close">
+				<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+			</button>
+		</div>
+		<nav class="divide-y divide-ink-800" aria-label="Mobile navigation">
+			{% set menu_items = (header_menu and header_menu.items) ? header_menu.items : fallback_links %}
+			{% for item in menu_items %}
+				<a class="group flex items-center justify-between py-6" href="{{ item.link|default(item.url) }}">
+					<span class="h2 text-white">{{ item.title|default(item.label) }} <span class="h6 align-top text-ink-500">({{ '%02d'|format(loop.index) }})</span></span>
+					<span class="grid h-16 w-20 place-items-center rounded-full border border-ink-700 transition duration-200 group-hover:bg-white group-hover:text-ink">
+						<svg class="h-5 w-5 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+					</span>
+				</a>
+			{% endfor %}
+		</nav>
+		<div class="mt-10 flex flex-col justify-between gap-8 border-t border-ink-800 pt-8 lg:flex-row">
+			<div>
+				<p class="body-18 mb-4 font-semibold text-ink-400">Follow me.</p>
+				<div class="flex flex-wrap gap-6 body-16 font-medium">
+					{% for social in social_links %}<a class="inline-flex items-center gap-1.5 hover:text-ink-300" href="{{ social.url }}">{{ social.label|upper }} <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg></a>{% endfor %}
+				</div>
+			</div>
+			<div class="lg:w-80">
+				<p class="body-18 mb-4 font-semibold text-ink-400">{{ newsletter_heading }}</p>
+				<form class="relative" method="post" action="">
+					<input class="w-full border-0 border-b border-ink-700 bg-transparent py-3 pr-10 body-16 text-white placeholder:text-ink-500 focus:border-white focus:outline-none focus:ring-0" placeholder="Enter your email" type="email" name="email"/>
+					<button aria-label="Subscribe" type="submit" class="absolute right-0 top-1/2 -translate-y-1/2 text-white">
+						<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

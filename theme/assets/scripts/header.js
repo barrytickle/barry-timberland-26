@@ -1,44 +1,34 @@
-const switchToCloseIcon = (label) => {
-  console.log("LabeL", label);
-  label.querySelector("svg.open").classList.add("hidden");
-  label.querySelector("svg.close").classList.remove("hidden");
-};
-
-const switchToOpenIcon = (label) => {
-  label.querySelector("svg.open").classList.remove("hidden");
-  label.querySelector("svg.close").classList.add("hidden");
-};
-
-const toggleHamburger = (e) => {
-  const target = e.target.matches("label")
-    ? e.target
-    : e.target.closest("label");
-
-  target.classList.toggle("active");
-
-  if (target.classList.contains("active")) {
-    document.body.classList.add("no-move");
-    switchToCloseIcon(target);
-  } else {
-    document.body.classList.remove("no-move");
-    switchToOpenIcon(target);
-  }
-};
-
-const bindHamburgerIcon = () => {
-  const hamburgerIcon = document.querySelector(
-    ".js-header .js-hamburger-toggle"
-  );
-  if (!!!hamburgerIcon) {
-    console.log("Unable to find hamburger icon");
-    return;
-  }
-
-  console.log("Hamburger icon found", hamburgerIcon);
-
-  hamburgerIcon.addEventListener("click", toggleHamburger);
-};
-
 (() => {
-  bindHamburgerIcon();
+	const openButton = document.querySelector('[data-component="mobile-menu-open"]');
+	const closeButton = document.querySelector('[data-component="mobile-menu-close"]');
+	const menu = document.querySelector('[data-component="mobile-menu"]');
+
+	if (!openButton || !closeButton || !menu) {
+		return;
+	}
+
+	const openMenu = () => {
+		menu.classList.remove("hidden");
+		document.body.classList.add("overflow-hidden");
+	};
+
+	const closeMenu = () => {
+		menu.classList.add("hidden");
+		document.body.classList.remove("overflow-hidden");
+	};
+
+	openButton.addEventListener("click", openMenu);
+	closeButton.addEventListener("click", closeMenu);
+
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			closeMenu();
+		}
+	});
+
+	window.matchMedia("(min-width: 1024px)").addEventListener("change", (e) => {
+		if (e.matches) {
+			closeMenu();
+		}
+	});
 })();
