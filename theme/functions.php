@@ -32,6 +32,7 @@ class Timberland extends Timber\Site {
 		add_action( 'acf/init', array( $this, 'acf_register_blocks' ) );
 		add_action( 'acf/init', array( $this, 'register_options_pages' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_assets' ) );
+		add_action( 'init', array( $this, 'register_post_types' ) );
 
 		parent::__construct();
 	}
@@ -232,6 +233,56 @@ class Timberland extends Timber\Site {
 				'position'   => 61,
 			)
 		);
+	}
+
+	public function register_post_types() {
+		register_post_type(
+			'project',
+			array(
+				'label'       => 'Projects',
+				'labels'      => array(
+					'name'          => 'Projects',
+					'singular_name' => 'Project',
+					'add_new_item'  => 'Add New Project',
+					'edit_item'     => 'Edit Project',
+					'all_items'     => 'All Projects',
+					'search_items'  => 'Search Projects',
+					'not_found'     => 'No projects found',
+				),
+				'public'      => true,
+				'show_in_rest' => true,
+				'menu_icon'   => 'dashicons-portfolio',
+				'supports'    => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
+				'has_archive' => true,
+				'rewrite'     => array( 'slug' => 'projects' ),
+			)
+		);
+
+		register_taxonomy(
+			'project_category',
+			'project',
+			array(
+				'label'        => 'Project Categories',
+				'labels'       => array(
+					'name'          => 'Project Categories',
+					'singular_name' => 'Project Category',
+					'all_items'     => 'All Categories',
+					'edit_item'     => 'Edit Category',
+					'add_new_item'  => 'Add New Category',
+					'search_items'  => 'Search Categories',
+				),
+				'hierarchical' => true,
+				'public'       => true,
+				'show_in_rest' => true,
+				'rewrite'      => array( 'slug' => 'project-category' ),
+			)
+		);
+
+		foreach ( array( 'CRO & Experimentation', 'Web App', 'Website' ) as $category ) {
+			if ( ! term_exists( $category, 'project_category' ) ) {
+				wp_insert_term( $category, 'project_category' );
+			}
+		}
 	}
 
 	public function acf_register_blocks() {
