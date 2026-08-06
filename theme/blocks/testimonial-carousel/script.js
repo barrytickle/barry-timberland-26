@@ -5,6 +5,7 @@ document.querySelectorAll(".testimonial-carousel-swiper").forEach((el) => {
 	new Swiper(el, {
 		modules: [Pagination],
 		loop: true,
+		autoHeight: true,
 		slidesPerView: 1,
 		spaceBetween: 32,
 		pagination: {
