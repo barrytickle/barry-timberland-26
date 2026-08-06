@@ -3,7 +3,7 @@
   "name": "acf/hero-centered",
   "title": "Hero Centered",
   "description": "Centered intro hero with heading, CTA and social links.",
-  "category": "custom",
+  "category": "heroes",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

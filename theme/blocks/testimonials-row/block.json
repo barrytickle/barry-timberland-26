@@ -3,7 +3,7 @@
   "name": "acf/testimonials-row",
   "title": "Testimonials Row",
   "description": "Horizontally scrollable row of testimonial cards.",
-  "category": "custom",
+  "category": "testimonials",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

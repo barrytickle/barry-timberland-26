@@ -3,7 +3,7 @@
   "name": "acf/work-list-featured",
   "title": "Work List (Featured)",
   "description": "List of featured case studies, each with a title, date, description, tags and a large preview image.",
-  "category": "custom",
+  "category": "work-blog",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

@@ -3,7 +3,7 @@
   "name": "acf/clients-list",
   "title": "Clients List",
   "description": "Divided list of client rows with a wordmark and link icon.",
-  "category": "custom",
+  "category": "social-proof",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

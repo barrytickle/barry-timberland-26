@@ -3,7 +3,7 @@
   "name": "acf/hero",
   "title": "Hero",
   "description": "Full-width intro hero with heading, CTA and supporting copy.",
-  "category": "custom",
+  "category": "heroes",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

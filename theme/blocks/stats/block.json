@@ -3,7 +3,7 @@
   "name": "acf/stats",
   "title": "Stats",
   "description": "Row of key numbers with supporting labels.",
-  "category": "custom",
+  "category": "stats-credentials",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

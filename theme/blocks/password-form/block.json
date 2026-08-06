@@ -3,7 +3,7 @@
   "name": "acf/password-form",
   "title": "Password Form",
   "description": "Centered password-protected page prompt with a single password field.",
-  "category": "custom",
+  "category": "utility-pages",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

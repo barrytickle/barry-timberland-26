@@ -3,7 +3,7 @@
   "name": "acf/licenses-gallery",
   "title": "Licenses Gallery",
   "description": "Masonry-style gallery of image placeholder wells for a licenses/assets page.",
-  "category": "custom",
+  "category": "stats-credentials",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

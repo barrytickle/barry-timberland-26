@@ -3,7 +3,7 @@
   "name": "acf/not-found",
   "title": "Not Found",
   "description": "Centered 404 message with a link back to the homepage.",
-  "category": "custom",
+  "category": "utility-pages",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

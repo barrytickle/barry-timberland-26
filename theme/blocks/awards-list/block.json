@@ -3,7 +3,7 @@
   "name": "acf/awards-list",
   "title": "Awards List",
   "description": "Divided list of award rows with a link icon.",
-  "category": "custom",
+  "category": "stats-credentials",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

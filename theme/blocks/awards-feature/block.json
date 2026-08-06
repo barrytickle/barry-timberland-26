@@ -3,7 +3,7 @@
   "name": "acf/awards-feature",
   "title": "Awards Feature",
   "description": "Featured award with image well beside a divided list of further mentions.",
-  "category": "custom",
+  "category": "stats-credentials",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

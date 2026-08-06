@@ -3,7 +3,7 @@
   "name": "acf/testimonial-carousel",
   "title": "Testimonial Carousel",
   "description": "Centered featured testimonial with two faded supporting avatars either side.",
-  "category": "custom",
+  "category": "testimonials",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

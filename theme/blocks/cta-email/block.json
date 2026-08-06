@@ -3,7 +3,7 @@
   "name": "acf/cta-email",
   "title": "CTA Email",
   "description": "Dark full-width band with a large email CTA link, nav row and social links.",
-  "category": "custom",
+  "category": "calls-to-action",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

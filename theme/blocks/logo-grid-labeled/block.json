@@ -3,7 +3,7 @@
   "name": "acf/logo-grid-labeled",
   "title": "Logo Grid Labeled",
   "description": "Grid of client wordmarks with a project label and year.",
-  "category": "custom",
+  "category": "social-proof",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

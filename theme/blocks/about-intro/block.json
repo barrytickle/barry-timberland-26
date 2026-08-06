@@ -3,7 +3,7 @@
   "name": "acf/about-intro",
   "title": "About Intro",
   "description": "Two-column intro section with heading, supporting copy, CTA and a right-aligned skills list.",
-  "category": "custom",
+  "category": "content-contact",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

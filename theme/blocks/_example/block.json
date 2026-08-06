@@ -3,14 +3,15 @@
   "name": "acf/example",
   "title": "Example",
   "description": "",
-  "category": "custom",
+  "category": "utility-pages",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"
   },
   "supports": {
     "align": false,
-    "jsx": false
+    "jsx": false,
+    "inserter": false
   },
   "example": {
     "attributes": {

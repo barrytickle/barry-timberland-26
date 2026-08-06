@@ -3,7 +3,7 @@
   "name": "acf/logo-marquee",
   "title": "Logo Marquee",
   "description": "Auto-scrolling row of client wordmarks (pauses on hover).",
-  "category": "custom",
+  "category": "social-proof",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

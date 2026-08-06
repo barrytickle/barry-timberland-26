@@ -3,7 +3,7 @@
   "name": "acf/experience-list",
   "title": "Experience List",
   "description": "A bordered list of role, company and date-range rows.",
-  "category": "custom",
+  "category": "stats-credentials",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

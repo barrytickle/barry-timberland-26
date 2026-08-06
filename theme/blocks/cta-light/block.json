@@ -3,7 +3,7 @@
   "name": "acf/cta-light",
   "title": "CTA Light",
   "description": "Light rounded band with a centered heading and call-to-action.",
-  "category": "custom",
+  "category": "calls-to-action",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

@@ -3,7 +3,7 @@
   "name": "acf/testimonials-stack",
   "title": "Testimonials Stack",
   "description": "Heading beside a vertically stacked list of testimonials.",
-  "category": "custom",
+  "category": "testimonials",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

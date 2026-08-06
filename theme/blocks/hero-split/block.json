@@ -3,7 +3,7 @@
   "name": "acf/hero-split",
   "title": "Hero Split",
   "description": "Two-column hero: heading and social links on the left, supporting copy and CTA on the right.",
-  "category": "custom",
+  "category": "heroes",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

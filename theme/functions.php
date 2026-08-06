@@ -172,8 +172,44 @@ class Timberland extends Timber\Site {
 		return array_merge(
 			array(
 				array(
-					'slug'  => 'custom',
-					'title' => __( 'Custom' ),
+					'slug'  => 'heroes',
+					'title' => __( 'Heroes' ),
+					'icon'  => 'cover-image',
+				),
+				array(
+					'slug'  => 'calls-to-action',
+					'title' => __( 'Calls to Action' ),
+					'icon'  => 'megaphone',
+				),
+				array(
+					'slug'  => 'work-blog',
+					'title' => __( 'Work & Blog' ),
+					'icon'  => 'portfolio',
+				),
+				array(
+					'slug'  => 'testimonials',
+					'title' => __( 'Testimonials' ),
+					'icon'  => 'format-quote',
+				),
+				array(
+					'slug'  => 'social-proof',
+					'title' => __( 'Social Proof' ),
+					'icon'  => 'groups',
+				),
+				array(
+					'slug'  => 'stats-credentials',
+					'title' => __( 'Stats & Credentials' ),
+					'icon'  => 'awards',
+				),
+				array(
+					'slug'  => 'content-contact',
+					'title' => __( 'Content & Contact' ),
+					'icon'  => 'admin-page',
+				),
+				array(
+					'slug'  => 'utility-pages',
+					'title' => __( 'Utility Pages' ),
+					'icon'  => 'admin-tools',
 				),
 			),
 			$categories
