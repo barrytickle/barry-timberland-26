@@ -39,6 +39,7 @@ class Timberland extends Timber\Site {
 
 	public function add_twig_functions( $twig ) {
 		$twig->addFunction( new TwigFunction( 'check_url_match', array( $this, 'check_url_match' ) ) );
+		$twig->addFunction( new TwigFunction( 'to_snake_case', array( $this, 'to_snake_case' ) ) );
 		return $twig;
 	}
 
@@ -233,6 +234,26 @@ class Timberland extends Timber\Site {
 				'position'   => 61,
 			)
 		);
+	}
+
+	/**
+	 * Converts a string to snake_case.
+	 *
+	 * @param string $string The input string.
+	 * @return string The snake_cased string.
+	 */
+	public function to_snake_case( $string ) {
+		// Replace spaces and hyphens with underscores
+		$string = preg_replace( '/[\s\-]+/', '_', $string );
+		// Insert underscores before any uppercase char that's preceded by a lowercase or another uppercase followed by a lowercase
+		$string = preg_replace( '/(?<=\w)([A-Z])/', '_$1', $string );
+		// Convert to lowercase
+		$string = strtolower( $string );
+		// Remove any duplicate underscores
+		$string = preg_replace( '/_+/', '_', $string );
+		// Trim leading/trailing underscores
+		$string = trim( $string, '_' );
+		return $string;
 	}
 
 	public function register_post_types() {

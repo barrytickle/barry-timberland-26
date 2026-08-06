@@ -1,20 +1,38 @@
 {% if is_preview and preview_image %}
 	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
-{# Converted from Showcasy UI kit: works.html work-card grid #}
-{% set items = fields.items|default([
-	{ title: 'Sportly', category: 'Mobile App Design', href: site.url ~ '/works/sportly/' },
-	{ title: 'Payrole', category: 'Website Design', href: site.url ~ '/works/payrole/' },
-	{ title: 'Wepay', category: 'Mobile App Design', href: site.url ~ '/works/wepay/' },
-	{ title: 'Estatery', category: 'Website Design', href: site.url ~ '/works/estatery/' },
-	{ title: 'Lumina', category: 'Branding', href: site.url ~ '/works/lumina/' },
-	{ title: 'Northwind', category: 'UIUX', href: site.url ~ '/works/northwind/' }
-]) %}
+{# Converted from Showcasy UI kit: works.html filter pills + work-card grid.
+   Pulls real posts and categories from the "project" custom post type.
+   Uses get_posts() (not query_posts()) so it never touches the site's main query. #}
+{% set title = fields.title|default('Selected works') %}
+{% set button = fields.button|default({ title: 'View All Works', url: site.url ~ '/works/' }) %}
+{% set show_filters = fields.show_filters %}
+{% set project_limit = fields.how_many_projects|default(10) %}
+{% set categories = get_terms({ 'taxonomy': 'project_category', 'hide_empty': true }) %}
+{% set projects = get_posts({ 'post_type': 'project', 'posts_per_page': project_limit, 'orderby': 'date', 'order': 'DESC' }) %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]" data-component="work-grid">
+	<div class="mb-12 flex flex-wrap items-center justify-between gap-4" data-component="section-header">
+		<h2 class="h3">{{ title }}</h2>
+		<a class="group inline-flex items-center gap-2.5 rounded-full border border-ink px-6 py-3.5 body-16 font-semibold text-ink transition hover:bg-ink hover:text-white" href="{{ button.url }}"{% if button.target %} target="{{ button.target }}"{% endif %}>
+			{{ button.title }}
+			<svg class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+		</a>
+	</div>
+
+	{% if show_filters %}
+		<div class="mb-10 flex flex-wrap gap-3" data-component="work-grid-filters">
+			{% include 'components/button.twig' with { label: 'All', variant: 'filter', active: true, data_attributes: { 'data-filter': 'all' } } %}
+			{% for category in categories %}
+				{% include 'components/button.twig' with { label: category.name, variant: 'filter', active: false, data_attributes: { 'data-filter': to_snake_case(category.name) } } %}
+			{% endfor %}
+		</div>
+	{% endif %}
+
 	<div class="grid gap-x-8 gap-y-14 sm:grid-cols-2">
-		{% for item in items %}
-			{% include 'components/work-card.twig' with { title: item.title, category: item.category, href: item.href, image: item.image.url|default(null) } %}
+		{% for project in projects %}
+			{% set category = project.terms('project_category')|first %}
+			{% include 'components/work-card.twig' with { title: project.title, category: category ? category.name : '', href: project.link, image: project.thumbnail ? project.thumbnail.src : null } %}
 		{% endfor %}
 	</div>
 </section>

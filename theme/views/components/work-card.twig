@@ -1,6 +1,6 @@
 {# Converted from Showcasy UI kit: components/work-card.html
    Params: title, category, href, image (optional — falls back to the placeholder well) #}
-<a class="group block" data-component="work-card" href="{{ href|default('#') }}">
+<a class="group block" data-component="work-card" href="{{ href|default('#') }}" data-filter="{{to_snake_case(category)}}">
 	<div class="mb-6 grid aspect-[16/11] place-items-center overflow-hidden rounded-card bg-muted">
 		{% if image %}
 			<img class="h-full w-full object-cover" src="{{ image }}" alt="{{ title|default('') }}">

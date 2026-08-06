@@ -1,12 +1,6 @@
 {# Converted from Showcasy UI kit: components/blog-list-row.html (repeatable row) #}
 {# Params: title, date, excerpt, tags (array of strings) #}
-<article class="grid grid-cols-1 items-center gap-4 py-6 md:grid-cols-[200px_1fr_auto]">
-	<div>
-		<h4 class="h6 text-[1.25rem]">{{ title }}</h4>
-		<p class="body-14 mt-1 text-ink-500">{{ date }}</p>
-	</div>
-	<p class="body-16 text-ink-600">{{ excerpt }}</p>
-	<div class="flex gap-2">
-		{% for tag in tags|default([]) %}<span class="rounded-full border border-ink px-4 py-1.5 body-14 font-medium">{{ tag }}</span>{% endfor %}
-	</div>
-</article>
+
+<a class="group grid grid-cols-1 items-center gap-4 py-6 md:grid-cols-[220px_1fr_auto]" data-component="blog-list-row" href="blog-details.html">
+<div><h4 class="h6 text-[1.35rem] transition group-hover:text-ink-600">{{ title }}</h4><p class="body-14 mt-1 text-ink-500">{{ date }}</p></div>
+<p class="body-16 text-ink-600">{{ excerpt }}</p><div class="flex gap-2">{% for tag in tags %}<span class="rounded-full border border-ink px-4 py-1.5 body-14 font-medium">{{ tag }}</span>{% endfor %}</div></a>
