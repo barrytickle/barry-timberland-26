@@ -2,7 +2,7 @@
   "apiVersion": 2,
   "name": "acf/testimonial-carousel",
   "title": "Testimonial Carousel",
-  "description": "Centered featured testimonial with two faded supporting avatars either side.",
+  "description": "Centered testimonial. Shows one statically, or slides through several with Swiper when more than one is added.",
   "category": "testimonials",
   "acf": {
     "mode": "preview",

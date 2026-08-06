@@ -1,0 +1,11 @@
+@import "swiper/css";
+@import "swiper/css/pagination";
+
+.testimonial-carousel-swiper .swiper-pagination-bullet {
+	background: theme("colors.ink.300");
+	opacity: 1;
+}
+
+.testimonial-carousel-swiper .swiper-pagination-bullet-active {
+	background: theme("colors.ink.700");
+}

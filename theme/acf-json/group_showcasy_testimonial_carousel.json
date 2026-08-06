@@ -3,33 +3,12 @@
     "title": "Testimonial Carousel",
     "fields": [
         {
-            "key": "field_showcasy_testimonial_carousel_quote",
-            "label": "Quote",
-            "name": "quote",
-            "aria-label": "",
-            "type": "textarea",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "I had the pleasure of working with Ivan on a recent project, and I was blown away by their creativity and attention to detail. I highly recommend them for anyone looking for a talented and professional designer.",
-            "rows": 3,
-            "new_lines": "",
-            "maxlength": "",
-            "placeholder": "",
-            "acfe_textarea_code": 0
-        },
-        {
-            "key": "field_showcasy_testimonial_carousel_people",
-            "label": "People",
-            "name": "people",
+            "key": "field_showcasy_testimonial_carousel_items",
+            "label": "Testimonials",
+            "name": "testimonials",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "",
+            "instructions": "Add one testimonial to show it centred and static. Add more than one and they'll slide in a carousel.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -38,15 +17,37 @@
                 "id": ""
             },
             "layout": "block",
-            "min": 0,
+            "min": 1,
             "max": 0,
-            "button_label": "Add person",
+            "button_label": "Add testimonial",
             "rows_per_page": 20,
             "collapsed": "",
             "acfe_repeater_stylised_button": 0,
             "sub_fields": [
                 {
-                    "key": "field_showcasy_testimonial_carousel_person_initials",
+                    "key": "field_showcasy_testimonial_carousel_item_quote",
+                    "label": "Quote",
+                    "name": "quote",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "new_lines": "",
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "acfe_textarea_code": 0,
+                    "parent_repeater": "field_showcasy_testimonial_carousel_items"
+                },
+                {
+                    "key": "field_showcasy_testimonial_carousel_item_initials",
                     "label": "Initials",
                     "name": "initials",
                     "aria-label": "",
@@ -64,10 +65,10 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_showcasy_testimonial_carousel_people"
+                    "parent_repeater": "field_showcasy_testimonial_carousel_items"
                 },
                 {
-                    "key": "field_showcasy_testimonial_carousel_person_name",
+                    "key": "field_showcasy_testimonial_carousel_item_name",
                     "label": "Name",
                     "name": "name",
                     "aria-label": "",
@@ -85,10 +86,10 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_showcasy_testimonial_carousel_people"
+                    "parent_repeater": "field_showcasy_testimonial_carousel_items"
                 },
                 {
-                    "key": "field_showcasy_testimonial_carousel_person_role",
+                    "key": "field_showcasy_testimonial_carousel_item_role",
                     "label": "Role",
                     "name": "role",
                     "aria-label": "",
@@ -106,28 +107,7 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_showcasy_testimonial_carousel_people"
-                },
-                {
-                    "key": "field_showcasy_testimonial_carousel_person_featured",
-                    "label": "Featured (centre, full colour)",
-                    "name": "featured",
-                    "aria-label": "",
-                    "type": "true_false",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "ui": 1,
-                    "default_value": 0,
-                    "message": "",
-                    "ui_on_text": "",
-                    "ui_off_text": "",
-                    "parent_repeater": "field_showcasy_testimonial_carousel_people"
+                    "parent_repeater": "field_showcasy_testimonial_carousel_items"
                 }
             ]
         }
