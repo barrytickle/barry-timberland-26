@@ -1,31 +1,11 @@
 {
-    "key": "group_showcasy_experience_list",
-    "title": "Experience List",
+    "key": "group_showcasy_work_grid",
+    "title": "Work Grid",
     "fields": [
         {
-            "key": "field_showcasy_experience_list_heading",
-            "label": "Heading",
-            "name": "heading",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "My past work experience",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_showcasy_experience_list_roles",
-            "label": "Roles",
-            "name": "roles",
+            "key": "field_showcasy_work_grid_items",
+            "label": "Items",
+            "name": "items",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -36,16 +16,16 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
-            "button_label": "Add role",
+            "layout": "block",
             "min": 0,
             "max": 0,
+            "button_label": "Add item",
             "rows_per_page": 20,
             "collapsed": "",
             "acfe_repeater_stylised_button": 0,
             "sub_fields": [
                 {
-                    "key": "field_showcasy_experience_list_role_title",
+                    "key": "field_showcasy_work_grid_item_title",
                     "label": "Title",
                     "name": "title",
                     "aria-label": "",
@@ -63,12 +43,12 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_showcasy_experience_list_roles"
+                    "parent_repeater": "field_showcasy_work_grid_items"
                 },
                 {
-                    "key": "field_showcasy_experience_list_role_company",
-                    "label": "Company",
-                    "name": "company",
+                    "key": "field_showcasy_work_grid_item_category",
+                    "label": "Category",
+                    "name": "category",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -84,14 +64,42 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_showcasy_experience_list_roles"
+                    "parent_repeater": "field_showcasy_work_grid_items"
                 },
                 {
-                    "key": "field_showcasy_experience_list_role_dates",
-                    "label": "Dates",
-                    "name": "dates",
+                    "key": "field_showcasy_work_grid_item_image",
+                    "label": "Image",
+                    "name": "image",
                     "aria-label": "",
-                    "type": "text",
+                    "type": "image",
+                    "instructions": "Leave empty to keep the placeholder well.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "parent_repeater": "field_showcasy_work_grid_items",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "uploader": "",
+                    "acfe_thumbnail": 0
+                },
+                {
+                    "key": "field_showcasy_work_grid_item_href",
+                    "label": "Link",
+                    "name": "href",
+                    "aria-label": "",
+                    "type": "url",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -101,11 +109,8 @@
                         "id": ""
                     },
                     "default_value": "",
-                    "maxlength": "",
                     "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_showcasy_experience_list_roles"
+                    "parent_repeater": "field_showcasy_work_grid_items"
                 }
             ]
         }
@@ -115,7 +120,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/experience-list"
+                "value": "acf\/work-grid"
             }
         ]
     ],

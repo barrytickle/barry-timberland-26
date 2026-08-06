@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/intro-with-stats",
+  "title": "Intro with Stats",
+  "description": "A two-column intro heading and paragraph, with a row of stats underneath.",
+  "category": "content-contact",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

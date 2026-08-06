@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/services-list",
+  "title": "Services List",
+  "description": "A heading with a divided list of services, each with a title and description.",
+  "category": "content-contact",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

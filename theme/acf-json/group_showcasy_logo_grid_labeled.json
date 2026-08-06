@@ -3,6 +3,26 @@
     "title": "Logo Grid Labeled",
     "fields": [
         {
+            "key": "field_showcasy_logo_grid_labeled_heading",
+            "label": "Heading",
+            "name": "heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "A visual partner for brands, companies, and agencies",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_showcasy_logo_grid_labeled_items",
             "label": "Items",
             "name": "items",

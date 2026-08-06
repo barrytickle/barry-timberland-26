@@ -17,18 +17,20 @@
 	</div>
 {% endmacro %}
 
-{% if testimonials|length <= 1 %}
-	<div class="text-center" data-component="testimonial-carousel">
-		{% if testimonials|length %}{{ _self.person(testimonials[0]) }}{% endif %}
-	</div>
-{% else %}
-	<div class="swiper testimonial-carousel-swiper" data-component="testimonial-carousel">
-		<div class="swiper-wrapper">
-			{% for t in testimonials %}
-				<div class="swiper-slide text-center">{{ _self.person(t) }}</div>
-			{% endfor %}
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+	{% if testimonials|length <= 1 %}
+		<div class="text-center" data-component="testimonial-carousel">
+			{% if testimonials|length %}{{ _self.person(testimonials[0]) }}{% endif %}
 		</div>
-		<div class="swiper-pagination mt-10 static"></div>
-	</div>
-{% endif %}
+	{% else %}
+		<div class="swiper testimonial-carousel-swiper" data-component="testimonial-carousel">
+			<div class="swiper-wrapper">
+				{% for t in testimonials %}
+					<div class="swiper-slide text-center">{{ _self.person(t) }}</div>
+				{% endfor %}
+			</div>
+			<div class="swiper-pagination mt-10 static"></div>
+		</div>
+	{% endif %}
+</section>
 {% endif %}

@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/work-filter-tabs",
+  "title": "Work Filter Tabs",
+  "description": "A row of filter pill buttons, typically placed above a Work Grid block.",
+  "category": "work-blog",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

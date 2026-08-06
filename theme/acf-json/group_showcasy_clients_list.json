@@ -3,6 +3,26 @@
     "title": "Clients List",
     "fields": [
         {
+            "key": "field_showcasy_clients_list_heading",
+            "label": "Heading",
+            "name": "heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Clients",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_showcasy_clients_list_items",
             "label": "Clients",
             "name": "clients",

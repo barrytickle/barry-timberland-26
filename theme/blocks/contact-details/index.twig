@@ -4,26 +4,40 @@
 {# Converted from Showcasy UI kit: components/contact-details.html #}
 {% set email = fields.email|default("hello@showcasy.com") %}
 {% set location = fields.location|default("London, UK") %}
+{% set submit_label = fields.submit_label|default("Send Message") %}
 {% set socials = fields.socials|default([
 	{ label: 'Instagram', href: '#' },
 	{ label: 'Behance', href: '#' },
 	{ label: 'Twitter', href: '#' }
 ]) %}
 
-<div class="flex flex-col gap-8" data-component="contact-details">
-	<div>
-		<p class="body-14 text-ink-500">Email</p>
-		<p class="body-22 mt-1 font-semibold">{{ email }}</p>
-	</div>
-	<div>
-		<p class="body-14 text-ink-500">Based in</p>
-		<p class="body-22 mt-1 font-semibold">{{ location }}</p>
-	</div>
-	<div>
-		<p class="body-14 text-ink-500 mb-3">Follow</p>
-		<div class="flex flex-wrap gap-3">
-			{% for social in socials %}<a class="rounded-full border border-ink px-5 py-2.5 body-14 font-medium transition hover:bg-ink hover:text-white" href="{{ social.href }}">{{ social.label }}</a>{% endfor %}
+<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]">
+	<div class="grid gap-14 lg:grid-cols-[1.3fr_0.7fr]" data-component="contact-details">
+		<form class="max-w-2xl" data-component="form-fields" method="post" onsubmit="return false">
+			{% include 'components/form-field.twig' with { label: 'Name', name: 'name', type: 'text', placeholder: 'Hello…' } %}
+			{% include 'components/form-field.twig' with { label: 'Email', name: 'email', type: 'email', placeholder: 'Where can I reply?' } %}
+			{% include 'components/form-field.twig' with { label: 'Message', name: 'message', type: 'textarea', placeholder: 'Tell me about your project…', rows: 4 } %}
+			<button class="group inline-flex items-center gap-3 rounded-full bg-ink px-8 py-5 body-18 font-semibold text-white transition hover:bg-ink-800" type="submit">
+				{{ submit_label }}
+				<svg class="h-5 w-5 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+			</button>
+		</form>
+		<div class="flex flex-col gap-8">
+			<div>
+				<p class="body-14 text-ink-500">Email</p>
+				<p class="body-22 mt-1 font-semibold">{{ email }}</p>
+			</div>
+			<div>
+				<p class="body-14 text-ink-500">Based in</p>
+				<p class="body-22 mt-1 font-semibold">{{ location }}</p>
+			</div>
+			<div>
+				<p class="body-14 text-ink-500 mb-3">Follow</p>
+				<div class="flex flex-wrap gap-3">
+					{% for social in socials %}<a class="rounded-full border border-ink px-5 py-2.5 body-14 font-medium transition hover:bg-ink hover:text-white" href="{{ social.href }}">{{ social.label }}</a>{% endfor %}
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
+</section>
 {% endif %}

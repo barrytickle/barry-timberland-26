@@ -1,11 +1,11 @@
 {
-    "key": "group_showcasy_contact_details",
-    "title": "Contact Details",
+    "key": "group_showcasy_services_list",
+    "title": "Services List",
     "fields": [
         {
-            "key": "field_showcasy_contact_details_submit_label",
-            "label": "Submit button label",
-            "name": "submit_label",
+            "key": "field_showcasy_services_list_heading",
+            "label": "Heading",
+            "name": "heading",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -16,55 +16,16 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Send Message",
+            "default_value": "Services",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
             "append": ""
         },
         {
-            "key": "field_showcasy_contact_details_email",
-            "label": "Email",
-            "name": "email",
-            "aria-label": "",
-            "type": "email",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "hello@showcasy.com",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_showcasy_contact_details_location",
-            "label": "Location",
-            "name": "location",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "London, UK",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_showcasy_contact_details_socials",
-            "label": "Socials",
-            "name": "socials",
+            "key": "field_showcasy_services_list_items",
+            "label": "Services",
+            "name": "services",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -75,18 +36,18 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
-            "button_label": "Add social link",
+            "layout": "block",
             "min": 0,
             "max": 0,
+            "button_label": "Add service",
             "rows_per_page": 20,
             "collapsed": "",
             "acfe_repeater_stylised_button": 0,
             "sub_fields": [
                 {
-                    "key": "field_showcasy_contact_details_social_label",
-                    "label": "Label",
-                    "name": "label",
+                    "key": "field_showcasy_services_list_item_title",
+                    "label": "Title",
+                    "name": "title",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -102,14 +63,14 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_showcasy_contact_details_socials"
+                    "parent_repeater": "field_showcasy_services_list_items"
                 },
                 {
-                    "key": "field_showcasy_contact_details_social_href",
-                    "label": "URL",
-                    "name": "href",
+                    "key": "field_showcasy_services_list_item_description",
+                    "label": "Description",
+                    "name": "description",
                     "aria-label": "",
-                    "type": "url",
+                    "type": "textarea",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -118,9 +79,13 @@
                         "class": "",
                         "id": ""
                     },
+                    "rows": 2,
+                    "new_lines": "",
                     "default_value": "",
+                    "maxlength": "",
                     "placeholder": "",
-                    "parent_repeater": "field_showcasy_contact_details_socials"
+                    "acfe_textarea_code": 0,
+                    "parent_repeater": "field_showcasy_services_list_items"
                 }
             ]
         }
@@ -130,7 +95,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/contact-details"
+                "value": "acf\/services-list"
             }
         ]
     ],

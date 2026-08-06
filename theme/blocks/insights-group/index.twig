@@ -1,0 +1,21 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: index.html / home-v2.html / home-v3.html "Insights" section #}
+{% set heading = fields.heading|default("Insights") %}
+{% set cta = fields.cta_link|default({ url: site.url ~ '/blog/', title: 'View All Insights' }) %}
+{% set articles = fields.articles|default([
+	{ title: "Mastering the Art of Color Theory: A Visual Designer’s Guide", excerpt: 'Dive into the fascinating world of color theory and learn how to create captivating designs.', href: site.url ~ '/blog/color-theory/' },
+	{ title: 'Designing for User Experience: Creating Intuitive Interfaces', excerpt: 'Explore the realm of user experience and the principles behind interfaces people love.', href: site.url ~ '/blog/user-experience/' },
+	{ title: 'The Power of Typography in Visual Design', excerpt: 'Uncover the significance of typography and how type shapes communication and impact.', href: site.url ~ '/blog/typography/' }
+]) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+	{% include 'components/section-header.twig' with { heading: heading, link_href: cta.url, link_label: cta.title } %}
+	<div class="grid gap-8 md:grid-cols-3">
+		{% for article in articles %}
+			{% include 'components/blog-card.twig' with { title: article.title, excerpt: article.excerpt, href: article.href } %}
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

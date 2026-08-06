@@ -1,11 +1,11 @@
 {
-    "key": "group_showcasy_contact_details",
-    "title": "Contact Details",
+    "key": "group_showcasy_insights_group",
+    "title": "Insights Group",
     "fields": [
         {
-            "key": "field_showcasy_contact_details_submit_label",
-            "label": "Submit button label",
-            "name": "submit_label",
+            "key": "field_showcasy_insights_group_heading",
+            "label": "Heading",
+            "name": "heading",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -16,18 +16,18 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Send Message",
+            "default_value": "Insights",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
             "append": ""
         },
         {
-            "key": "field_showcasy_contact_details_email",
-            "label": "Email",
-            "name": "email",
+            "key": "field_showcasy_insights_group_cta_link",
+            "label": "CTA Link",
+            "name": "cta_link",
             "aria-label": "",
-            "type": "email",
+            "type": "link",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -36,35 +36,12 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "hello@showcasy.com",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "return_format": "array"
         },
         {
-            "key": "field_showcasy_contact_details_location",
-            "label": "Location",
-            "name": "location",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "London, UK",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_showcasy_contact_details_socials",
-            "label": "Socials",
-            "name": "socials",
+            "key": "field_showcasy_insights_group_articles",
+            "label": "Articles",
+            "name": "articles",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -75,18 +52,18 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
-            "button_label": "Add social link",
+            "layout": "block",
             "min": 0,
             "max": 0,
+            "button_label": "Add article",
             "rows_per_page": 20,
             "collapsed": "",
             "acfe_repeater_stylised_button": 0,
             "sub_fields": [
                 {
-                    "key": "field_showcasy_contact_details_social_label",
-                    "label": "Label",
-                    "name": "label",
+                    "key": "field_showcasy_insights_group_article_title",
+                    "label": "Title",
+                    "name": "title",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -102,11 +79,33 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_showcasy_contact_details_socials"
+                    "parent_repeater": "field_showcasy_insights_group_articles"
                 },
                 {
-                    "key": "field_showcasy_contact_details_social_href",
-                    "label": "URL",
+                    "key": "field_showcasy_insights_group_article_excerpt",
+                    "label": "Excerpt",
+                    "name": "excerpt",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 2,
+                    "new_lines": "",
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "acfe_textarea_code": 0,
+                    "parent_repeater": "field_showcasy_insights_group_articles"
+                },
+                {
+                    "key": "field_showcasy_insights_group_article_href",
+                    "label": "Link",
                     "name": "href",
                     "aria-label": "",
                     "type": "url",
@@ -120,7 +119,7 @@
                     },
                     "default_value": "",
                     "placeholder": "",
-                    "parent_repeater": "field_showcasy_contact_details_socials"
+                    "parent_repeater": "field_showcasy_insights_group_articles"
                 }
             ]
         }
@@ -130,7 +129,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/contact-details"
+                "value": "acf\/insights-group"
             }
         ]
     ],

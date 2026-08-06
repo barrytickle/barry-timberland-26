@@ -1,0 +1,19 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: works-details.html "The challenge" / "The outcome" sections.
+   Paragraphs field is split on blank lines so editors can add more than one paragraph. #}
+{% set heading = fields.heading|default("The challenge") %}
+{% set paragraphs = fields.paragraphs|default("Sportly had strong daily-active numbers but weak week-two retention. Users logged a run, then drifted. The brief: make the app social without adding friction.\n\nWe reframed the home screen around challenges friends could join, surfaced progress at a glance, and cut the log-a-run flow from five taps to two.")|split("\n\n") %}
+
+<section class="mx-auto max-w-[1200px] px-6 pb-8 lg:px-[72px]">
+	<div class="grid gap-10 lg:grid-cols-[0.6fr_1.4fr]">
+		<h2 class="h4">{{ heading }}</h2>
+		<div class="max-w-2xl">
+			{% for paragraph in paragraphs %}
+				<p class="body-18 {{ loop.first ? 'text-ink-600' : 'mt-5 text-ink-500' }}">{{ paragraph }}</p>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endif %}

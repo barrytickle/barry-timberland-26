@@ -3,6 +3,26 @@
     "title": "Testimonials Row",
     "fields": [
         {
+            "key": "field_showcasy_testimonials_row_heading",
+            "label": "Heading",
+            "name": "heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "What my clients say",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_showcasy_testimonials_row_items",
             "label": "Testimonials",
             "name": "testimonials",

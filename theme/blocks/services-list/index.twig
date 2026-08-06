@@ -1,0 +1,24 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: about.html services section #}
+{% set heading = fields.heading|default("Services") %}
+{% set services = fields.services|default([
+	{ title: 'UI/UX Design', description: 'End-to-end product design, from research and wireframes to polished, tested interfaces.' },
+	{ title: 'Branding', description: 'Identity systems that give your product a distinctive, consistent voice.' },
+	{ title: 'Mobile App', description: 'Native-feeling iOS and Android experiences designed around real user flows.' },
+	{ title: 'Website Design', description: 'Marketing sites and portfolios that convert, built on a clean design system.' }
+]) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+	<h2 class="h3 mb-12">{{ heading }}</h2>
+	<div class="divide-y divide-ink-300 border-y border-ink-300">
+		{% for service in services %}
+			<div class="grid gap-4 py-8 md:grid-cols-[0.6fr_1.4fr] md:gap-10">
+				<h3 class="h5">{{ service.title }}</h3>
+				<p class="body-18 text-ink-500">{{ service.description }}</p>
+			</div>
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

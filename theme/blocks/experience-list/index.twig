@@ -2,6 +2,7 @@
 	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/experience-list.html #}
+{% set heading = fields.heading|default("My past work experience") %}
 {% set roles = fields.roles|default([
 	{ title: 'Product Designer', company: 'Uber', dates: '2020 - 21' },
 	{ title: 'Lead Product Designer', company: 'Rovio', dates: '2021 - 22' },
@@ -9,15 +10,20 @@
 	{ title: 'Design Director', company: 'Google', dates: '2023 - Present' }
 ]) %}
 
-<div class="border-t border-ink-300" data-component="experience-list">
-	{% for role in roles %}
-		<div class="grid grid-cols-[1fr_auto] items-baseline gap-6 border-b border-ink-300 py-6">
-			<div>
-				<h4 class="body-22 font-semibold text-ink">{{ role.title }}</h4>
-				<p class="body-16 mt-1 text-ink-500">{{ role.company }}</p>
-			</div>
-			<p class="body-16 text-ink-500">{{ role.dates }}</p>
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+	<div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
+		<h2 class="h3">{{ heading }}</h2>
+		<div class="border-t border-ink-300" data-component="experience-list">
+			{% for role in roles %}
+				<div class="grid grid-cols-[1fr_auto] items-baseline gap-6 border-b border-ink-300 py-6">
+					<div>
+						<h4 class="body-22 font-semibold text-ink">{{ role.title }}</h4>
+						<p class="body-16 mt-1 text-ink-500">{{ role.company }}</p>
+					</div>
+					<p class="body-16 text-ink-500">{{ role.dates }}</p>
+				</div>
+			{% endfor %}
 		</div>
-	{% endfor %}
-</div>
+	</div>
+</section>
 {% endif %}

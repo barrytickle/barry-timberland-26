@@ -1,0 +1,21 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: works.html work-card grid #}
+{% set items = fields.items|default([
+	{ title: 'Sportly', category: 'Mobile App Design', href: site.url ~ '/works/sportly/' },
+	{ title: 'Payrole', category: 'Website Design', href: site.url ~ '/works/payrole/' },
+	{ title: 'Wepay', category: 'Mobile App Design', href: site.url ~ '/works/wepay/' },
+	{ title: 'Estatery', category: 'Website Design', href: site.url ~ '/works/estatery/' },
+	{ title: 'Lumina', category: 'Branding', href: site.url ~ '/works/lumina/' },
+	{ title: 'Northwind', category: 'UIUX', href: site.url ~ '/works/northwind/' }
+]) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]">
+	<div class="grid gap-x-8 gap-y-14 sm:grid-cols-2">
+		{% for item in items %}
+			{% include 'components/work-card.twig' with { title: item.title, category: item.category, href: item.href, image: item.image.url|default(null) } %}
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

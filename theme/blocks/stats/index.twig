@@ -9,9 +9,11 @@
 	{ value: '12', label: 'Awards won' }
 ]) %}
 
-<div class="grid grid-cols-2 gap-8 border-y border-ink-300 py-12 lg:grid-cols-4" data-component="stats">
-	{% for stat in stats %}
-		<div><p class="h2">{{ stat.value }}</p><p class="body-16 mt-2 text-ink-500">{{ stat.label }}</p></div>
-	{% endfor %}
-</div>
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+	<div class="grid grid-cols-2 gap-8 border-y border-ink-300 py-14 lg:grid-cols-4" data-component="stats">
+		{% for stat in stats %}
+			<div><p class="h2">{{ stat.value }}</p><p class="body-16 mt-2 text-ink-500">{{ stat.label }}</p></div>
+		{% endfor %}
+	</div>
+</section>
 {% endif %}

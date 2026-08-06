@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/bio-text",
+  "title": "Bio Text",
+  "description": "Two-column bio: a portrait image alongside intro paragraphs and a CTA.",
+  "category": "content-contact",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

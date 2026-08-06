@@ -1,0 +1,24 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: about-v2.html intro-with-stats section #}
+{% set heading = fields.heading|default("I’m the UI/UX and brand designer you need to take your digital presence to the next level") %}
+{% set body = fields.body|default("With a collaborative mindset and a dedication to their craft, I’m works closely with clients to understand their goals and objectives, providing tailored design solutions that meet their unique needs.") %}
+{% set stats = fields.stats|default([
+	{ value: '2 years', label: 'as a Product Designer at Uber' },
+	{ value: '3 years', label: 'as a Lead of Product Designer at Spotify' },
+	{ value: '5+ years', label: 'as a Head of Product Designer at Google' }
+]) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+	<div class="grid gap-10 lg:grid-cols-2">
+		<h2 class="h3">{{ heading }}</h2>
+		<p class="body-18 self-center text-ink-500">{{ body }}</p>
+	</div>
+	<div class="mt-14 grid grid-cols-1 gap-8 border-t border-ink-300 pt-12 sm:grid-cols-3" data-component="stats">
+		{% for stat in stats %}
+			<div class="text-center lg:text-left"><p class="h2">{{ stat.value }}</p><p class="body-16 mt-2 text-ink-500">{{ stat.label }}</p></div>
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

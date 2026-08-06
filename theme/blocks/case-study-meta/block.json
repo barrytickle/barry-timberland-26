@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/case-study-meta",
+  "title": "Case Study Meta",
+  "description": "A row of label/value stats, e.g. Client, Role, Year, Timeline.",
+  "category": "work-blog",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

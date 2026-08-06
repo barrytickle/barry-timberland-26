@@ -15,24 +15,26 @@
 	{ title: 'Site of The Day', meta: '2022 - AWWWARDS', href: '#' }
 ]) %}
 
-<div class="grid items-start gap-10 lg:grid-cols-2" data-component="awards-feature">
-	<div class="grid aspect-square place-items-center rounded-card bg-muted">
-		<svg class="h-24 w-24 text-ink-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5 3.8 8.5 9 10 5.2-1.5 9-5 9-10V6l-9-4Z" opacity=".9"></path></svg>
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+	<div class="grid items-start gap-10 lg:grid-cols-2" data-component="awards-feature">
+		<div class="grid aspect-square place-items-center rounded-card bg-muted">
+			<svg class="h-24 w-24 text-ink-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5 3.8 8.5 9 10 5.2-1.5 9-5 9-10V6l-9-4Z" opacity=".9"></path></svg>
+		</div>
+		<div>
+			<h2 class="h3">{{ heading }}</h2>
+			<p class="body-16 mt-4 text-ink-500">{{ credit }}</p>
+			<a class="group mt-6 inline-grid h-14 w-[84px] place-items-center rounded-full border border-ink text-ink transition hover:bg-ink hover:text-white" href="{{ href }}">
+				<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+			</a>
+		</div>
 	</div>
-	<div>
-		<h2 class="h3">{{ heading }}</h2>
-		<p class="body-16 mt-4 text-ink-500">{{ credit }}</p>
-		<a class="group mt-6 inline-grid h-14 w-[84px] place-items-center rounded-full border border-ink text-ink transition hover:bg-ink hover:text-white" href="{{ href }}">
-			<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
-		</a>
+	<div class="mt-6 divide-y divide-ink-300 border-t border-ink-300">
+		{% for mention in mentions %}
+			<a class="group flex items-center justify-between gap-6 py-6" href="{{ mention.href }}">
+				<div><h4 class="h6 text-[1.35rem]">{{ mention.title }}</h4><p class="body-14 mt-1 text-ink-500">{{ mention.meta }}</p></div>
+				<svg class="h-6 w-6 text-ink transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+			</a>
+		{% endfor %}
 	</div>
-</div>
-<div class="mt-6 divide-y divide-ink-300 border-t border-ink-300">
-	{% for mention in mentions %}
-		<a class="group flex items-center justify-between gap-6 py-6" href="{{ mention.href }}">
-			<div><h4 class="h6 text-[1.35rem]">{{ mention.title }}</h4><p class="body-14 mt-1 text-ink-500">{{ mention.meta }}</p></div>
-			<svg class="h-6 w-6 text-ink transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
-		</a>
-	{% endfor %}
-</div>
+</section>
 {% endif %}
