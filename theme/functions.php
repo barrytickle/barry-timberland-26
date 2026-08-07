@@ -6,6 +6,7 @@
  */
 
 use Twig\TwigFunction;
+use Twig\TwigFilter;
 // use BarryTimberHelpers; // Commented out as it is not defined
 
 require_once dirname( __DIR__ ) . '/vendor/autoload.php';
@@ -40,6 +41,7 @@ class Timberland extends Timber\Site {
 	public function add_twig_functions( $twig ) {
 		$twig->addFunction( new TwigFunction( 'check_url_match', array( $this, 'check_url_match' ) ) );
 		$twig->addFunction( new TwigFunction( 'to_snake_case', array( $this, 'to_snake_case' ) ) );
+		$twig->addFilter( new TwigFilter( 'nl2br', 'nl2br' ) );
 		return $twig;
 	}
 

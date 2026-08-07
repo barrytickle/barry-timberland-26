@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/split-content",
+  "title": "Split Content",
+  "description": "Two independent content columns side by side, each with its own heading, body text and optional link.",
+  "category": "content-contact",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

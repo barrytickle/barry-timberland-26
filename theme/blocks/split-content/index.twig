@@ -1,0 +1,32 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Two independent content columns, side by side. #}
+{% set eyebrow = fields.eyebrow|default('') %}
+{% set column_one = fields.column_one|default({
+	heading: 'The problem',
+	body: 'Most portfolios show the polished result and skip the reasoning. Clients are left guessing why a decision was made, which makes it harder to trust the next one.',
+	cta_link: null
+}) %}
+{% set column_two = fields.column_two|default({
+	heading: 'The approach',
+	body: 'Every project here includes the constraints, the alternatives considered, and why the final direction won. The goal is to make the thinking as visible as the pixels.',
+	cta_link: null
+}) %}
+{% set columns = [column_one, column_two] %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="split-content">
+	{% if eyebrow %}<p class="body-14 font-semibold uppercase tracking-tightest text-ink-500">{{ eyebrow }}</p>{% endif %}
+	<div class="{{ eyebrow ? 'mt-8' : '' }} grid gap-10 lg:grid-cols-2 lg:gap-16">
+		{% for column in columns %}
+			<div class="{{ not loop.first ? 'lg:border-l lg:border-ink-300 lg:pl-16' : '' }}">
+				{% if column.heading %}<h2 class="h4">{{ column.heading }}</h2>{% endif %}
+				{% if column.body %}<p class="body-18 {{ column.heading ? 'mt-5' : '' }} text-ink-500">{{ column.body|nl2br }}</p>{% endif %}
+				{% if column.cta_link.url %}
+					<div class="mt-6">{% include 'components/button.twig' with { href: column.cta_link.url, label: column.cta_link.title, target: column.cta_link.target, variant: 'text' } %}</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

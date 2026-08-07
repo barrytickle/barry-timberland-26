@@ -4,14 +4,16 @@
 {# Converted from Showcasy UI kit: components/hero-centered.html #}
 {% set heading_highlight = fields.heading_highlight|default("I’m Ivan,") %}
 {% set heading = fields.heading|default("a passionate designer specializing in digital solutions") %}
-{% set cta = fields.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+{% set cta = fields.cta_link %}
 {% set social_links = fields.social_links %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 text-center lg:px-[72px]" data-component="hero-centered">
 	<h1 class="h1 mx-auto max-w-5xl"><span class="text-ink-400">{{ heading_highlight }}</span> {{ heading }}</h1>
-	<div class="mt-10 flex justify-center">
-		{% include 'components/button.twig' with { href: cta.url, label: cta.title, target: cta.target, variant: 'filled', size: 'lg' } %}
-	</div>
+	{% if cta %}
+		<div class="mt-10 flex justify-center">
+			{% include 'components/button.twig' with { href: cta.url, label: cta.title, target: cta.target, variant: 'filled', size: 'lg' } %}
+		</div>
+	{% endif %}
 	<div class="mt-8 flex justify-center gap-8">
 		{% if social_links %}
 			{% for link in social_links %}
