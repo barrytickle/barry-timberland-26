@@ -4,11 +4,10 @@
 {# Converted from Showcasy UI kit: components/featured-article.html #}
 {% set heading = fields.heading|default("Exploring the Power of Minimalism in Visual Design") %}
 {% set excerpt = fields.excerpt|default("Dive into the world of minimalistic design and discover how simplicity, clean lines, and negative space can enhance user experiences.") %}
-{% set href = fields.href|default(site.url ~ '/blog/exploring-the-power-of-minimalism-in-visual-design/') %}
 {% set image = fields.image|default(null) %}
-
+{% set button = fields.button|default(null) %}
 <section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]" data-component="featured-article">
-<div class="grid items-center gap-8 rounded-3xl border border-ink-200 bg-white/60 p-6 lg:grid-cols-2 lg:p-8" >
+<div class="grid items-center gap-8 rounded-3xl  bg-white/60 p-6 lg:grid-cols-2 lg:p-8" >
 	{% if image %}
 		<div class="aspect-[4/3] overflow-hidden rounded-card bg-muted"><img src="{{ image.url }}" alt="{{ image.alt }}" class="h-full w-full object-cover"/></div>
 	{% else %}
@@ -17,7 +16,10 @@
 	<div>
 		<h3 class="h4">{{ heading }}</h3>
 		<p class="body-18 mt-5 text-ink-500">{{ excerpt }}</p>
-		<div class="mt-7">{% include 'components/button.twig' with { href: href, label: 'Read article', variant: 'icon', size: 'md' } %}</div>
+		{% if button %}
+
+		<div class="mt-7">{% include 'components/button.twig' with { href: button.url, label: button.title, variant: 'icon', size: 'md' } %}</div>
+		{% endif %}
 	</div>
 </div>
 </section>

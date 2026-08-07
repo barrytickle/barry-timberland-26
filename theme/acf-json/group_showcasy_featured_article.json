@@ -71,11 +71,11 @@
             "acfe_textarea_code": 0
         },
         {
-            "key": "field_showcasy_featured_article_href",
-            "label": "Article URL",
-            "name": "href",
+            "key": "field_6a763f515c140",
+            "label": "Button",
+            "name": "button",
             "aria-label": "",
-            "type": "url",
+            "type": "link",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -84,8 +84,8 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "placeholder": ""
+            "return_format": "array",
+            "allow_in_bindings": 0
         }
     ],
     "location": [
@@ -102,9 +102,16 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": [],
+    "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1786039776
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": "",
+    "modified": 1786134368
 }

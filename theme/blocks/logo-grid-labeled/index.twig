@@ -10,14 +10,29 @@
 	{ wordmark: 'portal', weight: 'font-semibold', label: 'UIUX & Branding', year: '2022' }
 ]) %}
 
+<!-- Ensures the font weight styles are loaded -->
+<div class="hidden">
+ <p class="font-bold"></p>
+ <p class="font-semibold"></p>
+</div>
+
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="logo-grid-labeled">
-	<h2 class="h3 mb-12">{{ heading }}</h2>
+	<h2 class="h3 mb-12 max-w-pct-75">{{ heading }}</h2>
 	<div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
 		{% for item in items %}
 			<div>
 				<p class="body-28 {{ item.weight }} text-ink-400">{{ item.wordmark }}</p>
-				<p class="body-16 mt-4 font-medium text-ink">{{ item.label }}</p>
-				<p class="body-14 text-ink-500">{{ item.year }}</p>
+				{% if not item.list %}
+					<p class="body-16 mt-4 font-medium text-ink">{{ item.label }}</p>
+					<p class="body-14 text-ink-500">{{ item.sublabel }}</p>
+				{% endif %}
+				{% if item.list %}
+					{# {{dump(item.list_items)}} #}
+					{% for it in item.list_items %}
+					{% set list_item = it.list_item %}
+						<p class="body-16 mt-4 font-medium text-ink">{{ list_item }}</p>
+					{% endfor %}
+				{% endif %}
 			</div>
 		{% endfor %}
 	</div>

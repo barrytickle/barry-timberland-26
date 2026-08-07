@@ -20,6 +20,29 @@
 
 {% set copyright_text = options.copyright_text|default('©' ~ ("now"|date("Y")) ~ ' ' ~ site.name ~ '. All rights reserved.') %}
 
+{% set heading = options.heading|default("Want to create something") %}
+{% set heading_highlight = options.heading_highlight|default("awesome?") %}
+{% set cta = options.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+
+{% if footer_links is defined and footer_links|length > 4 %}
+  {% set columns = [] %}
+  {% for i in 0..((footer_links|length - 1) // 4) %}
+    {% set columns = columns|merge([footer_links|slice(i * 4, 4)]) %}
+  {% endfor %}
+{% else %}
+  {% set columns = [footer_links] %}
+{% endif %}
+
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="cta-light">
+	<div class="rounded-3xl bg-ink-200/70 px-8 py-20 text-center">
+		<h2 class="h2 mx-auto max-w-3xl">{{ heading }} <span class="text-ink-400">{{ heading_highlight }}</span></h2>
+		<div class="mt-10 flex justify-center">
+			{% include 'components/button.twig' with { href: cta.url, label: cta.title, target: cta.target, variant: 'filled', size: 'lg' } %}
+		</div>
+	</div>
+</section>
+
 
 <footer class="bg-ink px-6 pb-10 pt-16 text-white lg:px-[72px]" data-component="footer">
 	<div class="mx-auto max-w-[1200px]">
@@ -40,7 +63,32 @@
 				<p class="body-18 mb-6 font-semibold text-ink-400">{{footer_title}}</p>
 
 				<div class="grid grid-cols-2 gap-x-8 gap-y-3 body-16 sm:grid-cols-4">
-					{% for link in footer_links %}<a class="text-ink-200 hover:text-white" href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
+					<div class="flex flex-col gap-2">
+						{% for link in columns[0] %}
+							<a class="text-ink-200 hover:text-white" href="{{ link.url }}">{{ link.label }}</a>
+						{% endfor %}
+					</div>
+				 {% if columns[1] is defined %}
+					<div class="flex flex-col gap-2">
+						{% for link in columns[1] %}
+							<a class="text-ink-200 hover:text-white" href="{{ link.url }}">{{ link.label }}</a>
+						{% endfor %}
+					</div>
+				 {% endif %}
+				 {% if columns[2] is defined %}
+					<div class="flex flex-col gap-2">
+						{% for link in columns[2] %}
+							<a class="text-ink-200 hover:text-white" href="{{ link.url }}">{{ link.label }}</a>
+						{% endfor %}
+					</div>
+				 {% endif %}
+				 {% if columns[3] is defined %}
+					<div class="flex flex-col gap-2">
+						{% for link in columns[3] %}
+							<a class="text-ink-200 hover:text-white" href="{{ link.url }}">{{ link.label }}</a>
+						{% endfor %}
+					</div>
+				 {% endif %}
 				</div>
 			</div>
 

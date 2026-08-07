@@ -3,21 +3,22 @@
     "title": "Logo Grid Labeled",
     "fields": [
         {
-            "key": "field_showcasy_logo_grid_labeled_heading",
+            "key": "field_6a76469c6d59a",
             "label": "Heading",
             "name": "heading",
             "aria-label": "",
             "type": "text",
             "instructions": "",
-            "required": false,
-            "conditional_logic": false,
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "default_value": "A visual partner for brands, companies, and agencies",
+            "default_value": "",
             "maxlength": "",
+            "allow_in_bindings": 0,
             "placeholder": "",
             "prepend": "",
             "append": ""
@@ -66,24 +67,55 @@
                     "parent_repeater": "field_showcasy_logo_grid_labeled_items"
                 },
                 {
-                    "key": "field_showcasy_logo_grid_labeled_item_weight",
-                    "label": "Wordmark weight class",
+                    "key": "field_6a7644979716f",
+                    "label": "Weight",
                     "name": "weight",
                     "aria-label": "",
-                    "type": "text",
-                    "instructions": "Tailwind class, e.g. font-semibold or font-bold",
-                    "required": false,
-                    "conditional_logic": false,
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
-                    "maxlength": "",
+                    "choices": {
+                        "font-semibold": "Semi Bold",
+                        "font-bold": "Bold"
+                    },
+                    "default_value": "semi-bold",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_in_bindings": 0,
+                    "ui": 0,
+                    "ajax": 0,
                     "placeholder": "",
-                    "prepend": "",
-                    "append": "",
+                    "allow_custom": 0,
+                    "search_placeholder": "",
+                    "parent_repeater": "field_showcasy_logo_grid_labeled_items"
+                },
+                {
+                    "key": "field_showcasy_logo_grid_labeled_item_weight",
+                    "label": "List",
+                    "name": "list",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Tailwind class, e.g. font-semibold or font-bold",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "allow_in_bindings": 1,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
                     "parent_repeater": "field_showcasy_logo_grid_labeled_items"
                 },
                 {
@@ -93,8 +125,16 @@
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_showcasy_logo_grid_labeled_item_weight",
+                                "operator": "!=",
+                                "value": "1"
+                            }
+                        ]
+                    ],
                     "wrapper": {
                         "width": "",
                         "class": "",
@@ -102,6 +142,7 @@
                     },
                     "default_value": "",
                     "maxlength": "",
+                    "allow_in_bindings": 1,
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
@@ -109,13 +150,21 @@
                 },
                 {
                     "key": "field_showcasy_logo_grid_labeled_item_year",
-                    "label": "Year",
-                    "name": "year",
+                    "label": "Sub label",
+                    "name": "sublabel",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_showcasy_logo_grid_labeled_item_weight",
+                                "operator": "!=",
+                                "value": "1"
+                            }
+                        ]
+                    ],
                     "wrapper": {
                         "width": "",
                         "class": "",
@@ -123,9 +172,66 @@
                     },
                     "default_value": "",
                     "maxlength": "",
+                    "allow_in_bindings": 1,
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
+                    "parent_repeater": "field_showcasy_logo_grid_labeled_items"
+                },
+                {
+                    "key": "field_6a7645e9aab87",
+                    "label": "List Items",
+                    "name": "list_items",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_showcasy_logo_grid_labeled_item_weight",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "acfe_repeater_stylised_button": 0,
+                    "layout": "table",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 4,
+                    "collapsed": "",
+                    "button_label": "Add Item",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_6a7645f4aab88",
+                            "label": "List item",
+                            "name": "list_item",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_6a7645e9aab87"
+                        }
+                    ],
                     "parent_repeater": "field_showcasy_logo_grid_labeled_items"
                 }
             ]
@@ -145,9 +251,16 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": [],
+    "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1786039776
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": "",
+    "modified": 1786136402
 }

@@ -1,5 +1,13 @@
 import typography from "@tailwindcss/typography";
 
+/** Percentage scale — use as w-pct-50, max-h-pct-75, min-w-pct-25, etc. */
+const pct = Object.fromEntries(
+  Array.from({ length: 21 }, (_, i) => {
+    const value = i * 5;
+    return [`pct-${value}`, `${value}%`];
+  }),
+);
+
 // Define your safelisted class names here
 const safelist = [
   "bg-red-500",
@@ -56,10 +64,29 @@ export default {
 
       width: {
         18: "4.5rem",
+        ...pct,
       },
 
       height: {
         18: "4.5rem",
+        ...pct,
+      },
+
+      minWidth: {
+        ...pct,
+      },
+
+      maxWidth: {
+        container: "1056px",
+        ...pct,
+      },
+
+      minHeight: {
+        ...pct,
+      },
+
+      maxHeight: {
+        ...pct,
       },
 
       inset: {
@@ -78,7 +105,6 @@ export default {
 
       letterSpacing: { tightest: "-0.02em" },
       borderRadius: { card: "24px" },
-      maxWidth: { container: "1056px" },
 
       // Semantic type scale from the Showcasy UI kit — also exposed as
       // .h1-.h6 / .body-* / .display in theme.scss.
