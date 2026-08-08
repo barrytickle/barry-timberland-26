@@ -1,0 +1,33 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: work-pages/works-v1.html.
+   Resolves the "Case Studies" page, which already referenced this block name before it existed.
+   Same get_posts() approach as work-grid.twig, but a single-column wide-card listing since
+   case studies are a smaller, more curated set than the full Projects grid. #}
+{% set title = fields.title %}
+{% set button = fields.button %}
+{% set project_limit = fields.how_many_case_studies %}
+{% set projects = get_posts({ 'post_type': 'project', 'posts_per_page': project_limit, 'orderby': 'date', 'order': 'DESC' }) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]" data-component="all-case-studies">
+	<div class="mb-12 flex flex-wrap items-center justify-between gap-4" data-component="section-header">
+		{% if title %}
+		<h2 class="h3">{{ title }}</h2>
+		{% endif %}
+		{% if button %}
+		<a class="group inline-flex items-center gap-2.5 rounded-full border border-ink px-6 py-3.5 body-16 font-semibold text-ink transition duration-200 hover:bg-ink hover:text-white" href="{{ button.url }}"{% if button.target %} target="{{ button.target }}"{% endif %}>
+			{{ button.title }}
+			<svg class="h-4 w-4 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+		</a>
+		{% endif %}
+	</div>
+
+	<div class="flex flex-col gap-14">
+		{% for project in projects %}
+			{% set category = project.terms('project_category')|first %}
+			{% include 'components/work-card-wide.twig' with { title: project.title, category: category ? category.name : '', href: project.link, image: project.thumbnail ? project.thumbnail.src : null } %}
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

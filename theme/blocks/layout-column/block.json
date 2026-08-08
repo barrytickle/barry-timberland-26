@@ -1,0 +1,25 @@
+{
+  "apiVersion": 2,
+  "name": "acf/layout-column",
+  "title": "Layout Column",
+  "description": "A single column inside a Split Layout block. Add any other blocks in here.",
+  "category": "layout",
+  "parent": ["acf/split-layout"],
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": true,
+    "reusable": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

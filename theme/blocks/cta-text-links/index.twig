@@ -1,0 +1,19 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: about-me-v1.html "cta-v1-section" (eyebrow + heading, underlined text links instead of a button). #}
+{% set eyebrow = fields.eyebrow %}
+{% set heading = fields.heading %}
+{% set heading_highlight = fields.heading_highlight %}
+{% set links = fields.links %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 text-center lg:px-[72px] lg:py-24" data-component="cta-text-links">
+	<p class="body-22 text-ink-600">{{ eyebrow }}</p>
+	<h2 class="h2 mt-3">{{ heading }} <span class="text-ink-400">{{ heading_highlight }}</span></h2>
+	<div class="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-3">
+		{% for link in links %}
+			<a class="body-16 font-semibold uppercase tracking-tightest text-ink underline decoration-ink-300 underline-offset-4 transition hover:decoration-ink" href="{{ link.url }}"{% if link.target %} target="{{ link.target }}"{% endif %}>{{ link.label }}</a>
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

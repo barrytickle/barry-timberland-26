@@ -1,10 +1,10 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/cta-light.html #}
-{% set heading = fields.heading|default("Want to create something") %}
-{% set heading_highlight = fields.heading_highlight|default("awesome?") %}
-{% set cta = fields.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+{% set heading = fields.heading %}
+{% set heading_highlight = fields.heading_highlight %}
+{% set cta = fields.cta_link %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="cta-light">
 	<div class="rounded-3xl bg-ink-200/70 px-8 py-20 text-center">

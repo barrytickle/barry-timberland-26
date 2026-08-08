@@ -1,21 +1,26 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/contact-details.html #}
-{% set email = fields.email|default("hello@showcasy.com") %}
-{% set location = fields.location|default("London, UK") %}
-{% set submit_label = fields.submit_label|default("Send Message") %}
-{% set socials = fields.socials|default([
-	{ label: 'Instagram', href: '#' },
-	{ label: 'Behance', href: '#' },
-	{ label: 'Twitter', href: '#' }
-]) %}
+{% set email = fields.email %}
+{% set location = fields.location %}
+{% set submit_label = fields.submit_label %}
+{% set socials = fields.socials %}
+{% set form_action = fields.form_action %}
+{% set service_options = fields.service_options %}
+{% set budget_options = fields.budget_options %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]" data-component="contact-details">
 	<div class="grid gap-14 lg:grid-cols-[1.3fr_0.7fr]">
-		<form class="max-w-2xl" data-component="form-fields" method="post" onsubmit="return false">
+		<form class="max-w-2xl" data-component="form-fields" action="{{form_action}}" method="post" onsubmit="return false">
 			{% include 'components/form-field.twig' with { label: 'Name', name: 'name', type: 'text', placeholder: 'Hello…' } %}
 			{% include 'components/form-field.twig' with { label: 'Email', name: 'email', type: 'email', placeholder: 'Where can I reply?' } %}
+			{% if service_options %}
+				<div class="mb-8">{% include 'components/chip-field.twig' with { legend: 'What can I help with?', name: 'service', type: 'radio', options: service_options|map(o => { value: o.label, label: o.label }) } %}</div>
+			{% endif %}
+			{% if budget_options %}
+				<div class="mb-8">{% include 'components/chip-field.twig' with { legend: 'Budget range', name: 'budget', type: 'radio', options: budget_options|map(o => { value: o.label, label: o.label }) } %}</div>
+			{% endif %}
 			{% include 'components/form-field.twig' with { label: 'Message', name: 'message', type: 'textarea', placeholder: 'Tell me about your project…', rows: 4 } %}
 			<button class="group inline-flex items-center gap-3 rounded-full bg-ink px-8 py-5 body-18 font-semibold text-white transition duration-200 hover:bg-ink-800" type="submit">
 				{{ submit_label }}
@@ -31,12 +36,14 @@
 				<p class="body-14 text-ink-500">Based in</p>
 				<p class="body-22 mt-1 font-semibold">{{ location }}</p>
 			</div>
+				{% if socials %}
 			<div>
 				<p class="body-14 text-ink-500 mb-3">Follow</p>
 				<div class="flex flex-wrap gap-3">
 					{% for social in socials %}<a class="rounded-full border border-ink px-5 py-2.5 body-14 font-medium transition duration-200 hover:bg-ink hover:text-white" href="{{ social.href }}">{{ social.label }}</a>{% endfor %}
 				</div>
 			</div>
+			{% endif %}
 		</div>
 	</div>
 </section>

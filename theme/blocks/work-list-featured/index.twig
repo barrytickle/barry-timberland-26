@@ -1,13 +1,10 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/work-list-featured.html
    Note: the source fragment shows a single featured item; this block loops
    the same markup over a list so multiple case studies can be featured. #}
-{% set items = fields.items|default([
-	{ title: 'Sportly', date: 'May 5, 2023', description: 'Website Redesign: Improving user experience and modernizing design.', tags: 'UIUX, Branding', href: site.url ~ '/works/sportly/' },
-	{ title: 'Wepay', date: 'April 12, 2023', description: 'Mobile App Design: A fresh, friendly payments experience for everyday spending.', tags: 'Mobile App, UIUX', href: site.url ~ '/works/wepay/' }
-]) %}
+{% set items = fields.items %}
 
 <section class="mx-auto max-w-[1200px] px-6 pb-10 lg:px-[72px]" data-component="work-list-featured">
 	<div class="divide-y divide-ink-300 border-y border-ink-300">
@@ -24,7 +21,7 @@
 				<a class="group relative mt-8 block" href="{{ item.href }}">
 					{% if item.image %}
 						<div class="aspect-[16/7] overflow-hidden rounded-card">
-							<img class="h-full w-full object-cover" src="{{ item.image.url }}" alt="{{ item.image.alt|default(item.title) }}">
+							<img class="h-full w-full object-cover" src="{{ item.image.url }}" alt="{{ item.image.alt }}">
 						</div>
 					{% else %}
 						<div class="grid aspect-[16/7] place-items-center overflow-hidden rounded-card bg-muted">

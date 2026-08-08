@@ -3,7 +3,7 @@
   "name": "acf/case-study-text",
   "title": "Case Study Text",
   "description": "A heading with body copy in a narrow column, e.g. 'The challenge' or 'The outcome'.",
-  "category": "work-blog",
+  "category": "case-studies",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

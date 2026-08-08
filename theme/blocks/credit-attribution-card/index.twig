@@ -1,0 +1,26 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: template-pages/licenses.html "Typefaces" / "Icons" sections. #}
+{% set heading = fields.heading %}
+{% set description = fields.description %}
+{% set items = fields.items %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]" data-component="credit-attribution-card">
+	<h2 class="h4">{{ heading }}</h2>
+	<p class="body-16 mt-3 max-w-2xl text-ink-500">{{ description }}</p>
+	<div class="mt-8 flex flex-col gap-6">
+		{% for item in items %}
+			<div class="flex flex-wrap items-center gap-5 rounded-card border border-ink-200 p-6">
+				<div class="flex-1">
+					<p class="body-22 font-semibold">{{ item.name }}</p>
+					{% if item.details %}<p class="body-14 mt-1 text-ink-500">{{ item.details }}</p>{% endif %}
+				</div>
+				{% if item.link.url %}
+					{% include 'components/button.twig' with { href: item.link.url, label: item.link.title, target: item.link.target, variant: 'outlined', size: 'sm' } %}
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

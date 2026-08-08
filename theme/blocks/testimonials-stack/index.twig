@@ -1,13 +1,9 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/testimonials-stack.html #}
-{% set heading = fields.heading|default("Let’s see what my clients say") %}
-{% set testimonials = fields.testimonials|default([
-	{ quote: "I had the pleasure of working with Ivan on a recent project, and I was blown away by their creativity and attention to detail.", initials: 'RJ', name: 'Richard Jonas', role: 'CEO of Teamwork', brand: 'teamwork' },
-	{ quote: "Ivan is an exceptionally talented designer who consistently exceeded our expectations, with designs that captured our brand's essence.", initials: 'RV', name: 'Rachel Voskov', role: 'CEO of Pipefy', brand: 'pipefy' },
-	{ quote: "Working with Ivan was a game-changer for our business. His keen eye for detail enhanced the overall usability of our product.", initials: 'JM', name: 'Jacob McDany', role: 'CEO of Rackspace', brand: 'rackspace' }
-]) %}
+{% set heading = fields.heading %}
+{% set testimonials = fields.testimonials %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="testimonials-stack">
 	<div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
@@ -18,10 +14,18 @@
 					<blockquote class="body-18 text-ink-700">"{{ t.quote }}"</blockquote>
 					<div class="mt-6 flex items-center justify-between">
 						<div class="flex items-center gap-4">
-							<span class="grid h-12 w-12 place-items-center rounded-full bg-ink-300 body-14 font-semibold text-ink-700">{{ t.initials }}</span>
+							{% if t.photo %}
+								<img class="h-12 w-12 rounded-full object-cover" src="{{ t.photo.url }}" alt="{{ t.photo.alt }}">
+							{% else %}
+								<span class="grid h-12 w-12 place-items-center rounded-full bg-ink-300 body-14 font-semibold text-ink-700">{{ t.initials }}</span>
+							{% endif %}
 							<div><p class="body-16 font-semibold">{{ t.name }}</p><p class="body-14 text-ink-500">{{ t.role }}</p></div>
 						</div>
-						<span class="body-18 font-semibold text-ink-400">{{ t.brand }}<span class="text-ink-300">.</span></span>
+						{% if t.logo %}
+							<img class="h-6 w-auto max-w-[100px] object-contain" src="{{ t.logo.url }}" alt="{{ t.logo.alt }}">
+						{% else %}
+							<span class="body-18 font-semibold text-ink-400">{{ t.brand }}<span class="text-ink-300">.</span></span>
+						{% endif %}
 					</div>
 				</div>
 			{% endfor %}

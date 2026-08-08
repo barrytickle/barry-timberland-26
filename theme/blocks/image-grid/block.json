@@ -3,7 +3,7 @@
   "name": "acf/image-grid",
   "title": "Image Grid",
   "description": "A row of 2-3 equal-width images, e.g. supporting screenshots.",
-  "category": "content-contact",
+  "category": "images-media",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

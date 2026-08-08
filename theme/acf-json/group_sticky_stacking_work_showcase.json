@@ -1,0 +1,45 @@
+{
+    "key": "group_sticky_stacking_work_showcase",
+    "title": "Sticky Stacking Work Showcase",
+    "fields": [
+        {
+            "key": "field_sticky_stacking_work_showcase_count",
+            "label": "How Many Projects",
+            "name": "how_many_projects",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 4,
+            "min": 1,
+            "max": 10,
+            "placeholder": "",
+            "step": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/sticky-stacking-work-showcase"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1786051505
+}

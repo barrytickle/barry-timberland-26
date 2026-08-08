@@ -1,10 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
+@import "./theme.scss";
 @import "tailwindcss/utilities";
-
-body {
-  @apply font-sans bg-red-50;
-}
 
 .wp-block {
   @apply max-w-screen-xl;

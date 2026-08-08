@@ -3,7 +3,7 @@
   "name": "acf/work-grid",
   "title": "Work Grid",
   "description": "A two-column grid of work/case-study cards.",
-  "category": "work-blog",
+  "category": "work-portfolio",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

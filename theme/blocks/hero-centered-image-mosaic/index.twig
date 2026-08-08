@@ -1,0 +1,42 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: home-v2.html top hero section #}
+{% set eyebrow = fields.eyebrow %}
+{% set heading = fields.heading %}
+{% set supporting_text = fields.supporting_text %}
+{% set cta = fields.cta_link %}
+{% set image_portrait = fields.image_portrait %}
+{% set image_wide = fields.image_wide %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="hero-centered-image-mosaic">
+	<div class="rounded-3xl bg-muted px-6 py-16 sm:px-10 lg:px-16 lg:py-24">
+		<div class="mx-auto max-w-3xl text-center">
+			<p class="body-22 text-ink-700">{{ eyebrow }}</p>
+			<h1 class="h1 mt-5">{{ heading }}</h1>
+			<p class="body-18 mx-auto mt-8 max-w-2xl text-ink-500">{{ supporting_text }}</p>
+			{% if cta %}
+				<div class="mt-8 flex justify-center">
+					{% include 'components/button.twig' with { href: cta.url, label: cta.title, target: cta.target, variant: 'filled', size: 'lg' } %}
+				</div>
+			{% endif %}
+		</div>
+		<div class="mt-16 grid gap-4 sm:grid-cols-3">
+			{% if image_portrait %}
+				<img class="h-72 w-full rounded-2xl object-cover sm:col-span-1" src="{{ image_portrait.url }}" alt="{{ image_portrait.alt }}">
+			{% else %}
+				<div class="grid h-72 w-full place-items-center rounded-2xl bg-ink-200 sm:col-span-1">
+					<svg class="h-10 w-10 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
+				</div>
+			{% endif %}
+			{% if image_wide %}
+				<img class="h-72 w-full rounded-2xl bg-white object-contain p-5 sm:col-span-2" src="{{ image_wide.url }}" alt="{{ image_wide.alt }}">
+			{% else %}
+				<div class="grid h-72 w-full place-items-center rounded-2xl bg-white sm:col-span-2">
+					<svg class="h-10 w-10 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</section>
+{% endif %}

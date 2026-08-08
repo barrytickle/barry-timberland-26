@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/browser-mockup",
+  "title": "Browser Mockup",
+  "description": "A website screenshot framed in a desktop browser window, with traffic-light dots and a URL bar.",
+  "category": "images-media",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

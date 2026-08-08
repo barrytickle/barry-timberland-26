@@ -1,0 +1,31 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from the barrys-spectacular-site Webflow export: work-pages/works-v1.html "work-staking" section.
+   Each card is position:sticky with an increasing top offset, so cards visually stack/overlap as you scroll past them. #}
+{% set project_limit = fields.how_many_projects %}
+{% set projects = get_posts({ 'post_type': 'project', 'posts_per_page': project_limit, 'orderby': 'date', 'order': 'DESC' }) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="sticky-stacking-work-showcase">
+	{% for project in projects %}
+		{% set category = project.terms('project_category')|first %}
+		<div class="sticky mb-8" style="top: {{ 24 + loop.index0 * 24 }}px">
+			<a class="group block overflow-hidden rounded-card bg-white shadow-lg" href="{{ project.link }}">
+				<div class="aspect-[16/9] overflow-hidden bg-muted">
+					{% if project.thumbnail %}
+						<img class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105" src="{{ project.thumbnail.src }}" alt="{{ project.title }}">
+					{% else %}
+						<div class="grid h-full place-items-center"><svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg></div>
+					{% endif %}
+				</div>
+				<div class="flex items-center justify-between px-8 py-6">
+					<div><p class="h6">{{ project.title }}</p><p class="body-16 mt-1 text-ink-500">{{ category ? category.name : '' }}</p></div>
+					<span class="grid h-14 w-14 shrink-0 place-items-center rounded-full border border-ink text-ink transition duration-200 group-hover:bg-ink group-hover:text-white">
+						<svg class="h-4 w-4 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+					</span>
+				</div>
+			</a>
+		</div>
+	{% endfor %}
+</section>
+{% endif %}

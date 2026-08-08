@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/dark-project-showcase",
+  "title": "Dark Project Showcase",
+  "description": "Dark section with a 2-up grid of large rounded project cards — screenshot, plain title and year, no button.",
+  "category": "work-portfolio",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

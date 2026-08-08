@@ -3,7 +3,7 @@
   "name": "acf/bio-text",
   "title": "Bio Text",
   "description": "Two-column bio: a portrait image alongside intro paragraphs and a CTA.",
-  "category": "content-contact",
+  "category": "content-about",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

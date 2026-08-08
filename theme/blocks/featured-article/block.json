@@ -3,7 +3,7 @@
   "name": "acf/featured-article",
   "title": "Featured Article",
   "description": "Highlighted article with image well, heading, excerpt and a link.",
-  "category": "work-blog",
+  "category": "blog-insights",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

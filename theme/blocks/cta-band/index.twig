@@ -1,9 +1,9 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/cta-band.html #}
-{% set heading = fields.heading|default("Have a project in mind? Let’s create something great together.") %}
-{% set cta = fields.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+{% set heading = fields.heading %}
+{% set cta = fields.cta_link %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px] lg:py-24" data-component="cta-band">
 	<div class="rounded-3xl bg-ink px-8 py-16 text-center lg:py-24">

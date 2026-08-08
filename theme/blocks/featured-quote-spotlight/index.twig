@@ -1,0 +1,25 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Barry's Spectacular Site export: home-v1.html dark quote spotlight (no avatar, no brand tag) #}
+{% set eyebrow = fields.eyebrow %}
+{% set quote = fields.quote %}
+{% set name = fields.name %}
+{% set role = fields.role %}
+{% set dark = fields.dark_background is not defined or fields.dark_background %}
+
+<section class="{{ dark ? 'bg-ink text-white' : 'bg-white text-ink' }}" data-component="featured-quote-spotlight">
+	<div class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+		<div class="grid gap-14 lg:grid-cols-[0.7fr_1.3fr]">
+			<div>
+				<p class="body-14 font-semibold uppercase tracking-tightest {{ dark ? 'text-white/50' : 'text-ink-500' }}">{{ eyebrow }}</p>
+				<svg class="mt-8 h-12 w-12 {{ dark ? 'text-white/70' : 'text-ink-300' }}" fill="currentColor" viewBox="0 0 24 24"><path d="M7 8c-2.2 0-4 1.8-4 4v6h6v-6H6.2C6.6 10.7 7.7 10 9 10V8Zm10 0c-2.2 0-4 1.8-4 4v6h6v-6h-2.8c.4-1.3 1.5-2 2.8-2V8Z"></path></svg>
+			</div>
+			<blockquote class="h5 max-w-3xl">
+				“{{ quote }}”
+				<footer class="body-16 mt-8 font-normal {{ dark ? 'text-white/60' : 'text-ink-500' }}">{{ name }}{% if role %}, {{ role }}{% endif %}</footer>
+			</blockquote>
+		</div>
+	</div>
+</section>
+{% endif %}

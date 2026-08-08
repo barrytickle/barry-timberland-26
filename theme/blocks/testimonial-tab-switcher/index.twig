@@ -1,0 +1,32 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from the barrys-spectacular-site Webflow export: home-pages/home-v1.html ".home-v1-testimonial-tabs".
+   One large quote shown at a time; clicking a client below swaps which quote displays above.
+   Implemented with Alpine.js (already loaded globally via theme/assets/main.js) rather than Webflow's w-tabs. #}
+{% set heading = fields.heading %}
+{% set testimonials = fields.testimonials %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="testimonial-tab-switcher" x-data="{ active: 0 }">
+	{% if heading %}<h2 class="h3 mb-10 max-w-xl">{{ heading }}</h2>{% endif %}
+
+	<div class="min-h-[8rem]">
+		{% for t in testimonials %}
+			<blockquote x-cloak x-show="active === {{ loop.index0 }}" class="h5 max-w-3xl font-normal text-ink-700">"{{ t.quote }}"</blockquote>
+		{% endfor %}
+	</div>
+
+	<div class="mt-10 flex flex-wrap gap-8 border-t border-ink-200 pt-8">
+		{% for t in testimonials %}
+			<button type="button" @click="active = {{ loop.index0 }}" class="flex items-center gap-3 text-left transition duration-200" :class="active === {{ loop.index0 }} ? 'opacity-100' : 'opacity-40 hover:opacity-70'">
+				{% if t.avatar %}
+					<img class="h-12 w-12 rounded-full object-cover" src="{{ t.avatar.url }}" alt="{{ t.name }}">
+				{% else %}
+					<span class="grid h-12 w-12 place-items-center rounded-full bg-ink-300 body-14 font-semibold text-ink-700">{{ t.initials }}</span>
+				{% endif %}
+				<span><span class="block body-16 font-semibold">{{ t.name }}</span><span class="block body-14 text-ink-500">{{ t.role }}</span></span>
+			</button>
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

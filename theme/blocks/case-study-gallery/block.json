@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/case-study-gallery",
+  "title": "Case Study Gallery",
+  "description": "A case study image gallery: a 2-up image row followed by a single full-width image.",
+  "category": "case-studies",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

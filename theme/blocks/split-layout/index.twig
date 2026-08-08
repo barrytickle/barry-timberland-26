@@ -1,0 +1,19 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Structural container: renders two InnerBlocks columns (via acf/layout-column) at the chosen width ratio. #}
+{% set ratio = fields.ratio %}
+{% set column_classes = {
+	'50/50': 'lg:grid-cols-2',
+	'60/40': 'lg:grid-cols-[1.5fr_1fr]',
+	'40/60': 'lg:grid-cols-[1fr_1.5fr]',
+	'70/30': 'lg:grid-cols-[2.33fr_1fr]',
+	'30/70': 'lg:grid-cols-[1fr_2.33fr]'
+} %}
+
+<div class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="split-layout">
+	<div class="grid gap-10 lg:gap-16 {{ column_classes[ratio] }}">
+		<InnerBlocks allowedBlocks='["acf/layout-column"]' template='[["acf/layout-column",{}],["acf/layout-column",{}]]' templateLock="insert" />
+	</div>
+</div>
+{% endif %}

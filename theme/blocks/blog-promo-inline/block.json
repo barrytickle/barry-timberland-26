@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/blog-promo-inline",
+  "title": "Blog Promo (Inline)",
+  "description": "A horizontal image-left, text-right card for cross-promoting another article inside rich text content.",
+  "category": "blog-insights",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

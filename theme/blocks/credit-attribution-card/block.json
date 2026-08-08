@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/credit-attribution-card",
+  "title": "Credit Attribution Card",
+  "description": "A repeatable list of credited resources (typefaces, icon sets, etc.), each with an optional detail line and a visit-website link.",
+  "category": "stats-credentials",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

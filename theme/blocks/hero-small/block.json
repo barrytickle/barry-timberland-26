@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/hero-small",
+  "title": "Hero Small",
+  "description": "Small intro hero with heading, and supporting text.",
+  "category": "heroes",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/hero-portrait-secondary-heading",
+  "title": "Hero Portrait Secondary Heading",
+  "description": "A big top-level heading, then a portrait image beside a second, smaller heading and paragraph.",
+  "category": "heroes",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

@@ -1,5 +1,30 @@
 /* Custom theme styles */
 
+/* Everything in this file is shared by both main.scss (front end) and
+   editor-style.scss (block editor iframe) — keep it that way so the two
+   never drift apart again. Anything a block's Twig template can render
+   (typography, .content-page rules, etc.) belongs here, not in main.scss. */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
+
+:root {
+  font-family: "Inter Tight", sans-serif;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.admin-bar {
+  max-height: calc(100vh - 32px);
+  font-family: "Inter", sans-serif;
+}
+
+.no-move {
+  @apply h-full w-full overflow-hidden;
+}
+
 /* ============================================================
    Showcasy UI kit — semantic type scale (mirrors the Figma text
    styles) + logo marquee. Everything else is Tailwind utilities
@@ -30,3 +55,55 @@
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .marquee-track { display: flex; width: max-content; animation: marquee 28s linear infinite; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
+
+.content-page,
+.wp-block-post-content {
+  > *:not(h2):not(h3):not(h4):not(h5) {
+    @apply mb-4;
+  }
+
+  h2:not([class]) {
+    @apply text-3xl font-bold;
+  }
+
+  h3:not([class]) {
+    @apply text-2xl font-medium;
+  }
+
+  h4:not([class]) {
+    @apply text-xl font-medium;
+  }
+
+  h5:not([class]) {
+    @apply text-lg font-medium;
+  }
+
+  blockquote:not([class]) {
+    @apply border-l-2 border-ink-300 pl-6 text-xl font-medium italic text-ink-700;
+  }
+
+  figure:not([class]) {
+    @apply mb-4;
+  }
+
+  figcaption:not([class]) {
+    @apply mt-2 text-sm text-ink-500;
+  }
+}
+
+.wrapped-content {
+  @apply max-w-2xl mx-auto;
+}
+
+// case-study-body's WYSIWYG field is restricted to Paragraph + Heading 4 only
+// (see acf_case_study_wysiwyg_toolbar() in functions.php), so plain h4/p tags is all
+// editors can produce here — style them directly rather than relying on .content-page.
+.case-study-body-content {
+  h4:not([class]) {
+    @apply mt-10 text-2xl font-semibold text-ink first:mt-0;
+  }
+
+  p:not([class]) {
+    @apply mt-4 text-lg text-ink-500;
+  }
+}

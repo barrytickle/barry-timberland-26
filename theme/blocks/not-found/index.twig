@@ -1,11 +1,11 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/not-found.html #}
-{% set heading_highlight = fields.heading_highlight|default("404") %}
-{% set heading = fields.heading|default("Not Found") %}
-{% set body = fields.body|default("It seems you got a little bit lost.") %}
-{% set cta = fields.cta_link|default({ url: site.url, title: 'Go to Home' }) %}
+{% set heading_highlight = fields.heading_highlight %}
+{% set heading = fields.heading %}
+{% set body = fields.body %}
+{% set cta = fields.cta_link %}
 
 <section class="mx-auto flex max-w-[1200px] flex-col items-center px-6 py-28 text-center lg:px-[72px]" data-component="not-found">
 	<h1 class="h1"><span class="text-ink-400">{{ heading_highlight }}</span> {{ heading }}</h1>

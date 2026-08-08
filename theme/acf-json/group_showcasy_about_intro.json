@@ -45,10 +45,10 @@
         },
         {
             "key": "field_showcasy_about_intro_cta_href",
-            "label": "CTA URL",
+            "label": "CTA",
             "name": "cta_href",
             "aria-label": "",
-            "type": "url",
+            "type": "link",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -57,8 +57,8 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "placeholder": ""
+            "return_format": "array",
+            "allow_in_bindings": 1
         },
         {
             "key": "field_showcasy_about_intro_skills",
@@ -76,6 +76,7 @@
             },
             "default_value": "UIUX, BRANDING, MOBILE APP, WEBSITE DESIGN",
             "maxlength": "",
+            "allow_in_bindings": 1,
             "placeholder": "",
             "prepend": "",
             "append": ""
@@ -95,9 +96,16 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": [],
+    "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1786039776
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": "",
+    "modified": 1786213446
 }

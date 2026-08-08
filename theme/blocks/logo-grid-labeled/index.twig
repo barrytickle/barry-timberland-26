@@ -1,14 +1,9 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/logo-grid-labeled.html #}
-{% set heading = fields.heading|default("A visual partner for brands, companies, and agencies") %}
-{% set items = fields.items|default([
-	{ wordmark: 'pipefy', weight: 'font-semibold', label: 'UIUX & Branding', year: '2022' },
-	{ wordmark: 'django', weight: 'font-bold', label: 'UIUX & Branding', year: '2022' },
-	{ wordmark: 'rackspace.', weight: 'font-semibold', label: 'UIUX & Branding', year: '2022' },
-	{ wordmark: 'portal', weight: 'font-semibold', label: 'UIUX & Branding', year: '2022' }
-]) %}
+{% set heading = fields.heading %}
+{% set items = fields.items %}
 
 <!-- Ensures the font weight styles are loaded -->
 <div class="hidden">

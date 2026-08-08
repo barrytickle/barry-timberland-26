@@ -1,0 +1,49 @@
+{#
+  Alternate footer treatment — compact, no Page List grid.
+  Converted from Showcasy UI kit: about-me-v2.html footer-v2-section.
+  Reference/alternate component — the live site uses footer.twig ("footer-v1"). Not wired into base.twig.
+  Pulls from the same ACF options-page fields as footer.twig so content stays in sync if swapped in later.
+#}
+{% set logo_text_highlight = options.logo_text_highlight|default('show') %}
+{% set logo_text = options.logo_text|default('casy.') %}
+{% set footer_tagline = options.footer_tagline|default('A stunning digital designer portfolio website template for you.') %}
+{% set social_links = options.social_links|default([
+	{ label: 'Instagram', url: '#' },
+	{ label: 'Behance', url: '#' },
+	{ label: 'Twitter', url: '#' },
+	{ label: 'Dribbble', url: '#' }
+]) %}
+{% set newsletter_heading = options.newsletter_heading|default('Stay connected w/ me.') %}
+{% set copyright_text = options.copyright_text|default('©' ~ ("now"|date("Y")) ~ ' ' ~ site.name ~ '. All rights reserved.') %}
+
+<footer class="bg-ink px-6 pb-10 pt-16 text-white lg:px-[72px]" data-component="footer-v2">
+	<div class="mx-auto max-w-[1200px]">
+		<div class="border-b border-ink-800 pb-14 text-center">
+			<p class="body-18 mb-4 font-semibold text-ink-400">{{ newsletter_heading }}</p>
+			<form class="relative mx-auto max-w-sm" method="post" action="">
+				<input class="w-full border-0 border-b border-ink-700 bg-transparent py-3 pr-10 text-center body-16 text-white placeholder:text-ink-500 focus:border-white focus:outline-none focus:ring-0" placeholder="Enter your email" type="email" name="email"/>
+				<button aria-label="Subscribe" type="submit" class="absolute right-0 top-1/2 -translate-y-1/2 text-white">
+					<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+				</button>
+			</form>
+		</div>
+
+		<div class="flex flex-col items-center gap-8 pt-14 text-center lg:flex-row lg:justify-between lg:text-left">
+			<div>
+				<span class="text-3xl font-semibold tracking-tightest">
+					<span class="text-ink-500">{{ logo_text_highlight }}</span>{{ logo_text }}
+				</span>
+				<p class="body-18 mt-5 max-w-md text-ink-300">{{ footer_tagline }}</p>
+			</div>
+			<div class="flex gap-3">
+				{% for social in social_links %}
+					<a aria-label="{{ social.label }}" class="grid h-12 w-12 place-items-center rounded-full border border-ink-700 transition duration-200 hover:border-white" href="{{ social.url }}">
+						<svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+
+		<p class="mt-14 border-t border-ink-800 pt-8 text-center body-14 text-ink-500">{{ copyright_text }}</p>
+	</div>
+</footer>

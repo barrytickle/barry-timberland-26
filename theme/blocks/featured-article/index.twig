@@ -1,11 +1,11 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/featured-article.html #}
-{% set heading = fields.heading|default("Exploring the Power of Minimalism in Visual Design") %}
-{% set excerpt = fields.excerpt|default("Dive into the world of minimalistic design and discover how simplicity, clean lines, and negative space can enhance user experiences.") %}
-{% set image = fields.image|default(null) %}
-{% set button = fields.button|default(null) %}
+{% set heading = fields.heading %}
+{% set excerpt = fields.excerpt %}
+{% set image = fields.image %}
+{% set button = fields.button %}
 <section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]" data-component="featured-article">
 <div class="grid items-center gap-8 rounded-3xl  bg-white/60 p-6 lg:grid-cols-2 lg:p-8" >
 	{% if image %}

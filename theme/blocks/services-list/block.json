@@ -3,7 +3,7 @@
   "name": "acf/services-list",
   "title": "Services List",
   "description": "A heading with a divided list of services, each with a title and description.",
-  "category": "content-contact",
+  "category": "content-about",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

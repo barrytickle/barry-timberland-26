@@ -66,6 +66,27 @@
             "acfe_repeater_stylised_button": 0,
             "sub_fields": [
                 {
+                    "key": "field_showcasy_intro_with_stats_stat_year_range",
+                    "label": "Year Range",
+                    "name": "year_range",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Optional, e.g. 2013–2015",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_showcasy_intro_with_stats_stats"
+                },
+                {
                     "key": "field_showcasy_intro_with_stats_stat_value",
                     "label": "Value",
                     "name": "value",

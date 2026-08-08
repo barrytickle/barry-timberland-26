@@ -1,0 +1,7 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+<div data-component="layout-column">
+	<InnerBlocks />
+</div>
+{% endif %}

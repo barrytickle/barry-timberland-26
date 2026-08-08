@@ -3,7 +3,7 @@
   "name": "acf/intro-with-stats",
   "title": "Intro with Stats",
   "description": "A two-column intro heading and paragraph, with a row of stats underneath.",
-  "category": "content-contact",
+  "category": "content-about",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

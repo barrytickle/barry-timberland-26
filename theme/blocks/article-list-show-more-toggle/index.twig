@@ -1,0 +1,40 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from the barrys-spectacular-site Webflow export: blogs.html ".blog-v2-content-wrapper" + "more-blogs-button-wrapper".
+   Text-only article list (no image, no category). A "Show more" button reveals a second batch in place;
+   this is a visibility toggle, not real pagination. Implemented with Alpine.js. #}
+{% set posts = fields.posts %}
+{% set visible_count = fields.visible_count %}
+{% set initial = posts|slice(0, visible_count) %}
+{% set remaining = posts|slice(visible_count, posts|length) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="article-list-show-more-toggle"{% if remaining|length > 0 %} x-data="{ expanded: false }"{% endif %}>
+	<div class="divide-y divide-ink-200 border-y border-ink-200">
+		{% for post in initial %}
+			<article class="py-8">
+				<a class="h6 hover:text-ink-500" href="{{ post.href }}">{{ post.title }}</a>
+				<p class="body-14 mt-1 text-ink-500">{{ post.date }}</p>
+				<p class="body-16 mt-4 max-w-2xl text-ink-600">{{ post.excerpt }}</p>
+			</article>
+		{% endfor %}
+	</div>
+
+	{% if remaining|length > 0 %}
+		<div x-cloak x-show="expanded" class="divide-y divide-ink-200 border-b border-ink-200">
+			{% for post in remaining %}
+				<article class="py-8">
+					<a class="h6 hover:text-ink-500" href="{{ post.href }}">{{ post.title }}</a>
+					<p class="body-14 mt-1 text-ink-500">{{ post.date }}</p>
+					<p class="body-16 mt-4 max-w-2xl text-ink-600">{{ post.excerpt }}</p>
+				</article>
+			{% endfor %}
+		</div>
+		<div class="mt-10 flex justify-center">
+			<button type="button" @click="expanded = !expanded" class="group inline-flex items-center gap-2.5 rounded-full border border-ink px-6 py-3.5 body-16 font-semibold text-ink transition duration-200 hover:bg-ink hover:text-white">
+				<span x-text="expanded ? 'Show less' : 'Show more'">Show more</span>
+			</button>
+		</div>
+	{% endif %}
+</section>
+{% endif %}

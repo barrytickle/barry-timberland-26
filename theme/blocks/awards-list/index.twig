@@ -1,14 +1,9 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/awards-list.html #}
-{% set heading = fields.heading|default("Awards & Recognition") %}
-{% set awards = fields.awards|default([
-	{ title: 'Awwward Winner', meta: '2022 - AWWWARDS', href: '#' },
-	{ title: 'Site of The Day', meta: '2022 - CSS Winners', href: '#' },
-	{ title: 'Best UI Design', meta: '2022 - CSS Design Awards', href: '#' },
-	{ title: 'Site of The Day', meta: '2022 - AWWWARDS', href: '#' }
-]) %}
+{% set heading = fields.heading %}
+{% set awards = fields.awards %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="awards-list">
 	<div class="grid gap-10 lg:grid-cols-[0.9fr_1.6fr]">

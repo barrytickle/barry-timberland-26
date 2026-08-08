@@ -3,7 +3,7 @@
   "name": "acf/image-full",
   "title": "Image Full",
   "description": "A single full-width image, e.g. a blog post cover or case study screenshot.",
-  "category": "content-contact",
+  "category": "images-media",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

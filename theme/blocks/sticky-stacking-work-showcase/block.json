@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/sticky-stacking-work-showcase",
+  "title": "Sticky Stacking Work Showcase",
+  "description": "Project cards that stick and stack on top of each other as the page scrolls.",
+  "category": "work-portfolio",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

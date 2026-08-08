@@ -1,19 +1,24 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: works-details.html meta grid #}
-{% set stats = fields.stats|default([
-	{ label: 'Client', value: 'Sportly Inc.' },
-	{ label: 'Role', value: 'Product Design, UI' },
-	{ label: 'Year', value: '2023' },
-	{ label: 'Timeline', value: '6 weeks' }
-]) %}
-
+{% set stats = fields.stats %}
+{% set show_as_flex = stats.length < 4 %}
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="case-study-meta">
-	<div class="grid grid-cols-2 gap-8 border-y border-ink-300 py-10 lg:grid-cols-4">
+	{% if show_as_flex %}
+	<div class="flex flex-col md:flex-row gap-8 border-y border-ink-300 py-10 justify-between px-6">
 		{% for stat in stats %}
 			<div><p class="body-14 text-ink-500">{{ stat.label }}</p><p class="body-18 mt-1 font-semibold">{{ stat.value }}</p></div>
 		{% endfor %}
 	</div>
+	{% else %}
+	<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="case-study-meta">
+		<div class="grid grid-cols-2 gap-8 border-y border-ink-300 py-10 lg:grid-cols-4">
+			{% for stat in stats %}
+				<div><p class="body-14 text-ink-500">{{ stat.label }}</p><p class="body-18 mt-1 font-semibold">{{ stat.value }}</p></div>
+			{% endfor %}
+		</div>
+	</section>
+	{% endif %}
 </section>
 {% endif %}

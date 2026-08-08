@@ -1,12 +1,20 @@
 {# Converted from Showcasy UI kit: components/testimonial-card.html
-   Params: quote, initials, bg (default bg-ink-300), text (default text-ink-700), name, role, brand, brand_accent (default '.') #}
+   Params: quote, initials, photo (optional image, takes priority over initials), bg (default bg-ink-300), text (default text-ink-700), name, role, brand, brand_accent (default '.'), logo (optional image, takes priority over brand) #}
 <div class="shrink-0 rounded-3xl border border-ink-200 bg-white/60 p-8" data-component="testimonial-card">
 	<blockquote class="body-18 text-ink-700">"{{ quote }}"</blockquote>
 	<div class="mt-8 flex items-center justify-between">
 		<div class="flex items-center gap-4">
-			<span class="grid h-12 w-12 place-items-center rounded-full {{ bg|default('bg-ink-300') }} body-14 font-semibold {{ text|default('text-ink-700') }}">{{ initials }}</span>
+			{% if photo %}
+				<img class="h-12 w-12 rounded-full object-cover" src="{{ photo.url }}" alt="{{ photo.alt|default(name) }}">
+			{% else %}
+				<span class="grid h-12 w-12 place-items-center rounded-full {{ bg|default('bg-ink-300') }} body-14 font-semibold {{ text|default('text-ink-700') }}">{{ initials }}</span>
+			{% endif %}
 			<div><p class="body-16 font-semibold">{{ name }}</p><p class="body-14 text-ink-500">{{ role }}</p></div>
 		</div>
-		{% if brand %}<span class="body-18 font-semibold text-ink-400">{{ brand }}<span class="text-ink-300">{{ brand_accent|default('.') }}</span></span>{% endif %}
+		{% if logo %}
+			<img class="h-6 w-auto max-w-[100px] object-contain" src="{{ logo.url }}" alt="{{ logo.alt|default(brand) }}">
+		{% elseif brand %}
+			<span class="body-18 font-semibold text-ink-400">{{ brand }}<span class="text-ink-300">{{ brand_accent|default('.') }}</span></span>
+		{% endif %}
 	</div>
 </div>

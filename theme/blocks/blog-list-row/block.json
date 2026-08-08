@@ -3,7 +3,7 @@
   "name": "acf/blog-list-row",
   "title": "Blog List Row",
   "description": "A divided list of blog post rows with title, date, excerpt and tags.",
-  "category": "work-blog",
+  "category": "blog-insights",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

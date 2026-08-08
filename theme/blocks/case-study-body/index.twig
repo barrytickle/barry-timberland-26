@@ -1,0 +1,52 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: detail_works.html work-details-content.
+   Combines the sidebar meta and the narrative content into one side-by-side block
+   (previously two separate blocks — case-study-sidebar and case-study-sections —
+   that only lined up visually because both hard-coded the same grid proportions). #}
+{% set date = fields.date %}
+{% set client_name = fields.client_name %}
+{% set services = fields.services %}
+{% set website_link = fields.website_link %}
+{% set content = fields.content %}
+{% set stats = fields.stats %}
+
+<section class="mx-auto max-w-[1200px] px-6 pb-8 lg:px-[72px]" data-component="case-study-body">
+	<div class="grid gap-10 lg:grid-cols-[0.6fr_1.4fr]">
+		<div class="flex max-w-sm flex-col gap-8">
+			<div>
+				<p class="body-14 font-semibold text-ink-500">Date</p>
+				<p class="body-16 mt-2 text-ink-700">{{ date }}</p>
+			</div>
+			<div>
+				<p class="body-14 font-semibold text-ink-500">Client Name</p>
+				<p class="body-16 mt-2 text-ink-700">{{ client_name }}</p>
+			</div>
+			{% if services %}
+				<div>
+					<p class="body-14 font-semibold text-ink-500">Services</p>
+					<div class="mt-2 flex flex-col gap-1">
+						{% for service in services %}
+							<p class="body-16 text-ink-700">{{ service.label }}</p>
+						{% endfor %}
+					</div>
+				</div>
+			{% endif %}
+			{% if website_link.url %}
+				<div>{% include 'components/button.twig' with { href: website_link.url, label: website_link.title, target: website_link.target, variant: 'outlined', size: 'sm' } %}</div>
+			{% endif %}
+		</div>
+		<div class="max-w-2xl">
+			<div class="case-study-body-content">{{ content }}</div>
+			{% if stats %}
+				<div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
+					{% for stat in stats %}
+						<div><p class="h4">{{ stat.value }}</p><p class="body-16 mt-2 text-ink-500">{{ stat.label }}</p></div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</section>
+{% endif %}

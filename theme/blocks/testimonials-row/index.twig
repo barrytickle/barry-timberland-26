@@ -1,13 +1,9 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/testimonials-row.html #}
-{% set heading = fields.heading|default("What my clients say") %}
-{% set testimonials = fields.testimonials|default([
-	{ quote: "I had the pleasure of working with Ivan on a recent project, and I was blown away by their creativity and attention to detail.", initials: 'RJ', name: 'Richard Jonas', role: 'CEO of Teamwork', brand: 'teamwork' },
-	{ quote: "Ivan is an exceptionally talented designer who consistently exceeded our expectations, with designs that captured our brand's essence.", initials: 'RV', name: 'Rachel Voskov', role: 'CEO of Pipefy', brand: 'pipefy' },
-	{ quote: "Working with Ivan was a game-changer for our business. His keen eye for detail enhanced the overall usability of our product.", initials: 'JM', name: 'Jacob McDany', role: 'CEO of Rackspace', brand: 'rackspace' }
-]) %}
+{% set heading = fields.heading %}
+{% set testimonials = fields.testimonials %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="testimonials-row">
 	<h2 class="h3 mb-10">{{ heading }}</h2>

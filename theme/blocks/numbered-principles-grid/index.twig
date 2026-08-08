@@ -1,0 +1,22 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Barry's Spectacular Site export: about.html "Working principles" section #}
+{% set eyebrow = fields.eyebrow %}
+{% set heading = fields.heading %}
+{% set principles = fields.principles %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="numbered-principles-grid">
+	<p class="body-14 font-semibold uppercase tracking-tightest text-ink-500">{{ eyebrow }}</p>
+	<h2 class="h3 mt-4 max-w-2xl">{{ heading }}</h2>
+	<div class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+		{% for principle in principles %}
+			<div class="border-t border-ink-300 pt-6">
+				<span class="body-14 font-semibold text-ink-400">{{ '%02d'|format(loop.index) }}</span>
+				<h3 class="h6 mt-3">{{ principle.title }}</h3>
+				<p class="body-16 mt-2 text-ink-500">{{ principle.description }}</p>
+			</div>
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

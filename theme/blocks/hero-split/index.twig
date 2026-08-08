@@ -1,11 +1,11 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/hero-split.html #}
-{% set heading = fields.heading|default("I’m a visual designer with passion to create") %}
-{% set heading_highlight = fields.heading_highlight|default("a great experiences") %}
-{% set supporting_text = fields.supporting_text|default("I’m Ivan, a Visual Designer living in Munich, and I focus on making digital experiences that are easy to use, enjoyable, and get the job done.") %}
-{% set cta = fields.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+{% set heading = fields.heading %}
+{% set heading_highlight = fields.heading_highlight %}
+{% set supporting_text = fields.supporting_text %}
+{% set cta = fields.cta_link %}
 {% set social_links = fields.social_links %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="hero-split">

@@ -68,6 +68,34 @@
                     "parent_repeater": "field_showcasy_testimonial_carousel_items"
                 },
                 {
+                    "key": "field_showcasy_testimonial_carousel_item_photo",
+                    "label": "Photo",
+                    "name": "photo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Optional. Falls back to initials when empty.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "uploader": "",
+                    "acfe_thumbnail": 0,
+                    "parent_repeater": "field_showcasy_testimonial_carousel_items"
+                },
+                {
                     "key": "field_showcasy_testimonial_carousel_item_name",
                     "label": "Name",
                     "name": "name",
@@ -107,6 +135,34 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
+                    "parent_repeater": "field_showcasy_testimonial_carousel_items"
+                },
+                {
+                    "key": "field_showcasy_testimonial_carousel_item_logo",
+                    "label": "Client Logo",
+                    "name": "logo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Optional. Shown near the name/role when set.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "uploader": "",
+                    "acfe_thumbnail": 0,
                     "parent_repeater": "field_showcasy_testimonial_carousel_items"
                 }
             ]

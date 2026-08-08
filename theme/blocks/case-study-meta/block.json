@@ -3,7 +3,7 @@
   "name": "acf/case-study-meta",
   "title": "Case Study Meta",
   "description": "A row of label/value stats, e.g. Client, Role, Year, Timeline.",
-  "category": "work-blog",
+  "category": "case-studies",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

@@ -1,14 +1,14 @@
 {
-    "key": "group_split_content",
-    "title": "Split Content",
+    "key": "group_testimonial_tab_switcher",
+    "title": "Testimonial Tab Switcher",
     "fields": [
         {
-            "key": "field_split_content_eyebrow",
-            "label": "Eyebrow",
-            "name": "eyebrow",
+            "key": "field_testimonial_tab_switcher_heading",
+            "label": "Heading",
+            "name": "heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Optional small label shown above the two columns.",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -16,32 +16,60 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "What clients say",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
             "append": ""
         },
         {
-            "key": "field_split_content_column_one",
-            "label": "Column One",
-            "name": "column_one",
+            "key": "field_testimonial_tab_switcher_items",
+            "label": "Testimonials",
+            "name": "testimonials",
             "aria-label": "",
-            "type": "group",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "",
                 "class": "",
                 "id": ""
             },
             "layout": "block",
+            "min": 0,
+            "max": 0,
+            "button_label": "Add testimonial",
+            "rows_per_page": 20,
+            "collapsed": "",
+            "acfe_repeater_stylised_button": 0,
             "sub_fields": [
                 {
-                    "key": "field_split_content_one_heading",
-                    "label": "Heading",
-                    "name": "heading",
+                    "key": "field_testimonial_tab_switcher_item_quote",
+                    "label": "Quote",
+                    "name": "quote",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "new_lines": "",
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "acfe_textarea_code": 0,
+                    "parent_repeater": "field_testimonial_tab_switcher_items"
+                },
+                {
+                    "key": "field_testimonial_tab_switcher_item_name",
+                    "label": "Name",
+                    "name": "name",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -56,67 +84,13 @@
                     "maxlength": "",
                     "placeholder": "",
                     "prepend": "",
-                    "append": ""
+                    "append": "",
+                    "parent_repeater": "field_testimonial_tab_switcher_items"
                 },
                 {
-                    "key": "field_split_content_one_body",
-                    "label": "Body",
-                    "name": "body",
-                    "aria-label": "",
-                    "type": "textarea",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "rows": 4,
-                    "new_lines": "",
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "acfe_textarea_code": 0
-                },
-                {
-                    "key": "field_split_content_one_cta_link",
-                    "label": "Link",
-                    "name": "cta_link",
-                    "aria-label": "",
-                    "type": "link",
-                    "instructions": "Optional.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array"
-                }
-            ]
-        },
-        {
-            "key": "field_split_content_column_two",
-            "label": "Column Two",
-            "name": "column_two",
-            "aria-label": "",
-            "type": "group",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_split_content_two_heading",
-                    "label": "Heading",
-                    "name": "heading",
+                    "key": "field_testimonial_tab_switcher_item_role",
+                    "label": "Role",
+                    "name": "role",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -131,15 +105,16 @@
                     "maxlength": "",
                     "placeholder": "",
                     "prepend": "",
-                    "append": ""
+                    "append": "",
+                    "parent_repeater": "field_testimonial_tab_switcher_items"
                 },
                 {
-                    "key": "field_split_content_two_body",
-                    "label": "Body",
-                    "name": "body",
+                    "key": "field_testimonial_tab_switcher_item_avatar",
+                    "label": "Avatar",
+                    "name": "avatar",
                     "aria-label": "",
-                    "type": "textarea",
-                    "instructions": "",
+                    "type": "image",
+                    "instructions": "Leave empty to show initials instead.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -147,28 +122,40 @@
                         "class": "",
                         "id": ""
                     },
-                    "rows": 4,
-                    "new_lines": "",
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "uploader": "",
+                    "acfe_thumbnail": 0,
+                    "parent_repeater": "field_testimonial_tab_switcher_items"
+                },
+                {
+                    "key": "field_testimonial_tab_switcher_item_initials",
+                    "label": "Initials",
+                    "name": "initials",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Used when no avatar is set.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
                     "default_value": "",
                     "maxlength": "",
                     "placeholder": "",
-                    "acfe_textarea_code": 0
-                },
-                {
-                    "key": "field_split_content_two_cta_link",
-                    "label": "Link",
-                    "name": "cta_link",
-                    "aria-label": "",
-                    "type": "link",
-                    "instructions": "Optional.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array"
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_testimonial_tab_switcher_items"
                 }
             ]
         }
@@ -178,7 +165,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/split-content"
+                "value": "acf\/testimonial-tab-switcher"
             }
         ]
     ],

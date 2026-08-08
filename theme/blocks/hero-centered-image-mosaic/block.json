@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/hero-centered-image-mosaic",
+  "title": "Hero Centered Image Mosaic",
+  "description": "Centered intro on a canvas panel, followed by a 2-image mosaic row (portrait + contained product shot).",
+  "category": "heroes",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

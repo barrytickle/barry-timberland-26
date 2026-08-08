@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/testimonial-tab-switcher",
+  "title": "Testimonial Tab Switcher",
+  "description": "One large quote at a time; click a client's name to switch which quote is shown.",
+  "category": "testimonials",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

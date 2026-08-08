@@ -1,19 +1,14 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/licenses-gallery.html #}
-{% set heading = fields.heading|default("Imagery") %}
-{% set description = fields.description|default("The images used in this website use free licenses on Unsplash and Pexels.") %}
-{% set gallery_heading = fields.gallery_heading|default("Unsplash") %}
-{% set gallery_url = fields.gallery_url|default("www.unsplash.com") %}
+{% set heading = fields.heading %}
+{% set description = fields.description %}
+{% set gallery_heading = fields.gallery_heading %}
+{% set gallery_url = fields.gallery_url %}
 {% set placeholder_icon %}<svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>{% endset %}
 
-{% set items = fields.items|default([
-	{ wrapper: 'row-span-2', aspect: 'aspect-[3/4]' },
-	{ wrapper: '', aspect: 'aspect-[1/1]' },
-	{ wrapper: '', aspect: 'aspect-[1/1]' },
-	{ wrapper: 'col-span-2', aspect: 'aspect-[16/9]' }
-]) %}
+{% set items = fields.items %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]" data-component="licenses-gallery">
 	<h2 class="h4">{{ heading }}</h2>

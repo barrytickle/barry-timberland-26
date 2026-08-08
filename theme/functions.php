@@ -112,18 +112,17 @@ class Timberland extends Timber\Site {
 	}
 
 	public function enqueue_assets() {
-		// Prevent dequeueing of critical scripts in admin
-		if (is_admin()) {
-			return;
+		// Prevent dequeueing of critical scripts in admin. Note this used to be an early
+		// `return`, which also skipped add_editor_style() below whenever this ran as the
+		// enqueue_block_editor_assets callback (always is_admin() === true there) — the
+		// block editor never got any theme CSS at all, admin or dev.
+		if ( ! is_admin() ) {
+			wp_dequeue_style('wp-block-library');
+			wp_dequeue_style('wp-block-library-theme');
+			wp_dequeue_style('wc-block-style');
+			wp_dequeue_script('jquery');
+			wp_dequeue_style('global-styles');
 		}
-	
-		wp_dequeue_style('wp-block-library');
-		wp_dequeue_style('wp-block-library-theme');
-		wp_dequeue_style('wc-block-style');
-		wp_dequeue_script('jquery');
-		wp_dequeue_style('global-styles');
-
-		
 
 		$vite_env = 'production';
 
@@ -141,7 +140,7 @@ class Timberland extends Timber\Site {
 		}
 
 		if ( is_array( $manifest ) ) {
-			if ( $vite_env === 'production' || is_admin() ) {
+			if ( $vite_env === 'production' ) {
 				$js_file = 'theme/assets/main.js';
 				wp_enqueue_style( 'main', $dist_uri . '/' . $manifest[ $js_file ]['css'][0] );
 				$strategy = is_admin() ? 'async' : 'defer';
@@ -158,17 +157,27 @@ class Timberland extends Timber\Site {
 				);
 
 				// wp_enqueue_style('prefix-editor-font', '//fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
-				$editor_css_file = 'theme/assets/styles/editor-style.css';
+				$editor_css_file = 'theme/assets/styles/editor-style.scss';
 				add_editor_style( $dist_uri . '/' . $manifest[ $editor_css_file ]['file'] );
 			}
 		}
 
 		if ( $vite_env === 'development' ) {
-			function vite_head_module_hook() {
-				echo '<script type="module" crossorigin src="http://localhost:3000/@vite/client"></script>';
-				echo '<script type="module" crossorigin src="http://localhost:3000/theme/assets/main.js"></script>';
+			if ( is_admin() ) {
+				// Vite's dev server serves plain, fully-compiled CSS (not the JS-wrapped
+				// HMR module) to requests that ask for text/css, which is exactly what
+				// the <link> tag WordPress builds from add_editor_style() will send —
+				// so the block editor iframe gets the real, live Tailwind build too.
+				add_editor_style( 'http://localhost:3000/theme/assets/styles/editor-style.scss' );
+			} else {
+				if ( ! function_exists( 'vite_head_module_hook' ) ) {
+					function vite_head_module_hook() {
+						echo '<script type="module" crossorigin src="http://localhost:3000/@vite/client"></script>';
+						echo '<script type="module" crossorigin src="http://localhost:3000/theme/assets/main.js"></script>';
+					}
+				}
+				add_action( 'wp_head', 'vite_head_module_hook' );
 			}
-			add_action( 'wp_head', 'vite_head_module_hook' );
 		}
 	}
 
@@ -186,9 +195,19 @@ class Timberland extends Timber\Site {
 					'icon'  => 'megaphone',
 				),
 				array(
-					'slug'  => 'work-blog',
-					'title' => __( 'Work & Blog' ),
+					'slug'  => 'work-portfolio',
+					'title' => __( 'Work & Portfolio' ),
 					'icon'  => 'portfolio',
+				),
+				array(
+					'slug'  => 'case-studies',
+					'title' => __( 'Case Studies' ),
+					'icon'  => 'media-document',
+				),
+				array(
+					'slug'  => 'blog-insights',
+					'title' => __( 'Blog & Insights' ),
+					'icon'  => 'welcome-write-blog',
 				),
 				array(
 					'slug'  => 'testimonials',
@@ -206,14 +225,29 @@ class Timberland extends Timber\Site {
 					'icon'  => 'awards',
 				),
 				array(
-					'slug'  => 'content-contact',
-					'title' => __( 'Content & Contact' ),
+					'slug'  => 'content-about',
+					'title' => __( 'Content & About' ),
 					'icon'  => 'admin-page',
+				),
+				array(
+					'slug'  => 'images-media',
+					'title' => __( 'Images & Media' ),
+					'icon'  => 'format-image',
+				),
+				array(
+					'slug'  => 'contact',
+					'title' => __( 'Contact' ),
+					'icon'  => 'email',
 				),
 				array(
 					'slug'  => 'utility-pages',
 					'title' => __( 'Utility Pages' ),
 					'icon'  => 'admin-tools',
+				),
+				array(
+					'slug'  => 'layout',
+					'title' => __( 'Layout' ),
+					'icon'  => 'grid-view',
 				),
 			),
 			$categories
@@ -276,7 +310,7 @@ class Timberland extends Timber\Site {
 				'show_in_rest' => true,
 				'menu_icon'   => 'dashicons-portfolio',
 				'supports'    => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
-				'has_archive' => true,
+				'has_archive' => false,
 				'rewrite'     => array( 'slug' => 'projects' ),
 			)
 		);
@@ -343,14 +377,10 @@ function acf_block_render_callback( $block, $content = '', $is_preview = false, 
     $template          = 'blocks/'. $block_name . '/index.twig';
 
 	$context['is_preview']    = (bool) $is_preview;
+	// Always null: the block editor now loads the theme's real compiled CSS (see
+	// enqueue_assets()), so every block's dynamic markup renders correctly in the
+	// editor on its own — no more falling back to a static component-previews/ screenshot.
 	$context['preview_image'] = null;
-
-	if ( $is_preview ) {
-		$preview_path = get_template_directory() . '/assets/component-previews/desktop/' . $block_name . '.png';
-		if ( file_exists( $preview_path ) ) {
-			$context['preview_image'] = get_template_directory_uri() . '/assets/component-previews/desktop/' . $block_name . '.png';
-		}
-	}
 
 	Timber::render( $template, $context );
 }
@@ -361,6 +391,28 @@ function acf_should_wrap_innerblocks( $wrap, $name ) {
 }
 
 add_filter( 'acf/blocks/wrap_frontend_innerblocks', 'acf_should_wrap_innerblocks', 10, 2 );
+
+// Case study body content: a lean toolbar (no alignment/color/blockquote) so the
+// editor stays focused on plain narrative text with occasional H4 sub-headings.
+function acf_case_study_wysiwyg_toolbar( $toolbars ) {
+	$toolbars['Case Study'] = array(
+		1 => array( 'formatselect', 'bold', 'italic', 'bullist', 'numlist', 'link', 'undo', 'redo' ),
+	);
+	return $toolbars;
+}
+add_filter( 'acf/fields/wysiwyg/toolbars', 'acf_case_study_wysiwyg_toolbar' );
+
+// Restrict the "Paragraph" dropdown to just Paragraph + Heading 4. ACF clones every
+// wysiwyg field's TinyMCE settings from the single hidden #acf_content template editor,
+// so this applies to all ACF wysiwyg fields — fine while case-study-body's content field
+// is the only one in the theme, but revisit if a second wysiwyg field ever needs full headings.
+function acf_restrict_wysiwyg_block_formats( $settings, $editor_id ) {
+	if ( $editor_id === 'acf_content' ) {
+		$settings['block_formats'] = 'Paragraph=p;Heading 4=h4';
+	}
+	return $settings;
+}
+add_filter( 'tiny_mce_before_init', 'acf_restrict_wysiwyg_block_formats', 10, 2 );
 
 add_filter('timber/twig', function ($twig) {
 	return $twig;

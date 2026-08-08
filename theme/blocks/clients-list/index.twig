@@ -1,14 +1,9 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/clients-list.html #}
-{% set heading = fields.heading|default("Clients") %}
-{% set clients = fields.clients|default([
-	{ name: 'Teamwork.inc', date: 'May 5, 2023', wordmark: 'teamwork.', href: '#' },
-	{ name: 'Django', date: 'May 5, 2023', wordmark: 'django', href: '#' },
-	{ name: 'Pipefy.io', date: 'May 5, 2023', wordmark: 'pipefy', href: '#' },
-	{ name: 'Rackspace', date: 'May 5, 2023', wordmark: 'rackspace.', href: '#' }
-]) %}
+{% set heading = fields.heading %}
+{% set clients = fields.clients %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="clients-list">
 	<h2 class="h3 mb-10">{{ heading }}</h2>

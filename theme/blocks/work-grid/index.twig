@@ -1,23 +1,27 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: works.html filter pills + work-card grid.
    Pulls real posts and categories from the "project" custom post type.
    Uses get_posts() (not query_posts()) so it never touches the site's main query. #}
-{% set title = fields.title|default('Selected works') %}
-{% set button = fields.button|default({ title: 'View All Works', url: site.url ~ '/works/' }) %}
+{% set title = fields.title%}
+{% set button = fields.button %}
 {% set show_filters = fields.show_filters %}
-{% set project_limit = fields.how_many_projects|default(10) %}
+{% set project_limit = fields.how_many_projects %}
 {% set categories = get_terms({ 'taxonomy': 'project_category', 'hide_empty': true }) %}
 {% set projects = get_posts({ 'post_type': 'project', 'posts_per_page': project_limit, 'orderby': 'date', 'order': 'DESC' }) %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]" data-component="work-grid">
 	<div class="mb-12 flex flex-wrap items-center justify-between gap-4" data-component="section-header">
+		{% if title %}
 		<h2 class="h3">{{ title }}</h2>
+		{% endif %}
+		{% if button %}
 		<a class="group inline-flex items-center gap-2.5 rounded-full border border-ink px-6 py-3.5 body-16 font-semibold text-ink transition duration-200 hover:bg-ink hover:text-white" href="{{ button.url }}"{% if button.target %} target="{{ button.target }}"{% endif %}>
 			{{ button.title }}
 			<svg class="h-4 w-4 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
 		</a>
+		{% endif %}
 	</div>
 
 	{% if show_filters %}

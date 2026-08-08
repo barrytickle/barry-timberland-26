@@ -1,0 +1,33 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Showcasy UI kit: home-v1.html hero section #}
+{% set eyebrow = fields.eyebrow %}
+{% set heading = fields.heading %}
+{% set heading_highlight = fields.heading_highlight %}
+{% set cta_primary = fields.cta_primary %}
+{% set cta_secondary = fields.cta_secondary %}
+{% set image = fields.image %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="hero-portrait-dual-cta">
+	<div class="grid items-end gap-12 lg:grid-cols-[1fr_360px]">
+		<div>
+			<p class="body-22 text-ink-700">{{ eyebrow }}</p>
+			<h1 class="h1 mt-5">{{ heading }}<br><span class="text-ink-400">{{ heading_highlight }}</span></h1>
+			<div class="mt-10 flex flex-wrap gap-3">
+				{% include 'components/button.twig' with { href: cta_primary.url, label: cta_primary.title, target: cta_primary.target, variant: 'filled', size: 'lg' } %}
+				{% include 'components/button.twig' with { href: cta_secondary.url, label: cta_secondary.title, target: cta_secondary.target, variant: 'outlined', size: 'lg' } %}
+			</div>
+		</div>
+		<div class="rounded-[2rem] bg-muted p-4">
+			{% if image %}
+				<img class="aspect-[3/4] w-full rounded-3xl object-cover" src="{{ image.url }}" alt="{{ image.alt }}">
+			{% else %}
+				<div class="grid aspect-[3/4] w-full place-items-center rounded-3xl bg-ink-200">
+					<svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</section>
+{% endif %}

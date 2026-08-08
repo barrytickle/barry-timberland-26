@@ -16,7 +16,8 @@
 ] %}
 
 {% set footer_title = options.footer_title|default('Page List') %}
-{% set footer_links = options.footer_links %}
+{% set footer_links = options.footer_links|default(default_column_1_links) %}
+{% set newsletter_heading = options.newsletter_heading|default('Stay connected w/ me.') %}
 
 {% set copyright_text = options.copyright_text|default('©' ~ ("now"|date("Y")) ~ ' ' ~ site.name ~ '. All rights reserved.') %}
 
@@ -92,7 +93,15 @@
 				</div>
 			</div>
 
-			
+			<div class="lg:w-80">
+				<p class="body-18 mb-4 font-semibold text-ink-400">{{ newsletter_heading }}</p>
+				<form class="relative" method="post" action="">
+					<input class="w-full border-0 border-b border-ink-700 bg-transparent py-3 pr-10 body-16 text-white placeholder:text-ink-500 focus:border-white focus:outline-none focus:ring-0" placeholder="Enter your email" type="email" name="email"/>
+					<button aria-label="Subscribe" type="submit" class="absolute right-0 top-1/2 -translate-y-1/2 text-white">
+						<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+					</button>
+				</form>
+			</div>
 		</div>
 
 		<p class="mt-14 border-t border-ink-800 pt-8 text-center body-14 text-ink-500">

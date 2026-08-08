@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/split-layout",
+  "title": "Split Layout",
+  "description": "A two-column layout container. Pick a width ratio, then add any blocks into the left and right columns.",
+  "category": "layout",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": true
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

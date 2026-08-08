@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/hero-portrait-dual-cta",
+  "title": "Hero Portrait Dual CTA",
+  "description": "Two-line heading with two CTA buttons on the left, a portrait image in a rounded canvas panel on the right.",
+  "category": "heroes",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

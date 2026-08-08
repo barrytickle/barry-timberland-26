@@ -1,18 +1,10 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Two independent content columns, side by side. #}
-{% set eyebrow = fields.eyebrow|default('') %}
-{% set column_one = fields.column_one|default({
-	heading: 'The problem',
-	body: 'Most portfolios show the polished result and skip the reasoning. Clients are left guessing why a decision was made, which makes it harder to trust the next one.',
-	cta_link: null
-}) %}
-{% set column_two = fields.column_two|default({
-	heading: 'The approach',
-	body: 'Every project here includes the constraints, the alternatives considered, and why the final direction won. The goal is to make the thinking as visible as the pixels.',
-	cta_link: null
-}) %}
+{% set eyebrow = fields.eyebrow %}
+{% set column_one = fields.column_one %}
+{% set column_two = fields.column_two %}
 {% set columns = [column_one, column_two] %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="split-content">

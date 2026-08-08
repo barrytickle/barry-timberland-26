@@ -1,19 +1,14 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/awards-feature.html
    Note: the featured award's icon-only link uses an external-link glyph, different
    from the arrow icon baked into components/button.twig, so it's hand-rolled here
    rather than reusing that partial. #}
-{% set heading = fields.heading|default("Awwards Winning - Independent of The Year") %}
-{% set credit = fields.credit|default("Ivan Kazarov - 2022") %}
-{% set href = fields.href|default("#") %}
-{% set mentions = fields.mentions|default([
-	{ title: 'Honorable Mention', meta: '2022 - AWWWARDS', href: '#' },
-	{ title: 'Site of The Day', meta: '2022 - CSS Winners', href: '#' },
-	{ title: 'Best UI Design', meta: '2022 - CSS Design Awards', href: '#' },
-	{ title: 'Site of The Day', meta: '2022 - AWWWARDS', href: '#' }
-]) %}
+{% set heading = fields.heading %}
+{% set credit = fields.credit %}
+{% set href = fields.href %}
+{% set mentions = fields.mentions %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="awards-feature">
 	<div class="grid items-start gap-10 lg:grid-cols-2">

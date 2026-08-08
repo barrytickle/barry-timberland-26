@@ -1,17 +1,17 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: about.html bio section #}
 {% set image = fields.image %}
-{% set paragraph_1 = fields.paragraph_1|default("I’m Ivan, a multidisciplinary designer based in London. For the last eight years I’ve helped startups and established brands turn complex ideas into clear, emotional digital products.") %}
-{% set paragraph_2 = fields.paragraph_2|default("My work spans product design, branding and front-end — concentrate on your primary objective, and leave it to me to make sure your business is portrayed beautifully in the digital realm.") %}
-{% set cta = fields.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
+{% set paragraph_1 = fields.paragraph_1 %}
+{% set paragraph_2 = fields.paragraph_2 %}
+{% set cta = fields.cta_link %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]" data-component="bio-text">
 	<div class="grid gap-10 lg:grid-cols-2">
 		{% if image %}
 			<div class="aspect-[4/5] overflow-hidden rounded-card">
-				<img class="h-full w-full object-cover" src="{{ image.url }}" alt="{{ image.alt|default('') }}">
+				<img class="h-full w-full object-cover" src="{{ image.url }}" alt="{{ image.alt }}">
 			</div>
 		{% else %}
 			<div class="grid aspect-[4/5] place-items-center overflow-hidden rounded-card bg-muted">

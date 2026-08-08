@@ -1,0 +1,43 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{# Converted from Barry's Spectacular Site export: home-v2.html "Selected works" dark 2-up showcase #}
+{% set eyebrow = fields.eyebrow %}
+{% set heading = fields.heading %}
+{% set cta = fields.cta_link %}
+{% set projects = fields.projects %}
+
+<section class="bg-ink text-white" data-component="dark-project-showcase">
+	<div class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]">
+		<div class="mb-12 flex flex-wrap items-center justify-between gap-4">
+			<div>
+				<p class="body-14 font-semibold uppercase tracking-tightest text-white/50">{{ eyebrow }}</p>
+				<h2 class="h3 mt-3">{{ heading }}</h2>
+			</div>
+			{% if cta.url %}
+				<a class="group inline-flex items-center gap-2 body-16 font-semibold text-white" href="{{ cta.url }}"{% if cta.target %} target="{{ cta.target }}"{% endif %}>
+					{{ cta.title }}
+					<svg class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+				</a>
+			{% endif %}
+		</div>
+		<div class="grid gap-5 lg:grid-cols-2">
+			{% for project in projects %}
+				<a class="group block rounded-3xl bg-white/5 p-5" href="{{ project.href }}">
+					{% if project.image %}
+						<img class="aspect-[4/3] w-full rounded-2xl bg-white object-contain p-4 transition group-hover:scale-[1.01]" src="{{ project.image.url }}" alt="{{ project.title }}">
+					{% else %}
+						<div class="grid aspect-[4/3] w-full place-items-center rounded-2xl bg-white p-4">
+							<svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
+						</div>
+					{% endif %}
+					<div class="mt-5 flex items-center justify-between">
+						<h3 class="h6 text-2xl">{{ project.title }}</h3>
+						<span class="text-white/50">{{ project.year }}</span>
+					</div>
+				</a>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endif %}

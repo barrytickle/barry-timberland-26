@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/numbered-principles-grid",
+  "title": "Numbered Principles Grid",
+  "description": "A heading beside numbered (01/02/03…) cards, each with a title and description.",
+  "category": "content-about",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

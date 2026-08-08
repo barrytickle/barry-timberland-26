@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/cta-text-links",
+  "title": "CTA (Text Links)",
+  "description": "Centered eyebrow + heading with a row of underlined text links used as the call to action, instead of a button.",
+  "category": "calls-to-action",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{# Selectable pill/chip form field group. Params: legend, name, type (radio|checkbox, default checkbox), options: [{value, label}] #}
+{% set type = type|default('checkbox') %}
+<fieldset>
+	{% if legend %}<legend class="body-14 mb-3 block font-semibold text-ink">{{ legend }}</legend>{% endif %}
+	<div class="flex flex-wrap gap-2">
+		{% for option in options %}
+			<label class="cursor-pointer">
+				<input class="peer sr-only" type="{{ type }}" name="{{ name }}{{ type == 'checkbox' ? '[]' : '' }}" value="{{ option.value }}"/>
+				<span class="inline-flex min-h-[2.45rem] items-center rounded-full border border-ink-300 bg-white px-4 body-14 font-semibold text-ink transition peer-checked:border-ink peer-checked:bg-ink peer-checked:text-white">{{ option.label }}</span>
+			</label>
+		{% endfor %}
+	</div>
+</fieldset>

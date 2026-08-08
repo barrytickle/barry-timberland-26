@@ -3,7 +3,7 @@
   "name": "acf/work-list-row",
   "title": "Work List (Rows)",
   "description": "Compact list of work items, each a single linked row with title, date, description and tags.",
-  "category": "work-blog",
+  "category": "work-portfolio",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

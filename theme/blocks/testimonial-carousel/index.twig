@@ -1,19 +1,20 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/testimonial-carousel.html #}
-{% set testimonials = fields.testimonials|default([
-	{ quote: "I had the pleasure of working with Ivan on a recent project, and I was blown away by their creativity and attention to detail. I highly recommend them for anyone looking for a talented and professional designer.", initials: 'RJ', name: 'Richard Jonas', role: 'CEO of Teamwork' },
-	{ quote: "Ivan is an exceptionally talented designer who consistently exceeded our expectations, with designs that captured our brand's essence.", initials: 'RV', name: 'Rachel Voskov', role: 'CEO of Pipefy' },
-	{ quote: "Working with Ivan was a game-changer for our business. His keen eye for detail enhanced the overall usability of our product.", initials: 'JM', name: 'Jacob McDany', role: 'CEO of Rackspace' }
-]) %}
+{% set testimonials = fields.testimonials %}
 
 {% macro person(t) %}
 	<blockquote class="mx-auto max-w-3xl h5 font-medium leading-snug">“{{ t.quote }}”</blockquote>
 	<div class="mt-8 flex flex-col items-center">
-		<span class="grid h-16 w-16 place-items-center rounded-full bg-ink-400 body-16 font-semibold text-white">{{ t.initials }}</span>
+		{% if t.photo %}
+			<img class="h-16 w-16 rounded-full object-cover" src="{{ t.photo.url }}" alt="{{ t.photo.alt }}">
+		{% else %}
+			<span class="grid h-16 w-16 place-items-center rounded-full bg-ink-400 body-16 font-semibold text-white">{{ t.initials }}</span>
+		{% endif %}
 		<p class="mt-3 body-16 font-semibold">{{ t.name }}</p>
 		<p class="body-14 text-ink-500">{{ t.role }}</p>
+		{% if t.logo %}<img class="mt-3 h-6 w-auto max-w-[100px] object-contain" src="{{ t.logo.url }}" alt="{{ t.logo.alt }}">{% endif %}
 	</div>
 {% endmacro %}
 

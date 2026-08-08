@@ -1,9 +1,9 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/hero-centered.html #}
-{% set heading_highlight = fields.heading_highlight|default("I’m Ivan,") %}
-{% set heading = fields.heading|default("a passionate designer specializing in digital solutions") %}
+{% set heading_highlight = fields.heading_highlight %}
+{% set heading = fields.heading %}
 {% set cta = fields.cta_link %}
 {% set social_links = fields.social_links %}
 

@@ -3,7 +3,7 @@ import { defineConfig, loadEnv } from "vite";
 const dest = "./theme/assets/dist";
 const entries = [
   "./theme/assets/main.js",
-  "./theme/assets/styles/editor-style.css",
+  "./theme/assets/styles/editor-style.scss",
 ];
 
 export default defineConfig(({ mode }) => {

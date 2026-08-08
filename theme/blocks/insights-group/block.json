@@ -3,7 +3,7 @@
   "name": "acf/insights-group",
   "title": "Insights Group",
   "description": "A section heading with a 'View All' link, and a grid of blog cards.",
-  "category": "work-blog",
+  "category": "blog-insights",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"

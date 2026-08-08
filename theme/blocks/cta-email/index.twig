@@ -1,21 +1,11 @@
 {% if is_preview and preview_image %}
-	<img src="{{ preview_image }}" alt="{{ block.title|default('Block') }} preview" loading="lazy" style="max-width:100%;">
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/cta-email.html #}
-{% set eyebrow = fields.eyebrow|default("Have a nice work? Let’s talk with me") %}
-{% set email = fields.email|default("hello@kazarov.com") %}
-{% set nav_links = fields.nav_links|default([
-	{ label: 'Home', href: site.url },
-	{ label: 'About', href: site.url ~ '/about/' },
-	{ label: 'Works', href: site.url ~ '/works/' },
-	{ label: 'Insights', href: site.url ~ '/blog/' }
-]) %}
-{% set social_links = fields.social_links|default([
-	{ label: 'in', href: '#' },
-	{ label: 'Be', href: '#' },
-	{ label: 'X', href: '#' },
-	{ label: 'Dr', href: '#' }
-]) %}
+{% set eyebrow = fields.eyebrow %}
+{% set email = fields.email %}
+{% set nav_links = fields.nav_links %}
+{% set social_links = fields.social_links %}
 
 <section class="bg-ink px-6 py-16 text-white lg:px-[72px]" data-component="cta-email">
 	<div class="mx-auto max-w-[1200px]">
