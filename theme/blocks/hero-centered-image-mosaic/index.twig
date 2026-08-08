@@ -8,8 +8,9 @@
 {% set cta = fields.cta_link %}
 {% set image_portrait = fields.image_portrait %}
 {% set image_wide = fields.image_wide %}
+{% set padding_bottom = fields.padding_bottom == 'no-padding' ? 'pb-0' : 'pb-16' %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="hero-centered-image-mosaic">
+<section class="mx-auto max-w-[1200px] px-6 pt-16 {{ padding_bottom }} lg:px-[72px]" data-component="hero-centered-image-mosaic">
 	<div class="rounded-3xl bg-muted px-6 py-16 sm:px-10 lg:px-16 lg:py-24">
 		<div class="mx-auto max-w-3xl text-center">
 			<p class="body-22 text-ink-700">{{ eyebrow }}</p>

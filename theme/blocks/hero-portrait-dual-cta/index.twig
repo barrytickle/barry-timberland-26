@@ -8,8 +8,9 @@
 {% set cta_primary = fields.cta_primary %}
 {% set cta_secondary = fields.cta_secondary %}
 {% set image = fields.image %}
+{% set padding_bottom = fields.padding_bottom == 'no-padding' ? 'pb-0' : 'pb-16' %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="hero-portrait-dual-cta">
+<section class="mx-auto max-w-[1200px] px-6 pt-16 {{ padding_bottom }} lg:px-[72px]" data-component="hero-portrait-dual-cta">
 	<div class="grid items-end gap-12 lg:grid-cols-[1fr_360px]">
 		<div>
 			<p class="body-22 text-ink-700">{{ eyebrow }}</p>

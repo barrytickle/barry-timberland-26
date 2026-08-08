@@ -3,6 +3,26 @@
     "title": "Case Study Gallery",
     "fields": [
         {
+            "key": "field_case_study_gallery_mockup",
+            "label": "Mockup",
+            "name": "mockup",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Show each image inside a centered MacBook frame.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No",
+            "ui": 1
+        },
+        {
             "key": "field_case_study_gallery_top_images",
             "label": "Top Images",
             "name": "top_images",
@@ -100,5 +120,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1786051505
+    "modified": 1786052200
 }

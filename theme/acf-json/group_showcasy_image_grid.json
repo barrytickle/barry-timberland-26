@@ -31,36 +31,6 @@
             "search_placeholder": ""
         },
         {
-            "key": "field_showcasy_image_grid_aspect",
-            "label": "Aspect ratio",
-            "name": "aspect",
-            "aria-label": "",
-            "type": "select",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "aspect-[3\/4]": "Portrait (3:4)",
-                "aspect-[4\/3]": "Landscape (4:3)",
-                "aspect-[1\/1]": "Square (1:1)",
-                "aspect-[16\/9]": "Widescreen (16:9)"
-            },
-            "default_value": "aspect-[3\/4]",
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
-            "return_format": "value",
-            "ajax": 0,
-            "placeholder": "",
-            "allow_custom": 0,
-            "search_placeholder": ""
-        },
-        {
             "key": "field_showcasy_image_grid_images",
             "label": "Images",
             "name": "images",
@@ -109,6 +79,48 @@
                     "mime_types": "",
                     "uploader": "",
                     "acfe_thumbnail": 0
+                },
+                {
+                    "key": "field_showcasy_image_grid_item_logo",
+                    "label": "Logo",
+                    "name": "logo",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Optional text logo. If set, this renders instead of the image or mockup.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_showcasy_image_grid_images"
+                },
+                {
+                    "key": "field_showcasy_image_grid_item_mockup",
+                    "label": "Mockup",
+                    "name": "mockup",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Show this image inside a centered MacBook frame.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "Yes",
+                    "ui_off_text": "No",
+                    "ui": 1,
+                    "parent_repeater": "field_showcasy_image_grid_images"
                 }
             ]
         }
@@ -131,5 +143,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1786051505
+    "modified": 1786213000
 }

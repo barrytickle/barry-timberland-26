@@ -7,6 +7,7 @@
 {% set title = fields.title%}
 {% set button = fields.button %}
 {% set show_filters = fields.show_filters %}
+{% set mockup = fields.mockup %}
 {% set project_limit = fields.how_many_projects %}
 {% set categories = get_terms({ 'taxonomy': 'project_category', 'hide_empty': true }) %}
 {% set projects = get_posts({ 'post_type': 'project', 'posts_per_page': project_limit, 'orderby': 'date', 'order': 'DESC' }) %}
@@ -36,7 +37,7 @@
 	<div class="grid gap-x-8 gap-y-14 sm:grid-cols-2">
 		{% for project in projects %}
 			{% set category = project.terms('project_category')|first %}
-			{% include 'components/work-card.twig' with { title: project.title, category: category ? category.name : '', href: project.link, image: project.thumbnail ? project.thumbnail.src : null } %}
+			{% include 'components/work-card.twig' with { title: project.title, category: category ? category.name : '', href: project.link, image: project.thumbnail ? project.thumbnail.src : null, mockup: mockup } %}
 		{% endfor %}
 	</div>
 </section>

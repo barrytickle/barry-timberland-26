@@ -315,6 +315,28 @@ class Timberland extends Timber\Site {
 			)
 		);
 
+		register_post_type(
+			'service',
+			array(
+				'label'       => 'Services',
+				'labels'      => array(
+					'name'          => 'Services',
+					'singular_name' => 'Service',
+					'add_new_item'  => 'Add New Service',
+					'edit_item'     => 'Edit Service',
+					'all_items'     => 'All Services',
+					'search_items'  => 'Search Services',
+					'not_found'     => 'No services found',
+				),
+				'public'      => true,
+				'show_in_rest' => true,
+				'menu_icon'   => 'dashicons-hammer',
+				'supports'    => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
+				'has_archive' => false,
+				'rewrite'     => array( 'slug' => 'services' ),
+			)
+		);
+
 		register_taxonomy(
 			'project_category',
 			'project',

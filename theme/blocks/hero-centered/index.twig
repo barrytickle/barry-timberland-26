@@ -6,8 +6,9 @@
 {% set heading = fields.heading %}
 {% set cta = fields.cta_link %}
 {% set social_links = fields.social_links %}
+{% set padding_bottom = fields.padding_bottom == 'no-padding' ? 'pb-0' : 'pb-16' %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-16 text-center lg:px-[72px]" data-component="hero-centered">
+<section class="mx-auto max-w-[1200px] px-6 pt-16 {{ padding_bottom }} text-center lg:px-[72px]" data-component="hero-centered">
 	<h1 class="h1 mx-auto max-w-5xl"><span class="text-ink-400">{{ heading_highlight }}</span> {{ heading }}</h1>
 	{% if cta %}
 		<div class="mt-10 flex justify-center">

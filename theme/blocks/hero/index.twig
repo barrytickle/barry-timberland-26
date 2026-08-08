@@ -8,8 +8,9 @@
 {% set cta = fields.cta_link %}
 {% set supporting_text = fields.supporting_text %}
 {% set text_alignment = fields.text_alignment %}
+{% set padding_bottom = fields.padding_bottom == 'no-padding' ? 'pb-0 lg:pb-0' : 'pb-16 lg:pb-24' %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px] lg:py-24" data-component="hero">
+<section class="mx-auto max-w-[1200px] px-6 pt-16 {{ padding_bottom }} lg:px-[72px] lg:pt-24" data-component="hero">
 	<p class="body-22 mb-6 text-ink-700">{{ eyebrow }}</p>
 	<h1 class="h1 max-w-5xl">{{ heading }} 
 	{% if heading_highlight %}

@@ -8,8 +8,9 @@
 {% set image = fields.image %}
 {% set secondary_heading = fields.secondary_heading %}
 {% set secondary_text = fields.secondary_text %}
+{% set padding_bottom = fields.padding_bottom == 'no-padding' ? 'pb-0' : 'pb-16' %}
 
-<section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="hero-portrait-secondary-heading">
+<section class="mx-auto max-w-[1200px] px-6 pt-16 {{ padding_bottom }} lg:px-[72px]" data-component="hero-portrait-secondary-heading">
 	<p class="body-22 text-ink-700">{{ eyebrow }}</p>
 	<h1 class="h1 mt-6 max-w-6xl">{{ heading }} <span class="text-ink-400">{{ heading_highlight }}</span></h1>
 	<div class="mt-12 grid items-end gap-8 lg:grid-cols-[320px_1fr]">

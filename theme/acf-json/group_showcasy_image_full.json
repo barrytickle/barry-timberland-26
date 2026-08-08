@@ -30,6 +30,26 @@
             "acfe_thumbnail": 0
         },
         {
+            "key": "field_showcasy_image_full_mockup",
+            "label": "Mockup",
+            "name": "mockup",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Show the image inside a centered MacBook frame.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No",
+            "ui": 1
+        },
+        {
             "key": "field_showcasy_image_full_width",
             "label": "Width",
             "name": "width",
@@ -76,5 +96,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1786051505
+    "modified": 1786052200
 }

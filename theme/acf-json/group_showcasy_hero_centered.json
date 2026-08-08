@@ -123,6 +123,34 @@
                     "parent_repeater": "field_showcasy_hero_centered_social_links"
                 }
             ]
+        },
+        {
+            "key": "field_showcasy_hero_centered_padding_bottom",
+            "label": "Padding bottom",
+            "name": "padding_bottom",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "full-padding": "Full padding",
+                "no-padding": "No padding"
+            },
+            "default_value": "full-padding",
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "allow_custom": 0,
+            "search_placeholder": ""
         }
     ],
     "location": [
@@ -143,5 +171,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1786039776
+    "modified": 1786212600
 }
