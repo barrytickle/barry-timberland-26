@@ -1,0 +1,11 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{% set content = fields.content|default('') %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px] lg:py-16" data-component="body-text">
+	<div class="body-text-content w-full">
+		{{ content|strip_wp_classes }}
+	</div>
+</section>
+{% endif %}

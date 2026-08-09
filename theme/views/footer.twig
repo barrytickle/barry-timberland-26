@@ -8,14 +8,14 @@
 	{ label: 'Dribbble', url: '#' }
 ]) %}
 {% set default_column_1_links = [
-	{ label: 'Home', url: site.url },
-	{ label: 'About', url: site.url ~ '/about/' },
-	{ label: 'Works', url: site.url ~ '/works/' },
-	{ label: 'Insights', url: site.url ~ '/blog/' },
-	{ label: 'Contact', url: site.url ~ '/contact/' }
+	{ url: { title: 'Home', url: site.url, target: '' } },
+	{ url: { title: 'About', url: site.url ~ '/about/', target: '' } },
+	{ url: { title: 'Works', url: site.url ~ '/works/', target: '' } },
+	{ url: { title: 'Insights', url: site.url ~ '/blog/', target: '' } },
+	{ url: { title: 'Contact', url: site.url ~ '/contact/', target: '' } }
 ] %}
 
-{% set footer_title = options.footer_title|default('Page List') %}
+{% set footer_title = options.footer_link_title|default('Page List') %}
 {% set footer_links = options.footer_links|default(default_column_1_links) %}
 {% set newsletter_heading = options.newsletter_heading|default('Stay connected w/ me.') %}
 
@@ -56,53 +56,24 @@
 		</p>
 
 		<div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
-			{% for social in social_links %}<a class="rounded-full border border-ink-700 py-4 text-center body-16 font-medium transition hover:border-white" href="{{ social.url }}">{{ social.label }}</a>{% endfor %}
+			{% for social in social_links %}<a target="_blank" rel="noopener noreferrer" class="rounded-full border border-ink-700 py-4 text-center body-16 font-medium transition hover:border-white" href="{{ social.url }}">{{ social.label }}</a>{% endfor %}
 		</div>
 
-		<div class="mt-14 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
-			<div>
+		<div class="mt-14">
 				<p class="body-18 mb-6 font-semibold text-ink-400">{{footer_title}}</p>
 
-				<div class="grid grid-cols-2 gap-x-8 gap-y-3 body-16 sm:grid-cols-4">
-					<div class="flex flex-col gap-2">
-						{% for link in columns[0] %}
-							<a class="text-ink-200 hover:text-white" href="{{ link.url }}">{{ link.label }}</a>
-						{% endfor %}
-					</div>
-				 {% if columns[1] is defined %}
-					<div class="flex flex-col gap-2">
-						{% for link in columns[1] %}
-							<a class="text-ink-200 hover:text-white" href="{{ link.url }}">{{ link.label }}</a>
-						{% endfor %}
-					</div>
-				 {% endif %}
-				 {% if columns[2] is defined %}
-					<div class="flex flex-col gap-2">
-						{% for link in columns[2] %}
-							<a class="text-ink-200 hover:text-white" href="{{ link.url }}">{{ link.label }}</a>
-						{% endfor %}
-					</div>
-				 {% endif %}
-				 {% if columns[3] is defined %}
-					<div class="flex flex-col gap-2">
-						{% for link in columns[3] %}
-							<a class="text-ink-200 hover:text-white" href="{{ link.url }}">{{ link.label }}</a>
-						{% endfor %}
-					</div>
-				 {% endif %}
+				<div class="flex gap-16">
+					{% for column in columns %}
+						<div class="flex flex-col gap-2">
+							{% for item in column %}
+								{% if item.url.url %}
+									<a class="text-ink-200 hover:text-white" href="{{ item.url.url }}"{% if item.url.target %} target="{{ item.url.target }}"{% endif %}{% if item.url.target == '_blank' %} rel="noopener noreferrer"{% endif %}>{{ item.url.title }}</a>
+								{% endif %}
+							{% endfor %}
+						</div>
+					{% endfor %}
 				</div>
 			</div>
-
-			<div class="lg:w-80">
-				<p class="body-18 mb-4 font-semibold text-ink-400">{{ newsletter_heading }}</p>
-				<form class="relative" method="post" action="">
-					<input class="w-full border-0 border-b border-ink-700 bg-transparent py-3 pr-10 body-16 text-white placeholder:text-ink-500 focus:border-white focus:outline-none focus:ring-0" placeholder="Enter your email" type="email" name="email"/>
-					<button aria-label="Subscribe" type="submit" class="absolute right-0 top-1/2 -translate-y-1/2 text-white">
-						<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
-					</button>
-				</form>
-			</div>
-		</div>
 
 		<p class="mt-14 border-t border-ink-800 pt-8 text-center body-14 text-ink-500">
 			{{copyright_text}}

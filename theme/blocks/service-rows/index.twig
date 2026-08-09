@@ -1,0 +1,63 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{% set heading = fields.heading|default('My services') %}
+{% set services = fields.services|default([]) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px] lg:py-16" data-component="service-rows">
+	<h2 class="h3 mb-8 lg:mb-10">{{ heading }}</h2>
+
+	<div class="flex flex-col gap-8">
+		{% for service in services %}
+			{% set has_link = service.link.url %}
+			{% set has_tags = service.tags|default([])|length > 0 %}
+
+			{% if has_link %}
+				<a href="{{ service.link.url }}" class="group block"{% if service.link.target %} target="{{ service.link.target }}"{% endif %}{% if service.link.target == '_blank' %} rel="noopener noreferrer"{% endif %}>
+			{% else %}
+				<div class="block">
+			{% endif %}
+
+				<div class="flex flex-col gap-4 lg:flex-row lg:justify-between lg:gap-6">
+					<div class="rounded-card bg-muted px-6 py-8 transition-colors sm:px-8 sm:py-10 lg:w-3/4 lg:px-12 lg:py-12{% if has_link %} group-hover:bg-ink-100{% endif %}">
+						<p class="body-14 font-medium tabular-nums text-ink">{{ '%03d'|format(loop.index) }}</p>
+						<h3 class="h5 mt-3 text-ink sm:mt-4">{{ service.title }}</h3>
+						{% if service.tagline %}
+							<p class="body-18 mt-2 font-semibold text-ink">{{ service.tagline }}</p>
+						{% endif %}
+						{% if service.description %}
+							<p class="body-16 mt-3 text-ink-500 sm:mt-4">{{ service.description }}</p>
+						{% endif %}
+						{% if has_link %}
+							<span class="mt-5 inline-flex items-center gap-2 body-16 font-semibold text-ink sm:mt-6">
+								View service
+								<svg class="h-4 w-4 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+							</span>
+						{% endif %}
+					</div>
+
+					{% if has_tags %}
+						<div class="lg:w-1/4 lg:px-8 lg:pt-10 xl:px-8">
+							<h4 class="mb-3 body-14 font-semibold text-ink-500">Specialties</h4>
+							<ul class="flex flex-wrap gap-2 lg:flex-col lg:items-start lg:gap-2">
+								{% for tag in service.tags %}
+									{% if tag.label %}
+										<li>
+											<span class="inline-block rounded bg-ink px-3 py-1.5 body-14 font-medium text-white">{{ tag.label }}</span>
+										</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
+				</div>
+
+			{% if has_link %}
+				</a>
+			{% else %}
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

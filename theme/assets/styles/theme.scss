@@ -107,3 +107,70 @@ body.admin-bar {
     @apply mt-4 text-lg text-ink-500;
   }
 }
+
+// body-text block — full-width service page prose with checkmark lists.
+.body-text-content {
+  h1:not([class]) {
+    @apply mt-12 text-[2.75rem] font-semibold leading-none tracking-tight text-ink first:mt-0;
+  }
+
+  h2:not([class]) {
+    @apply mt-12 text-[2.25rem] font-semibold leading-none tracking-tight text-ink first:mt-0;
+  }
+
+  h3:not([class]) {
+    @apply mt-10 text-[1.75rem] font-semibold leading-none tracking-tight text-ink first:mt-0;
+  }
+
+  h4:not([class]) {
+    @apply mt-8 text-[1.375rem] font-semibold leading-none tracking-tight text-ink first:mt-0;
+  }
+
+  h5:not([class]) {
+    @apply mt-6 text-[1.125rem] font-semibold leading-snug tracking-tight text-ink first:mt-0;
+  }
+
+  h6:not([class]) {
+    @apply mt-6 text-[1rem] font-semibold leading-snug tracking-tight text-ink first:mt-0;
+  }
+
+  p:not([class]) {
+    @apply mt-4 body-18 text-ink-500 first:mt-0;
+  }
+
+  ul:not([class]) {
+    @apply mt-4 space-y-3;
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      @apply relative body-18 text-ink-500;
+      padding-left: 2rem;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.2em;
+        width: 1.25rem;
+        height: 1.25rem;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23030712' stroke-width='1.75'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m8 12 2.5 2.5L16 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+    }
+  }
+
+  ol:not([class]) {
+    @apply mt-4 list-decimal space-y-2 pl-6 body-18 text-ink-500;
+  }
+
+  a:not([class]) {
+    @apply font-semibold text-ink underline decoration-ink-300 underline-offset-4 transition hover:decoration-ink;
+  }
+
+  strong:not([class]),
+  b:not([class]) {
+    @apply font-semibold text-ink;
+  }
+}

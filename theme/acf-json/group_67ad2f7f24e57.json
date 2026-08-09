@@ -346,33 +346,12 @@
             "button_label": "Add link",
             "sub_fields": [
                 {
-                    "key": "field_site_footer_col1_link_label",
-                    "label": "Label",
-                    "name": "label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_site_footer_col1_links"
-                },
-                {
-                    "key": "field_site_footer_col1_link_url",
+                    "key": "field_6a786e9ba22f1",
                     "label": "URL",
                     "name": "url",
                     "aria-label": "",
-                    "type": "page_link",
-                    "instructions": "Relative (\/about\/) or absolute URL.",
+                    "type": "link",
+                    "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -380,17 +359,8 @@
                         "class": "",
                         "id": ""
                     },
-                    "post_type": [
-                        "page"
-                    ],
-                    "post_status": [
-                        "publish"
-                    ],
-                    "taxonomy": "",
-                    "allow_archives": 1,
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "allow_in_bindings": 1,
+                    "return_format": "array",
+                    "allow_in_bindings": 0,
                     "parent_repeater": "field_site_footer_col1_links"
                 }
             ]
@@ -441,5 +411,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1786134957
+    "modified": 1786277617
 }

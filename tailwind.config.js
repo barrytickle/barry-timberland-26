@@ -21,7 +21,7 @@ export default {
   content: [
     "./theme/views/**/*.twig",
     "./theme/blocks/**/*.twig",
-    "./theme/components/**/*.twig",
+    "./theme/views/components/**/*.twig",
     "./theme/assets/styles/**/*.scss",
     ...safelist.map((cls) => `dummy/${cls}.html`),
   ],

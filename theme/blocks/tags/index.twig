@@ -1,0 +1,21 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{% set heading = fields.heading|default('Specialties') %}
+{% set tags = fields.tags|default([]) %}
+
+<section class="mx-auto max-w-[1200px] border-t border-ink-200 px-6 py-10 lg:px-[72px] lg:py-12" data-component="tags">
+	<div class="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-x-10 lg:gap-x-14">
+		<h2 class="body-14 shrink-0 font-semibold uppercase tracking-tightest text-ink-400">{{ heading }}</h2>
+		<ul class="flex flex-wrap gap-2 sm:gap-2.5">
+			{% for tag in tags %}
+				{% if tag.label %}
+					<li>
+						<span class="inline-flex items-center rounded-lg bg-ink px-3.5 py-2 body-14 font-medium leading-none text-white">{{ tag.label }}</span>
+					</li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+</section>
+{% endif %}

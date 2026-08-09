@@ -3,6 +3,14 @@
 @import "./theme.scss";
 @import "tailwindcss/utilities";
 
+body {
+  @apply bg-white text-ink;
+}
+
+[x-cloak] {
+  display: none;
+}
+
 .wp-block {
   @apply max-w-screen-xl;
 }

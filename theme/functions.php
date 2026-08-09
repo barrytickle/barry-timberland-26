@@ -24,7 +24,7 @@ Timber::$autoescape = false;
 
 class Timberland extends Timber\Site {
 	public function __construct() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ) );
 		add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
 		add_filter( 'timber/context', array( $this, 'add_to_context' ) );
 		add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
@@ -32,7 +32,8 @@ class Timberland extends Timber\Site {
 		add_action( 'block_categories_all', array( $this, 'block_categories_all' ) );
 		add_action( 'acf/init', array( $this, 'acf_register_blocks' ) );
 		add_action( 'acf/init', array( $this, 'register_options_pages' ) );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_assets' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_styles' ) );
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_editor_scripts' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 
 		parent::__construct();
@@ -42,21 +43,57 @@ class Timberland extends Timber\Site {
 		$twig->addFunction( new TwigFunction( 'check_url_match', array( $this, 'check_url_match' ) ) );
 		$twig->addFunction( new TwigFunction( 'to_snake_case', array( $this, 'to_snake_case' ) ) );
 		$twig->addFilter( new TwigFilter( 'nl2br', 'nl2br' ) );
+		$twig->addFilter(
+			new TwigFilter(
+				'strip_wp_classes',
+				'timberland_strip_wp_classes',
+				array( 'is_safe' => array( 'html' ) )
+			)
+		);
 		return $twig;
 	}
 
-	public function check_url_match ($string){
-		$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-		if($_SERVER['REQUEST_URI'] === $string  || $url === $string) {
+	public function check_url_match( $link ) {
+		$current_path = wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+		$current_path = trailingslashit( $current_path ?: '/' );
+
+		$link_path = wp_parse_url( $link, PHP_URL_PATH );
+
+		if ( $link_path === null || $link_path === false || $link_path === '' ) {
+			$link_path = trailingslashit( $link );
+		} else {
+			$link_path = trailingslashit( $link_path );
+		}
+
+		if ( $current_path === $link_path ) {
 			return true;
 		}
+
+		// Highlight parent nav items on sub-pages, e.g. /services/cro/ → Services.
+		if ( $link_path !== '/' && str_starts_with( $current_path, $link_path ) ) {
+			return true;
+		}
+
 		return false;
 	}
 
 	public function add_to_context( $context ) {
 		global $post;
-		$context['processed_content'] = wrap_non_acf_blocks($post->post_content);
+
 		$context['site'] = $this;
+
+		// Block previews call Timber::context() from acf_block_render_callback.
+		// Skip the full context build here — wrap_non_acf_blocks() re-renders
+		// every block in the post, which recursively triggers this callback again.
+		if ( ! empty( $GLOBALS['timberland_rendering_acf_block'] ) ) {
+			$context['options'] = get_fields( 'options' );
+			return $context;
+		}
+
+		$context['processed_content'] = ( $post instanceof WP_Post )
+			? wrap_non_acf_blocks( $post->post_content )
+			: '';
+
 		$menus = wp_get_nav_menus();
 		$context['menus'] = [];
 		$context['all_posts'] = Timber::get_posts(array(
@@ -111,74 +148,118 @@ class Timberland extends Timber\Site {
 		return preg_replace($pattern, $replacement, $content);
 	}
 
-	public function enqueue_assets() {
-		// Prevent dequeueing of critical scripts in admin. Note this used to be an early
-		// `return`, which also skipped add_editor_style() below whenever this ran as the
-		// enqueue_block_editor_assets callback (always is_admin() === true there) — the
-		// block editor never got any theme CSS at all, admin or dev.
-		if ( ! is_admin() ) {
-			wp_dequeue_style('wp-block-library');
-			wp_dequeue_style('wp-block-library-theme');
-			wp_dequeue_style('wc-block-style');
-			wp_dequeue_script('jquery');
-			wp_dequeue_style('global-styles');
-		}
-
-		$vite_env = 'production';
-
+	private function get_vite_environment() {
 		if ( file_exists( get_template_directory() . '/../config.json' ) ) {
-			$config   = json_decode( file_get_contents( get_template_directory() . '/../config.json' ), true );
-			$vite_env = $config['vite']['environment'] ?? 'production';
+			$config = json_decode( file_get_contents( get_template_directory() . '/../config.json' ), true );
+			return $config['vite']['environment'] ?? 'production';
 		}
 
-		$dist_uri  = get_template_directory_uri() . '/assets/dist';
-		$dist_path = get_template_directory() . '/assets/dist';
-		$manifest  = null;
+		return 'production';
+	}
 
-		if ( file_exists( $dist_path . '/.vite/manifest.json' ) ) {
-			$manifest = json_decode( file_get_contents( $dist_path . '/.vite/manifest.json' ), true );
+	private function get_vite_manifest() {
+		$manifest_path = get_template_directory() . '/assets/dist/.vite/manifest.json';
+
+		if ( ! file_exists( $manifest_path ) ) {
+			return null;
 		}
 
-		if ( is_array( $manifest ) ) {
-			if ( $vite_env === 'production' ) {
-				$js_file = 'theme/assets/main.js';
-				wp_enqueue_style( 'main', $dist_uri . '/' . $manifest[ $js_file ]['css'][0] );
-				$strategy = is_admin() ? 'async' : 'defer';
-				$in_footer = is_admin() ? false : true;
-				wp_enqueue_script(
-					'main',
-					$dist_uri . '/' . $manifest[ $js_file ]['file'],
-					array(),
-					'',
-					array(
-						'strategy'  => $strategy,
-						'in_footer' => $in_footer,
-					)
-				);
+		return json_decode( file_get_contents( $manifest_path ), true );
+	}
 
-				// wp_enqueue_style('prefix-editor-font', '//fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
-				$editor_css_file = 'theme/assets/styles/editor-style.scss';
-				add_editor_style( $dist_uri . '/' . $manifest[ $editor_css_file ]['file'] );
-			}
+	public function enqueue_frontend_assets() {
+		wp_dequeue_style( 'wp-block-library' );
+		wp_dequeue_style( 'wp-block-library-theme' );
+		wp_dequeue_style( 'wc-block-style' );
+		wp_dequeue_script( 'jquery' );
+		wp_dequeue_style( 'global-styles' );
+
+		$vite_env = $this->get_vite_environment();
+		$manifest = $this->get_vite_manifest();
+		$dist_uri = get_template_directory_uri() . '/assets/dist';
+
+		if ( is_array( $manifest ) && $vite_env === 'production' ) {
+			$js_file = 'theme/assets/main.js';
+			wp_enqueue_style( 'main', $dist_uri . '/' . $manifest[ $js_file ]['css'][0] );
+			wp_enqueue_script(
+				'main',
+				$dist_uri . '/' . $manifest[ $js_file ]['file'],
+				array(),
+				'',
+				array(
+					'strategy'  => 'defer',
+					'in_footer' => true,
+				)
+			);
+			return;
 		}
 
 		if ( $vite_env === 'development' ) {
-			if ( is_admin() ) {
-				// Vite's dev server serves plain, fully-compiled CSS (not the JS-wrapped
-				// HMR module) to requests that ask for text/css, which is exactly what
-				// the <link> tag WordPress builds from add_editor_style() will send —
-				// so the block editor iframe gets the real, live Tailwind build too.
-				add_editor_style( 'http://localhost:3000/theme/assets/styles/editor-style.scss' );
-			} else {
-				if ( ! function_exists( 'vite_head_module_hook' ) ) {
-					function vite_head_module_hook() {
-						echo '<script type="module" crossorigin src="http://localhost:3000/@vite/client"></script>';
-						echo '<script type="module" crossorigin src="http://localhost:3000/theme/assets/main.js"></script>';
-					}
+			if ( ! function_exists( 'vite_head_module_hook' ) ) {
+				function vite_head_module_hook() {
+					echo '<script type="module" crossorigin src="http://localhost:3000/@vite/client"></script>';
+					echo '<script type="module" crossorigin src="http://localhost:3000/theme/assets/main.js"></script>';
 				}
-				add_action( 'wp_head', 'vite_head_module_hook' );
 			}
+			add_action( 'wp_head', 'vite_head_module_hook' );
 		}
+	}
+
+	public function enqueue_editor_styles() {
+		$vite_env = $this->get_vite_environment();
+		$manifest = $this->get_vite_manifest();
+		$dist_uri = get_template_directory_uri() . '/assets/dist';
+
+		if ( is_array( $manifest ) && $vite_env === 'production' ) {
+			$editor_js_file = 'theme/assets/editor.js';
+			add_editor_style( $dist_uri . '/' . $manifest[ $editor_js_file ]['css'][0] );
+			return;
+		}
+
+		if ( $vite_env === 'development' ) {
+			// Prefer the built bundle when available — avoids mixed-content blocks when
+			// the admin runs on https://*.local but Vite serves http://localhost:3000.
+			if ( is_array( $manifest ) ) {
+				$editor_js_file = 'theme/assets/editor.js';
+				add_editor_style( $dist_uri . '/' . $manifest[ $editor_js_file ]['css'][0] );
+			}
+
+			// Live Tailwind rebuilds when Vite dev is running (http-only admin setups).
+			add_editor_style( 'http://localhost:3000/theme/assets/styles/editor-style.scss' );
+		}
+	}
+
+	public function enqueue_editor_scripts() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$vite_env = $this->get_vite_environment();
+
+		// Only load block JS in production. Vite HMR + Alpine in the editor iframe
+		// conflicts with Gutenberg's React runtime and can collapse block previews.
+		if ( $vite_env !== 'production' ) {
+			return;
+		}
+
+		$manifest = $this->get_vite_manifest();
+		$dist_uri = get_template_directory_uri() . '/assets/dist';
+
+		if ( ! is_array( $manifest ) ) {
+			return;
+		}
+
+		$editor_js_file = 'theme/assets/editor.js';
+		wp_enqueue_script(
+			'theme-editor',
+			$dist_uri . '/' . $manifest[ $editor_js_file ]['file'],
+			array(),
+			'',
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => false,
+			)
+		);
 	}
 
 	public function block_categories_all( $categories ) {
@@ -391,20 +472,24 @@ new Timberland();
  * Don't edit this one
  */
 function acf_block_render_callback( $block, $content = '', $is_preview = false, $post_id = 0 ) {
+	$GLOBALS['timberland_rendering_acf_block'] = true;
+
 	$context           = Timber::context();
-	$context['post']   = Timber::get_post();
+	$context['post']   = $post_id ? Timber::get_post( $post_id ) : Timber::get_post();
 	$context['block']  = $block;
-	$context['fields']  = get_fields();
+	$context['fields']  = timberland_get_block_fields_with_placeholders( $block, get_fields(), $is_preview );
     $block_name        = explode( '/', $block['name'] )[1];
     $template          = 'blocks/'. $block_name . '/index.twig';
 
 	$context['is_preview']    = (bool) $is_preview;
-	// Always null: the block editor now loads the theme's real compiled CSS (see
-	// enqueue_assets()), so every block's dynamic markup renders correctly in the
-	// editor on its own — no more falling back to a static component-previews/ screenshot.
+	// Always null: the block editor loads the theme's compiled editor bundle (see
+	// enqueue_editor_styles() / enqueue_editor_scripts()), so every block's dynamic
+	// markup renders correctly in the editor — no static component-previews/ fallback.
 	$context['preview_image'] = null;
 
 	Timber::render( $template, $context );
+
+	$GLOBALS['timberland_rendering_acf_block'] = false;
 }
 
 // Remove ACF block wrapper div
@@ -420,21 +505,30 @@ function acf_case_study_wysiwyg_toolbar( $toolbars ) {
 	$toolbars['Case Study'] = array(
 		1 => array( 'formatselect', 'bold', 'italic', 'bullist', 'numlist', 'link', 'undo', 'redo' ),
 	);
+	$toolbars['Body Text'] = array(
+		1 => array( 'formatselect', 'bold', 'bullist', 'link', 'unlink', 'undo', 'redo' ),
+	);
 	return $toolbars;
 }
 add_filter( 'acf/fields/wysiwyg/toolbars', 'acf_case_study_wysiwyg_toolbar' );
 
-// Restrict the "Paragraph" dropdown to just Paragraph + Heading 4. ACF clones every
-// wysiwyg field's TinyMCE settings from the single hidden #acf_content template editor,
-// so this applies to all ACF wysiwyg fields — fine while case-study-body's content field
-// is the only one in the theme, but revisit if a second wysiwyg field ever needs full headings.
-function acf_restrict_wysiwyg_block_formats( $settings, $editor_id ) {
-	if ( $editor_id === 'acf_content' ) {
+// Per-field heading options. ACF clones every wysiwyg from the hidden #acf_content
+// template, so tiny_mce_before_init on acf_content overrides all fields — use
+// acf/fields/wysiwyg/settings instead so each field gets its own block_formats.
+function acf_wysiwyg_field_settings( $settings, $field ) {
+	$key = $field['key'] ?? '';
+
+	if ( $key === 'field_case_study_body_content' ) {
 		$settings['block_formats'] = 'Paragraph=p;Heading 4=h4';
 	}
+
+	if ( $key === 'field_showcasy_body_text_content' ) {
+		$settings['block_formats'] = 'Paragraph=p;Heading 1=h1;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6';
+	}
+
 	return $settings;
 }
-add_filter( 'tiny_mce_before_init', 'acf_restrict_wysiwyg_block_formats', 10, 2 );
+add_filter( 'acf/fields/wysiwyg/settings', 'acf_wysiwyg_field_settings', 10, 2 );
 
 add_filter('timber/twig', function ($twig) {
 	return $twig;
