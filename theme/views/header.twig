@@ -37,18 +37,18 @@
 				{{ cta.title }}
 				<svg class="h-4 w-4 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
 			</a>
-			<button aria-label="Open menu" class="grid h-[52px] w-[52px] place-items-center rounded-full border border-ink text-ink transition duration-200 hover:bg-ink hover:text-white lg:hidden" data-component="mobile-menu-open">
+			<button aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" class="grid h-[52px] w-[52px] place-items-center rounded-full border border-ink text-ink transition duration-200 hover:bg-ink hover:text-white lg:hidden" data-component="mobile-menu-open" type="button">
 				<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"></path></svg>
 			</button>
 		</div>
 	</div>
 </header>
 
-<div class="fixed inset-0 z-50 hidden overflow-y-auto bg-ink px-6 py-10 text-white lg:hidden" data-component="mobile-menu">
+<div class="fixed inset-0 z-50 hidden overflow-y-auto bg-ink px-6 py-10 text-white lg:hidden" data-component="mobile-menu" id="mobile-menu">
 	<div class="mx-auto max-w-[1200px]">
 		<div class="flex items-center justify-between border-b border-ink-800 pb-8">
 			<a class="text-2xl font-semibold tracking-tightest" href="{{ site.url }}"><span class="text-ink-500">{{ logo_text_highlight }}</span>{{ logo_text }}</a>
-			<button aria-label="Close menu" class="grid h-12 w-12 place-items-center rounded-full border border-ink-700 transition duration-200 hover:border-white" data-component="mobile-menu-close">
+			<button aria-label="Close menu" class="grid h-12 w-12 place-items-center rounded-full border border-ink-700 transition duration-200 hover:border-white" data-component="mobile-menu-close" type="button">
 				<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"></path></svg>
 			</button>
 		</div>

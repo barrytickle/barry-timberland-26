@@ -25,6 +25,7 @@ Timber::$autoescape = false;
 class Timberland extends Timber\Site {
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ) );
+		add_filter( 'script_loader_tag', array( $this, 'load_frontend_script_as_module' ), 10, 2 );
 		add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
 		add_filter( 'timber/context', array( $this, 'add_to_context' ) );
 		add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
@@ -37,6 +38,14 @@ class Timberland extends Timber\Site {
 		add_action( 'init', array( $this, 'register_post_types' ) );
 
 		parent::__construct();
+	}
+
+	public function load_frontend_script_as_module( $tag, $handle ) {
+		if ( 'main' !== $handle ) {
+			return $tag;
+		}
+
+		return str_replace( '<script ', '<script type="module" ', $tag );
 	}
 
 	public function add_twig_functions( $twig ) {

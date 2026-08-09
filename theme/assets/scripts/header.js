@@ -9,11 +9,14 @@
 
 	const openMenu = () => {
 		menu.classList.remove("hidden");
+		openButton.setAttribute("aria-expanded", "true");
 		document.body.classList.add("overflow-hidden");
+		closeButton.focus();
 	};
 
 	const closeMenu = () => {
 		menu.classList.add("hidden");
+		openButton.setAttribute("aria-expanded", "false");
 		document.body.classList.remove("overflow-hidden");
 	};
 

@@ -16,7 +16,7 @@
 	<div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
 		{% for item in items %}
 			<div>
-				<p class="body-28 {{ item.weight }} text-ink-500">{{ item.wordmark }}</p>
+				<p class="text-xl leading-tight tracking-wide sm:body-28 {{ item.weight }} text-ink-500">{{ item.wordmark }}</p>
 				{% if not item.list %}
 					<p class="body-16 mt-4 font-medium text-ink">{{ item.label }}</p>
 					<p class="body-14 text-ink-500">{{ item.sublabel }}</p>

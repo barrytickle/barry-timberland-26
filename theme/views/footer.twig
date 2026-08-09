@@ -62,7 +62,15 @@
 		<div class="mt-14">
 				<p class="body-18 mb-6 font-semibold text-ink-400">{{footer_title}}</p>
 
-				<div class="flex gap-16">
+				<div class="grid grid-cols-2 gap-x-8 gap-y-2 lg:hidden">
+					{% for item in footer_links %}
+						{% if item.url.url %}
+							<a class="text-ink-200 hover:text-white" href="{{ item.url.url }}"{% if item.url.target %} target="{{ item.url.target }}"{% endif %}{% if item.url.target == '_blank' %} rel="noopener noreferrer"{% endif %}>{{ item.url.title }}</a>
+						{% endif %}
+					{% endfor %}
+				</div>
+
+				<div class="hidden gap-16 lg:flex">
 					{% for column in columns %}
 						<div class="flex flex-col gap-2">
 							{% for item in column %}
