@@ -95,21 +95,8 @@ body.admin-bar {
   @apply max-w-2xl mx-auto;
 }
 
-// case-study-body's WYSIWYG field is restricted to Paragraph + Heading 4 only
-// (see acf_case_study_wysiwyg_toolbar() in functions.php), so plain h4/p tags is all
-// editors can produce here — style them directly rather than relying on .content-page.
-.case-study-body-content {
-  h4 {
-    @apply mt-10 text-2xl font-semibold text-ink first:mt-0;
-  }
-
-  p {
-    @apply mt-4 text-lg text-ink-500;
-  }
-}
-
-// body-text block — full-width service page prose with checkmark lists.
-.body-text-content {
+// Shared WYSIWYG prose — body-text, case-study-body, and any other rich-text fields.
+.rich-text-content {
   h1:not([class]) {
     @apply mt-12 text-[2.75rem] font-semibold leading-none tracking-tight text-ink first:mt-0;
   }

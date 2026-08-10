@@ -217,7 +217,7 @@ function timberland_get_block_fields_with_placeholders( $block, $fields, $is_pre
 
 /**
  * Remove WordPress, Gutenberg, and editor classes from WYSIWYG HTML so theme
- * .body-text-content styles apply cleanly.
+ * .rich-text-content styles apply cleanly.
  */
 function timberland_strip_wp_classes( $html ) {
 	if ( ! is_string( $html ) || $html === '' ) {
