@@ -99,11 +99,11 @@ body.admin-bar {
 // (see acf_case_study_wysiwyg_toolbar() in functions.php), so plain h4/p tags is all
 // editors can produce here — style them directly rather than relying on .content-page.
 .case-study-body-content {
-  h4:not([class]) {
+  h4 {
     @apply mt-10 text-2xl font-semibold text-ink first:mt-0;
   }
 
-  p:not([class]) {
+  p {
     @apply mt-4 text-lg text-ink-500;
   }
 }
