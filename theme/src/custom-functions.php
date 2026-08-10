@@ -216,38 +216,13 @@ function timberland_get_block_fields_with_placeholders( $block, $fields, $is_pre
 }
 
 /**
- * Remove WordPress, Gutenberg, and editor classes from WYSIWYG HTML so theme
- * .rich-text-content styles apply cleanly.
+ * Remove editor-injected class attributes from WYSIWYG HTML so theme
+ * .rich-text-content styles apply consistently.
  */
 function timberland_strip_wp_classes( $html ) {
 	if ( ! is_string( $html ) || $html === '' ) {
 		return $html;
 	}
 
-	return preg_replace_callback(
-		'/\sclass=(["\'])([^"\']*)\1/i',
-		function ( $matches ) {
-			$classes = preg_split( '/\s+/', trim( $matches[2] ) );
-			$classes = array_filter(
-				$classes,
-				function ( $class ) {
-					if ( $class === '' ) {
-						return false;
-					}
-
-					return ! preg_match(
-						'/^(wp-|has-|mce-|isSelected|align(none|left|right|center)$|screen-reader-text|size-)/',
-						$class
-					);
-				}
-			);
-
-			if ( empty( $classes ) ) {
-				return '';
-			}
-
-			return ' class="' . esc_attr( implode( ' ', $classes ) ) . '"';
-		},
-		$html
-	);
+	return preg_replace( '/\sclass=(["\'])[^"\']*\1/i', '', $html );
 }

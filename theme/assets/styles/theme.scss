@@ -97,35 +97,35 @@ body.admin-bar {
 
 // Shared WYSIWYG prose — body-text, case-study-body, and any other rich-text fields.
 .rich-text-content {
-  h1:not([class]) {
+  h1 {
     @apply mt-12 text-[2.75rem] font-semibold leading-none tracking-tight text-ink first:mt-0;
   }
 
-  h2:not([class]) {
+  h2 {
     @apply mt-12 text-[2.25rem] font-semibold leading-none tracking-tight text-ink first:mt-0;
   }
 
-  h3:not([class]) {
+  h3 {
     @apply mt-10 text-[1.75rem] font-semibold leading-none tracking-tight text-ink first:mt-0;
   }
 
-  h4:not([class]) {
+  h4 {
     @apply mt-8 text-[1.375rem] font-semibold leading-none tracking-tight text-ink first:mt-0;
   }
 
-  h5:not([class]) {
+  h5 {
     @apply mt-6 text-[1.125rem] font-semibold leading-snug tracking-tight text-ink first:mt-0;
   }
 
-  h6:not([class]) {
+  h6 {
     @apply mt-6 text-[1rem] font-semibold leading-snug tracking-tight text-ink first:mt-0;
   }
 
-  p:not([class]) {
+  p {
     @apply mt-4 body-18 text-ink-500 first:mt-0;
   }
 
-  ul:not([class]) {
+  ul {
     @apply mt-4 space-y-3;
     list-style: none;
     padding-left: 0;
@@ -148,16 +148,16 @@ body.admin-bar {
     }
   }
 
-  ol:not([class]) {
+  ol {
     @apply mt-4 list-decimal space-y-2 pl-6 body-18 text-ink-500;
   }
 
-  a:not([class]) {
+  a {
     @apply font-semibold text-ink underline decoration-ink-300 underline-offset-4 transition hover:decoration-ink;
   }
 
-  strong:not([class]),
-  b:not([class]) {
+  strong,
+  b {
     @apply font-semibold text-ink;
   }
 }
