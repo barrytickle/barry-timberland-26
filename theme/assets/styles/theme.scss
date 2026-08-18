@@ -131,7 +131,7 @@ body.admin-bar {
     padding-left: 0;
 
     li {
-      @apply relative body-18 text-ink-500;
+      @apply relative body-18 text-ink-700;
       padding-left: 2rem;
 
       &::before {
@@ -149,7 +149,29 @@ body.admin-bar {
   }
 
   ol {
-    @apply mt-4 list-decimal space-y-2 pl-6 body-18 text-ink-500;
+    @apply mt-4 list-decimal space-y-2 pl-6 body-18 text-ink-700;
+  }
+
+  pre {
+    margin-top: 1.5rem;
+    overflow-x: auto;
+    border: 1px solid #514667;
+    border-radius: 0.75rem;
+    background: #272433;
+    padding: 1.25rem 1.5rem;
+    color: #e6e1f0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    tab-size: 2;
+
+    code {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+    }
   }
 
   a {
