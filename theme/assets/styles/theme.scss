@@ -356,3 +356,195 @@ body.admin-bar {
     border-top: 1px solid #d1d5db;
   }
 }
+
+// Insight chapter reader. The controls are injected by JavaScript, leaving the
+// complete server-rendered article visible when enhancement is unavailable.
+[data-insight-reader].is-enhanced {
+  scroll-margin-top: 1.5rem;
+
+  [data-component="body-text"] {
+    padding-top: 2rem;
+  }
+
+  .article-prose {
+    max-width: 65ch;
+  }
+}
+
+[data-insight-reader][data-reader-mode="full"] {
+  .insight-reader__status,
+  .insight-reader__progress {
+    display: none;
+  }
+}
+
+.insight-reader__controls,
+.insight-reader__navigation {
+  width: calc(100% - 2rem);
+  max-width: 65ch;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.insight-reader__controls {
+  padding-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.insight-reader__modes {
+  display: inline-flex;
+  gap: 0.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  padding: 0.25rem;
+
+  button {
+    border-radius: 999px;
+    padding: 0.5rem 0.875rem;
+    color: #4b5563;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.25;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+
+  button[aria-pressed="true"] {
+    background: #030712;
+    color: #fff;
+  }
+
+  button:focus-visible {
+    outline: 2px solid #030712;
+    outline-offset: 2px;
+  }
+}
+
+.insight-reader__contents {
+  position: relative;
+  margin-top: 1rem;
+  color: #374151;
+
+  summary {
+    width: fit-content;
+    cursor: pointer;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  ol {
+    margin-top: 0.75rem;
+    border-left: 1px solid #d1d5db;
+    padding-left: 1rem;
+  }
+
+  li + li {
+    margin-top: 0.4rem;
+  }
+
+  a {
+    color: #4b5563;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a[aria-current="location"] {
+    color: #030712;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+.insight-reader__progress {
+  height: 2px;
+  margin-top: 1.5rem;
+  overflow: hidden;
+  background: #e5e7eb;
+
+  span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: #030712;
+    transition: width 200ms ease;
+  }
+}
+
+.insight-reader__status {
+  margin: 1.75rem 0 0;
+  color: #6b7280;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.insight-reader__chapter {
+  min-width: 0;
+
+  > h2:first-child {
+    margin-top: 0;
+    padding-top: clamp(1rem, 3vw, 2rem);
+  }
+
+  > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.insight-reader__chapter:first-child > p:first-child {
+  margin-bottom: 1.3em;
+  color: #1f2937;
+  font-size: 1.12em;
+  line-height: 1.62;
+}
+
+.insight-reader__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid #d1d5db;
+  padding: 1.5rem 0 3.5rem;
+  color: #4b5563;
+  font-size: 0.875rem;
+
+  button {
+    width: fit-content;
+    color: #030712;
+    font-weight: 600;
+  }
+
+  button:last-child {
+    margin-left: auto;
+  }
+
+  button:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  button:focus-visible {
+    outline: 2px solid #030712;
+    outline-offset: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insight-reader__modes button,
+  .insight-reader__progress span {
+    transition: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .insight-reader__controls,
+  .insight-reader__navigation {
+    width: calc(100% - 2rem);
+  }
+}
