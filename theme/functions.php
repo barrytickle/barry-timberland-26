@@ -459,6 +459,7 @@ class Timberland extends Timber\Site {
 				'show_in_rest' => true,
 				'menu_icon'    => 'dashicons-lightbulb',
 				'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt', 'author', 'custom-fields' ),
+				'taxonomies'   => array( 'category' ),
 				'has_archive'  => true,
 				'rewrite'      => array( 'slug' => 'insights' ),
 			)

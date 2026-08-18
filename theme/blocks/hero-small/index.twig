@@ -11,6 +11,6 @@
 <section class="mx-auto max-w-[1200px] px-6 {{ padding_bottom }} pt-10 lg:px-[72px] lg:pt-16" data-component="hero-small">
 <p class="body-22 mb-6 text-ink-700">{{ eyebrow }}</p>
 <h1 class="h1 max-w-4xl">{{ heading }} <span class="text-ink-400">{{ heading_highlight }}</span></h1>
-<p class="body-18 mt-8 max-w-xl text-ink-500">{{ supporting_text }}</p>
+{% if supporting_text %}<p class="body-18 mt-8 max-w-xl text-ink-500">{{ supporting_text }}</p>{% endif %}
 </section>
 {% endif %}

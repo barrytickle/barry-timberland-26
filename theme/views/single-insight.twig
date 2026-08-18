@@ -1,0 +1,39 @@
+{% extends "base.twig" %}
+
+{% block content %}
+	{% set category = post.terms('category')|first %}
+
+	{% include 'blocks/hero-small/index.twig' with {
+		fields: {
+			eyebrow: category ? category.name : 'Insight',
+			heading: post.title,
+			heading_highlight: '',
+			supporting_text: '',
+			padding_bottom: 'no-padding'
+		},
+		is_preview: false,
+		preview_image: null
+	} only %}
+
+	{% set featured_image = post.thumbnail %}
+	{% if featured_image %}
+		{% include 'blocks/image-full/index.twig' with {
+			fields: {
+				image: {
+					url: featured_image.src,
+					alt: featured_image.alt
+				},
+				mockup: false,
+				width: 'wide'
+			},
+			is_preview: false,
+			preview_image: null
+		} only %}
+	{% endif %}
+
+	{% include 'blocks/body-text/index.twig' with {
+		fields: { content: post.content },
+		is_preview: false,
+		preview_image: null
+	} only %}
+{% endblock %}

@@ -40,6 +40,7 @@ if ( is_post_type_archive( 'insight' ) ) {
 
 	if ( $featured_article instanceof WP_Post && 'insight' === $featured_article->post_type ) {
 		$thumbnail_id = get_post_thumbnail_id( $featured_article );
+		$categories   = get_the_category( $featured_article->ID );
 		$image        = $thumbnail_id
 			? array(
 				'url' => wp_get_attachment_image_url( $thumbnail_id, 'large' ),
@@ -48,6 +49,7 @@ if ( is_post_type_archive( 'insight' ) ) {
 			: null;
 
 		$insights_options['featured_article'] = array(
+			'eyebrow' => $categories ? $categories[0]->name : '',
 			'heading' => get_the_title( $featured_article ),
 			'excerpt' => get_the_excerpt( $featured_article ),
 			'image'   => $image,
@@ -73,7 +75,10 @@ if ( is_post_type_archive( 'insight' ) ) {
 
 	$insights_options['insights_group']['articles'] = array_map(
 		static function ( $insight ) {
+			$categories = get_the_category( $insight->ID );
+
 			return array(
+				'eyebrow' => $categories ? $categories[0]->name : '',
 				'title'   => get_the_title( $insight ),
 				'excerpt' => get_the_excerpt( $insight ),
 				'href'    => get_permalink( $insight ),

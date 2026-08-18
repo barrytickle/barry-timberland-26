@@ -2,6 +2,7 @@
 	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/featured-article.html #}
+{% set eyebrow = fields.eyebrow|default('') %}
 {% set heading = fields.heading %}
 {% set excerpt = fields.excerpt %}
 {% set image = fields.image %}
@@ -14,6 +15,7 @@
 		<div class="grid aspect-[4/3] place-items-center overflow-hidden rounded-card bg-muted"><svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg></div>
 	{% endif %}
 	<div>
+		{% if eyebrow %}<p class="body-14 mb-3 text-ink-500">{{ eyebrow }}</p>{% endif %}
 		<h3 class="h4">{{ heading }}</h3>
 		<p class="body-18 mt-5 text-ink-500">{{ excerpt }}</p>
 		{% if button %}
