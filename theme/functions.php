@@ -33,7 +33,7 @@ class Timberland extends Timber\Site {
 		add_action( 'block_categories_all', array( $this, 'block_categories_all' ) );
 		add_action( 'acf/init', array( $this, 'acf_register_blocks' ) );
 		add_action( 'acf/init', array( $this, 'register_options_pages' ) );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_styles' ) );
+		add_action( 'after_setup_theme', array( $this, 'enqueue_editor_styles' ), 20 );
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_editor_scripts' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'admin_menu', array( $this, 'hide_default_posts_menu' ) );
