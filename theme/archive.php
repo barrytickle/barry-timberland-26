@@ -87,7 +87,7 @@ if ( is_post_type_archive( 'insight' ) ) {
 			return array(
 				'eyebrow' => $categories ? $categories[0]->name : '',
 				'title'   => get_the_title( $insight ),
-				'excerpt' => get_the_excerpt( $insight ),
+				'excerpt' => wp_trim_words( wp_strip_all_tags( get_the_excerpt( $insight ) ), 24, '...' ),
 				'href'    => get_permalink( $insight ),
 				'image'   => $image,
 			);

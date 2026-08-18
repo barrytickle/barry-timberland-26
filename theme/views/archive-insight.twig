@@ -17,7 +17,7 @@
 
 	{% if insights_options.insights_group.articles|default([]) %}
 		{% include 'blocks/insights-group/index.twig' with {
-			fields: insights_options.insights_group,
+			fields: insights_options.insights_group|merge({ columns: 2 }),
 			is_preview: false,
 			preview_image: null
 		} only %}
