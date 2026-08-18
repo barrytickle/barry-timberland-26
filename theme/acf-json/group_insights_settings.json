@@ -1,0 +1,118 @@
+{
+    "key": "group_insights_settings",
+    "title": "Insights Archive",
+    "fields": [
+        {
+            "key": "field_insights_archive_hero_small",
+            "label": "Hero Small",
+            "name": "hero_small",
+            "type": "group",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_insights_archive_hero_eyebrow",
+                    "label": "Eyebrow",
+                    "name": "eyebrow",
+                    "type": "text",
+                    "default_value": "Insights"
+                },
+                {
+                    "key": "field_insights_archive_hero_heading",
+                    "label": "Heading",
+                    "name": "heading",
+                    "type": "text",
+                    "default_value": "Ideas, experiments and"
+                },
+                {
+                    "key": "field_insights_archive_hero_heading_highlight",
+                    "label": "Heading Highlight",
+                    "name": "heading_highlight",
+                    "type": "text",
+                    "default_value": "useful discoveries."
+                },
+                {
+                    "key": "field_insights_archive_hero_supporting_text",
+                    "label": "Supporting Text",
+                    "name": "supporting_text",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": "",
+                    "default_value": "Thoughts on experimentation, product design and building better digital experiences."
+                },
+                {
+                    "key": "field_insights_archive_hero_padding_bottom",
+                    "label": "Bottom Padding",
+                    "name": "padding_bottom",
+                    "type": "select",
+                    "choices": {
+                        "padding": "Default padding",
+                        "no-padding": "No padding"
+                    },
+                    "default_value": "padding",
+                    "return_format": "value"
+                }
+            ]
+        },
+        {
+            "key": "field_insights_archive_featured_article",
+            "label": "Featured Article",
+            "name": "featured_article",
+            "type": "group",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_insights_archive_featured_post",
+                    "label": "Insight",
+                    "name": "article",
+                    "type": "post_object",
+                    "instructions": "Select the Insight whose title, excerpt, featured image and URL should be displayed.",
+                    "post_type": [
+                        "insight"
+                    ],
+                    "post_status": [
+                        "publish"
+                    ],
+                    "return_format": "object",
+                    "multiple": 0,
+                    "allow_null": 1,
+                    "ui": 1
+                }
+            ]
+        },
+        {
+            "key": "field_insights_archive_insights_group",
+            "label": "Insights Group",
+            "name": "insights_group",
+            "type": "group",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_insights_archive_group_heading",
+                    "label": "Heading",
+                    "name": "heading",
+                    "type": "text",
+                    "default_value": "Latest insights"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "insights-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "Content used by the Insights post type archive.",
+    "show_in_rest": 0,
+    "modified": 1787072400
+}

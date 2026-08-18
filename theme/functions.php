@@ -36,6 +36,9 @@ class Timberland extends Timber\Site {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_styles' ) );
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_editor_scripts' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
+		add_action( 'admin_menu', array( $this, 'hide_default_posts_menu' ) );
+		add_action( 'admin_menu', array( $this, 'add_view_insights_menu_item' ) );
+		add_action( 'admin_bar_menu', array( $this, 'hide_default_posts_admin_bar_item' ), 999 );
 
 		parent::__construct();
 	}
@@ -360,6 +363,18 @@ class Timberland extends Timber\Site {
 				'position'   => 61,
 			)
 		);
+
+		acf_add_options_sub_page(
+			array(
+				'page_title'  => 'Insights Settings',
+				'menu_title'  => 'Insights Settings',
+				'menu_slug'   => 'insights-settings',
+				'parent_slug' => 'edit.php?post_type=insight',
+				'capability'  => 'edit_posts',
+				'post_id'     => 'insights_options',
+				'redirect'    => false,
+			)
+		);
 	}
 
 	/**
@@ -427,6 +442,28 @@ class Timberland extends Timber\Site {
 			)
 		);
 
+		register_post_type(
+			'insight',
+			array(
+				'label'        => 'Insights',
+				'labels'       => array(
+					'name'          => 'Insights',
+					'singular_name' => 'Insight',
+					'add_new_item'  => 'Add New Insight',
+					'edit_item'     => 'Edit Insight',
+					'all_items'     => 'All Insights',
+					'search_items'  => 'Search Insights',
+					'not_found'     => 'No insights found',
+				),
+				'public'       => true,
+				'show_in_rest' => true,
+				'menu_icon'    => 'dashicons-lightbulb',
+				'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt', 'author', 'custom-fields' ),
+				'has_archive'  => true,
+				'rewrite'      => array( 'slug' => 'insights' ),
+			)
+		);
+
 		register_taxonomy(
 			'project_category',
 			'project',
@@ -452,6 +489,31 @@ class Timberland extends Timber\Site {
 				wp_insert_term( $category, 'project_category' );
 			}
 		}
+	}
+
+	public function hide_default_posts_menu() {
+		remove_menu_page( 'edit.php' );
+	}
+
+	public function add_view_insights_menu_item() {
+		global $submenu;
+
+		$parent_slug = 'edit.php?post_type=insight';
+		$archive_url = get_post_type_archive_link( 'insight' );
+
+		if ( ! $archive_url || ! isset( $submenu[ $parent_slug ] ) ) {
+			return;
+		}
+
+		$submenu[ $parent_slug ][] = array(
+			'View Insights',
+			'edit_posts',
+			$archive_url,
+		);
+	}
+
+	public function hide_default_posts_admin_bar_item( $admin_bar ) {
+		$admin_bar->remove_node( 'new-post' );
 	}
 
 	public function acf_register_blocks() {
@@ -482,11 +544,13 @@ new Timberland();
  */
 function acf_block_render_callback( $block, $content = '', $is_preview = false, $post_id = 0 ) {
 	$GLOBALS['timberland_rendering_acf_block'] = true;
+	$block_post = $post_id ? get_post( $post_id ) : get_queried_object();
+	$use_placeholders = $is_preview || ( $block_post instanceof WP_Post && 'elements' === $block_post->post_name );
 
 	$context           = Timber::context();
 	$context['post']   = $post_id ? Timber::get_post( $post_id ) : Timber::get_post();
 	$context['block']  = $block;
-	$context['fields']  = timberland_get_block_fields_with_placeholders( $block, get_fields(), $is_preview );
+	$context['fields']  = timberland_get_block_fields_with_placeholders( $block, get_fields(), $use_placeholders );
     $block_name        = explode( '/', $block['name'] )[1];
     $template          = 'blocks/'. $block_name . '/index.twig';
 

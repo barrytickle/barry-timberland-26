@@ -6,13 +6,13 @@
 {% set location = fields.location %}
 {% set submit_label = fields.submit_label %}
 {% set socials = fields.socials %}
-{% set form_action = fields.form_action %}
+{% set form_attribute = fields.form_attribute %}
 {% set service_options = fields.service_options %}
 {% set budget_options = fields.budget_options %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px]" data-component="contact-details">
 	<div class="grid gap-14 lg:grid-cols-[1.3fr_0.7fr]">
-		<form class="max-w-2xl" data-component="form-fields" action="{{form_action}}" method="post" >
+		<form class="max-w-2xl" data-component="form-fields"{% if form_attribute %} data-form-relay="{{ form_attribute }}"{% endif %} method="post">
 			{% include 'components/form-field.twig' with { label: 'Name', name: 'name', type: 'text', placeholder: 'Hello…' } %}
 			{% include 'components/form-field.twig' with { label: 'Email', name: 'email', type: 'email', placeholder: 'Where can I reply?' } %}
 			{% if service_options %}

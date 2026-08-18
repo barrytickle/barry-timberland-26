@@ -1,0 +1,25 @@
+{% extends "base.twig" %}
+
+{% block content %}
+	{% include 'blocks/hero-small/index.twig' with {
+		fields: insights_options.hero_small|default({}),
+		is_preview: false,
+		preview_image: null
+	} only %}
+
+	{% if insights_options.featured_article.heading|default(false) %}
+		{% include 'blocks/featured-article/index.twig' with {
+			fields: insights_options.featured_article,
+			is_preview: false,
+			preview_image: null
+		} only %}
+	{% endif %}
+
+	{% if insights_options.insights_group.articles|default([]) %}
+		{% include 'blocks/insights-group/index.twig' with {
+			fields: insights_options.insights_group,
+			is_preview: false,
+			preview_image: null
+		} only %}
+	{% endif %}
+{% endblock %}

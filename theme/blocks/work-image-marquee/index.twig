@@ -4,7 +4,7 @@
 {# Converted from Barry's Spectacular Site export: home-v2.html designs-marquee-section.
    Reuses the same .marquee / .marquee-track CSS as the logo-marquee block, but with square
    project screenshots instead of text logos. #}
-{% set images = fields.images %}
+{% set images = fields.images|default([]) %}
 
 <section class="py-10" data-component="work-image-marquee">
 	<div class="marquee overflow-hidden py-4">

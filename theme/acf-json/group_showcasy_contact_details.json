@@ -196,11 +196,11 @@
         },
         {
             "key": "field_6a777caed88c9",
-            "label": "Form Action",
-            "name": "form_action",
+            "label": "Form Attribute",
+            "name": "form_attribute",
             "aria-label": "",
             "type": "text",
-            "instructions": "",
+            "instructions": "Paste the generated Form ID here, for example f_A7k92P. This adds the data-form-relay attribute to the form.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -211,9 +211,9 @@
             "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "placeholder": "f_A7k92P",
+            "prepend": "data-form-relay=\"",
+            "append": "\""
         }
     ],
     "location": [
@@ -241,5 +241,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1786215605
+    "modified": 1787075179
 }
