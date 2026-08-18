@@ -1,7 +1,13 @@
 {# Converted from Showcasy UI kit: components/blog-card.html #}
-{# Params: eyebrow (optional), title, excerpt, href #}
+{# Params: eyebrow (optional), title, excerpt, href, image (optional ACF-style array) #}
 <a class="group block" data-component="blog-card" href="{{ href }}">
-	<div class="grid aspect-[4/3] place-items-center overflow-hidden rounded-card bg-muted"><svg class="h-10 w-10 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg></div>
+	<div class="grid aspect-[4/3] place-items-center overflow-hidden rounded-card bg-muted">
+		{% if image %}
+			<img class="h-full w-full object-cover transition duration-250 group-hover:scale-105" src="{{ image.url }}" alt="{{ image.alt }}">
+		{% else %}
+			<svg class="h-10 w-10 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
+		{% endif %}
+	</div>
 	{% if eyebrow %}<p class="body-14 mt-5 text-ink-500">{{ eyebrow }}</p>{% endif %}
 	<h3 class="h6 {{ eyebrow ? 'mt-2' : 'mt-5' }} transition group-hover:text-ink-600">{{ title }}</h3>
 	<p class="body-16 mt-3 text-ink-500">{{ excerpt }}</p>

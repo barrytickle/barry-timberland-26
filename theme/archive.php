@@ -75,13 +75,21 @@ if ( is_post_type_archive( 'insight' ) ) {
 
 	$insights_options['insights_group']['articles'] = array_map(
 		static function ( $insight ) {
-			$categories = get_the_category( $insight->ID );
+			$categories   = get_the_category( $insight->ID );
+			$thumbnail_id = get_post_thumbnail_id( $insight );
+			$image        = $thumbnail_id
+				? array(
+					'url' => wp_get_attachment_image_url( $thumbnail_id, 'large' ),
+					'alt' => get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ),
+				)
+				: null;
 
 			return array(
 				'eyebrow' => $categories ? $categories[0]->name : '',
 				'title'   => get_the_title( $insight ),
 				'excerpt' => get_the_excerpt( $insight ),
 				'href'    => get_permalink( $insight ),
+				'image'   => $image,
 			);
 		},
 		$insight_posts

@@ -10,7 +10,7 @@
 	{% include 'components/section-header.twig' with { heading: heading, link_href: cta.url, link_label: cta.title } %}
 	<div class="grid gap-8 md:grid-cols-3">
 		{% for article in articles %}
-			{% include 'components/blog-card.twig' with { eyebrow: article.eyebrow, title: article.title, excerpt: article.excerpt, href: article.href } %}
+			{% include 'components/blog-card.twig' with { eyebrow: article.eyebrow, title: article.title, excerpt: article.excerpt, href: article.href, image: article.image } %}
 		{% endfor %}
 	</div>
 </section>
