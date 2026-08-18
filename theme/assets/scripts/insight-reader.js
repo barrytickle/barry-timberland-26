@@ -230,7 +230,8 @@ if (readerRoot) {
       const hashIndex = indexFromHash();
       if (hashIndex >= 0) {
         currentIndex = hashIndex;
-        if (mode === "chapter") render({ focus: true, scroll: true });
+        mode = "chapter";
+        render({ focus: true, scroll: true });
       }
     };
 
