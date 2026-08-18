@@ -19,6 +19,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
+    "highlight.js": "^11.12.0",
     "swiper": "^14.1.0"
   }
 }

@@ -155,11 +155,11 @@ body.admin-bar {
   pre {
     margin-top: 1.5rem;
     overflow-x: auto;
-    border: 1px solid #514667;
+    border: 1px solid #444a67;
     border-radius: 0.75rem;
-    background: #272433;
+    background: #292d3e;
     padding: 1.25rem 1.5rem;
-    color: #e6e1f0;
+    color: #a6accd;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 0.9375rem;
     line-height: 1.7;
@@ -172,6 +172,68 @@ body.admin-bar {
       color: inherit;
       font: inherit;
     }
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: #676e95;
+    font-style: italic;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-literal,
+  .hljs-doctag {
+    color: #c792ea;
+  }
+
+  .hljs-string,
+  .hljs-regexp,
+  .hljs-addition,
+  .hljs-attribute {
+    color: #c3e88d;
+  }
+
+  .hljs-number,
+  .hljs-symbol,
+  .hljs-bullet,
+  .hljs-deletion {
+    color: #f78c6c;
+  }
+
+  .hljs-title,
+  .hljs-title.function_,
+  .hljs-section {
+    color: #82aaff;
+  }
+
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-type,
+  .hljs-built_in,
+  .hljs-params {
+    color: #ffcb6b;
+  }
+
+  .hljs-meta,
+  .hljs-meta .hljs-keyword,
+  .hljs-selector-pseudo {
+    color: #89ddff;
+  }
+
+  .hljs-name,
+  .hljs-tag,
+  .hljs-selector-id,
+  .hljs-selector-class {
+    color: #f07178;
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    font-weight: 700;
   }
 
   a {
