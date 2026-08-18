@@ -45,8 +45,31 @@ body {
     @apply mt-4 body-18 text-ink-700 first:mt-0;
   }
 
-  .wp-block-list {
-    @apply mt-4 body-18 text-ink-700;
+  ul.wp-block-list {
+    @apply mt-4 space-y-3;
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      @apply relative body-18 text-ink-500;
+      padding-left: 2rem;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.2em;
+        width: 1.25rem;
+        height: 1.25rem;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23030712' stroke-width='1.75'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m8 12 2.5 2.5L16 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+    }
+  }
+
+  ol.wp-block-list {
+    @apply mt-4 list-decimal space-y-2 pl-6 body-18 text-ink-500;
   }
 }
 
