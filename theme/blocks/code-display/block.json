@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/code-display",
+  "title": "Code Display",
+  "description": "Syntax-highlighted code panel using the Material Palenight colour scheme.",
+  "category": "blog-insights",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}

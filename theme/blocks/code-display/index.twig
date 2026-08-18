@@ -1,0 +1,12 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{% set code = fields.code|default('') %}
+{% set language = fields.language|default('plaintext') %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px] lg:py-16" data-component="code-display">
+	<div class="rich-text-content">
+		<pre><code class="language-{{ language }}">{{ code|e('html') }}</code></pre>
+	</div>
+</section>
+{% endif %}
