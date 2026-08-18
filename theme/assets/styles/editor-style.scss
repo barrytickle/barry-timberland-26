@@ -7,6 +7,49 @@ body {
   @apply bg-white text-ink;
 }
 
+.editor-styles-wrapper,
+.editor-styles-wrapper .wp-block-post-content {
+  font-family: "Inter Tight", sans-serif;
+}
+
+.editor-styles-wrapper .wp-block-post-content {
+  .wp-block-heading {
+    @apply font-semibold leading-none tracking-tight text-ink;
+  }
+
+  h1.wp-block-heading {
+    @apply mt-12 text-[2.75rem] first:mt-0;
+  }
+
+  h2.wp-block-heading {
+    @apply mt-12 text-[2.25rem] first:mt-0;
+  }
+
+  h3.wp-block-heading {
+    @apply mt-10 text-[1.75rem] first:mt-0;
+  }
+
+  h4.wp-block-heading {
+    @apply mt-8 text-[1.375rem] first:mt-0;
+  }
+
+  h5.wp-block-heading {
+    @apply mt-6 text-[1.125rem] leading-snug first:mt-0;
+  }
+
+  h6.wp-block-heading {
+    @apply mt-6 text-base leading-snug first:mt-0;
+  }
+
+  .wp-block-paragraph {
+    @apply mt-4 body-18 text-ink-700 first:mt-0;
+  }
+
+  .wp-block-list {
+    @apply mt-4 body-18 text-ink-700;
+  }
+}
+
 [x-cloak] {
   display: none;
 }
@@ -26,7 +69,8 @@ body {
 }
 
 h1.wp-block-post-title {
-  @apply text-4xl font-bold;
+  @apply text-4xl font-bold text-ink;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .acf-innerblocks-container {
