@@ -551,11 +551,17 @@ function timberland_prepare_insights_group_fields( $fields ) {
 
 	$fields['articles'] = array_map(
 		static function ( $article ) {
-			if ( empty( $article['article'] ) ) {
+			$insight_id = $article['article'] ?? null;
+
+			if ( empty( $insight_id ) && ! empty( $article['href'] ) ) {
+				$insight_id = url_to_postid( $article['href'] );
+			}
+
+			if ( empty( $insight_id ) ) {
 				return $article;
 			}
 
-			$insight = get_post( $article['article'] ?? null );
+			$insight = get_post( $insight_id );
 
 			if ( ! $insight instanceof WP_Post || 'insight' !== $insight->post_type ) {
 				return $article;
