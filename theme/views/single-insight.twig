@@ -35,7 +35,7 @@
 	{% endif %}
 
 	{% include 'blocks/body-text/index.twig' with {
-		fields: { content: post.content, is_article: true },
+		fields: { content: post.content },
 		is_preview: false,
 		preview_image: null
 	} only %}
