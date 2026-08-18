@@ -41,10 +41,10 @@
         {
             "key": "field_showcasy_insights_group_articles",
             "label": "Articles",
-            "name": "articles",
+            "name": "",
             "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
+            "type": "message",
+            "instructions": "The three most recently published Insights are loaded automatically.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -52,105 +52,9 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
-            "min": 0,
-            "max": 0,
-            "button_label": "Add article",
-            "rows_per_page": 20,
-            "collapsed": "",
-            "acfe_repeater_stylised_button": 0,
-            "sub_fields": [
-                {
-                    "key": "field_showcasy_insights_group_article_post",
-                    "label": "Insight",
-                    "name": "article",
-                    "aria-label": "",
-                    "type": "post_object",
-                    "instructions": "Select an Insight to automatically use its category, title, excerpt, link and featured image.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "post_type": [
-                        "insight"
-                    ],
-                    "post_status": [
-                        "publish"
-                    ],
-                    "taxonomy": "",
-                    "return_format": "object",
-                    "multiple": 0,
-                    "allow_null": 1,
-                    "bidirectional": 0,
-                    "ui": 1,
-                    "bidirectional_target": [],
-                    "parent_repeater": "field_showcasy_insights_group_articles"
-                },
-                {
-                    "key": "field_showcasy_insights_group_article_title",
-                    "label": "Title",
-                    "name": "title",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_showcasy_insights_group_articles"
-                },
-                {
-                    "key": "field_showcasy_insights_group_article_excerpt",
-                    "label": "Excerpt",
-                    "name": "excerpt",
-                    "aria-label": "",
-                    "type": "textarea",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "rows": 2,
-                    "new_lines": "",
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "acfe_textarea_code": 0,
-                    "parent_repeater": "field_showcasy_insights_group_articles"
-                },
-                {
-                    "key": "field_showcasy_insights_group_article_href",
-                    "label": "Link",
-                    "name": "href",
-                    "aria-label": "",
-                    "type": "url",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "parent_repeater": "field_showcasy_insights_group_articles"
-                }
-            ]
+            "message": "The latest three published Insights will appear here automatically.",
+            "new_lines": "wpautop",
+            "esc_html": 0
         }
     ],
     "location": [

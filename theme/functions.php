@@ -540,33 +540,20 @@ class Timberland extends Timber\Site {
 
 new Timberland();
 
-/**
- * Hydrate reusable Insights Group rows from their selected Insight posts.
- * Manually entered row values remain available when no post is selected.
- */
+/** Load the latest three published Insights into the reusable Insights Group. */
 function timberland_prepare_insights_group_fields( $fields ) {
-	if ( empty( $fields['articles'] ) || ! is_array( $fields['articles'] ) ) {
-		return $fields;
-	}
+	$insights = get_posts(
+		array(
+			'post_type'      => 'insight',
+			'post_status'    => 'publish',
+			'posts_per_page' => 3,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+		)
+	);
 
 	$fields['articles'] = array_map(
-		static function ( $article ) {
-			$insight_id = $article['article'] ?? null;
-
-			if ( empty( $insight_id ) && ! empty( $article['href'] ) ) {
-				$insight_id = url_to_postid( $article['href'] );
-			}
-
-			if ( empty( $insight_id ) ) {
-				return $article;
-			}
-
-			$insight = get_post( $insight_id );
-
-			if ( ! $insight instanceof WP_Post || 'insight' !== $insight->post_type ) {
-				return $article;
-			}
-
+		static function ( $insight ) {
 			$categories   = get_the_category( $insight->ID );
 			$thumbnail_id = get_post_thumbnail_id( $insight );
 			$image        = $thumbnail_id
@@ -576,18 +563,15 @@ function timberland_prepare_insights_group_fields( $fields ) {
 				)
 				: null;
 
-			return array_merge(
-				$article,
-				array(
-					'eyebrow' => $categories ? $categories[0]->name : '',
-					'title'   => get_the_title( $insight ),
-					'excerpt' => wp_trim_words( wp_strip_all_tags( get_the_excerpt( $insight ) ), 24, '...' ),
-					'href'    => get_permalink( $insight ),
-					'image'   => $image,
-				)
+			return array(
+				'eyebrow' => $categories ? $categories[0]->name : '',
+				'title'   => get_the_title( $insight ),
+				'excerpt' => wp_trim_words( wp_strip_all_tags( get_the_excerpt( $insight ) ), 18, '...' ),
+				'href'    => get_permalink( $insight ),
+				'image'   => $image,
 			);
 		},
-		$fields['articles']
+		$insights
 	);
 
 	return $fields;
