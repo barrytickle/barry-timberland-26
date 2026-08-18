@@ -541,6 +541,53 @@ class Timberland extends Timber\Site {
 new Timberland();
 
 /**
+ * Hydrate reusable Insights Group rows from their selected Insight posts.
+ * Manually entered row values remain available when no post is selected.
+ */
+function timberland_prepare_insights_group_fields( $fields ) {
+	if ( empty( $fields['articles'] ) || ! is_array( $fields['articles'] ) ) {
+		return $fields;
+	}
+
+	$fields['articles'] = array_map(
+		static function ( $article ) {
+			if ( empty( $article['article'] ) ) {
+				return $article;
+			}
+
+			$insight = get_post( $article['article'] ?? null );
+
+			if ( ! $insight instanceof WP_Post || 'insight' !== $insight->post_type ) {
+				return $article;
+			}
+
+			$categories   = get_the_category( $insight->ID );
+			$thumbnail_id = get_post_thumbnail_id( $insight );
+			$image        = $thumbnail_id
+				? array(
+					'url' => wp_get_attachment_image_url( $thumbnail_id, 'large' ),
+					'alt' => get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ),
+				)
+				: null;
+
+			return array_merge(
+				$article,
+				array(
+					'eyebrow' => $categories ? $categories[0]->name : '',
+					'title'   => get_the_title( $insight ),
+					'excerpt' => wp_trim_words( wp_strip_all_tags( get_the_excerpt( $insight ) ), 24, '...' ),
+					'href'    => get_permalink( $insight ),
+					'image'   => $image,
+				)
+			);
+		},
+		$fields['articles']
+	);
+
+	return $fields;
+}
+
+/**
  * Don't edit this one
  */
 function acf_block_render_callback( $block, $content = '', $is_preview = false, $post_id = 0 ) {
@@ -548,12 +595,17 @@ function acf_block_render_callback( $block, $content = '', $is_preview = false, 
 	$block_post = $post_id ? get_post( $post_id ) : get_queried_object();
 	$use_placeholders = $is_preview || ( $block_post instanceof WP_Post && 'elements' === $block_post->post_name );
 
-	$context           = Timber::context();
-	$context['post']   = $post_id ? Timber::get_post( $post_id ) : Timber::get_post();
-	$context['block']  = $block;
-	$context['fields']  = timberland_get_block_fields_with_placeholders( $block, get_fields(), $use_placeholders );
-    $block_name        = explode( '/', $block['name'] )[1];
-    $template          = 'blocks/'. $block_name . '/index.twig';
+	$context          = Timber::context();
+	$context['post']  = $post_id ? Timber::get_post( $post_id ) : Timber::get_post();
+	$context['block'] = $block;
+	$context['fields'] = timberland_get_block_fields_with_placeholders( $block, get_fields(), $use_placeholders );
+	$block_name       = explode( '/', $block['name'] )[1];
+
+	if ( 'insights-group' === $block_name ) {
+		$context['fields'] = timberland_prepare_insights_group_fields( $context['fields'] );
+	}
+
+	$template = 'blocks/' . $block_name . '/index.twig';
 
 	$context['is_preview']    = (bool) $is_preview;
 	// Always null: the block editor loads the theme's compiled editor bundle (see

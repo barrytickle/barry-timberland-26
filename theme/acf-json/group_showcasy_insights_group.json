@@ -61,6 +61,35 @@
             "acfe_repeater_stylised_button": 0,
             "sub_fields": [
                 {
+                    "key": "field_showcasy_insights_group_article_post",
+                    "label": "Insight",
+                    "name": "article",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "Select an Insight to automatically use its category, title, excerpt, link and featured image.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "insight"
+                    ],
+                    "post_status": [
+                        "publish"
+                    ],
+                    "taxonomy": "",
+                    "return_format": "object",
+                    "multiple": 0,
+                    "allow_null": 1,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_showcasy_insights_group_articles"
+                },
+                {
                     "key": "field_showcasy_insights_group_article_title",
                     "label": "Title",
                     "name": "title",
