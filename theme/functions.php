@@ -25,7 +25,7 @@ Timber::$autoescape = false;
 class Timberland extends Timber\Site {
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_google_analytics' ) );
+		add_action( 'wp_head', array( $this, 'output_google_analytics' ), 1 );
 		add_filter( 'script_loader_tag', array( $this, 'load_frontend_script_as_module' ), 10, 2 );
 		add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
 		add_filter( 'timber/context', array( $this, 'add_to_context' ) );
@@ -50,25 +50,12 @@ class Timberland extends Timber\Site {
 		parent::__construct();
 	}
 
-	public function enqueue_google_analytics() {
+	public function output_google_analytics() {
 		$measurement_id = 'G-VRNK1LDN5C';
+		$script_url     = 'https://www.googletagmanager.com/gtag/js?id=' . rawurlencode( $measurement_id );
 
-		wp_enqueue_script(
-			'google-analytics',
-			'https://www.googletagmanager.com/gtag/js?id=' . rawurlencode( $measurement_id ),
-			array(),
-			null,
-			array(
-				'strategy'  => 'async',
-				'in_footer' => false,
-			)
-		);
-
-		wp_add_inline_script(
-			'google-analytics',
-			"window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', '" . esc_js( $measurement_id ) . "');",
-			'after'
-		);
+		echo '<script async src="' . esc_url( $script_url ) . '"></script>' . "\n";
+		echo "<script>\nwindow.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', '" . esc_js( $measurement_id ) . "');\n</script>\n";
 	}
 
 	private function get_current_seo_field( $field_name ) {
