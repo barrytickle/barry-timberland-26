@@ -44,7 +44,7 @@
         },
         {
             "key": "field_bt26_seo_noindex",
-            "label": "Noindex",
+            "label": "Exclude from search engines",
             "name": "seo_noindex",
             "aria-label": "",
             "type": "true_false",
@@ -56,11 +56,11 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Output noindex,follow",
+            "message": "Exclude this content from search-engine indexes",
             "default_value": 0,
             "ui": 1,
-            "ui_on_text": "Noindex",
-            "ui_off_text": "Index"
+            "ui_on_text": "Exclude",
+            "ui_off_text": "Include"
         }
     ],
     "location": [

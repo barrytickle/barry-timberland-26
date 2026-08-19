@@ -41,6 +41,8 @@ class Timberland extends Timber\Site {
 		add_action( 'admin_bar_menu', array( $this, 'hide_default_posts_admin_bar_item' ), 999 );
 		add_filter( 'pre_get_document_title', array( $this, 'filter_document_title' ) );
 		add_filter( 'wp_robots', array( $this, 'filter_robots' ) );
+		add_filter( 'wp_sitemaps_posts_query_args', array( $this, 'filter_sitemap_posts' ), 10, 2 );
+		add_action( 'template_redirect', array( $this, 'redirect_legacy_project_urls' ), 1 );
 		add_action( 'wp_head', array( $this, 'output_seo_meta' ), 5 );
 		add_action( 'wp_head', array( $this, 'output_homepage_schema' ), 20 );
 
@@ -78,6 +80,43 @@ class Timberland extends Timber\Site {
 		}
 
 		return $robots;
+	}
+
+	public function filter_sitemap_posts( $args, $post_type ) {
+		$exclude_noindex = array(
+			'relation' => 'OR',
+			array(
+				'key'     => 'seo_noindex',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'seo_noindex',
+				'value'   => '1',
+				'compare' => '!=',
+			),
+		);
+
+		if ( empty( $args['meta_query'] ) ) {
+			$args['meta_query'] = $exclude_noindex;
+		} else {
+			$args['meta_query'] = array(
+				'relation' => 'AND',
+				$args['meta_query'],
+				$exclude_noindex,
+			);
+		}
+
+		return $args;
+	}
+
+	public function redirect_legacy_project_urls() {
+		$request_path = wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH );
+		$request_path = trailingslashit( $request_path ?: '/' );
+
+		if ( in_array( $request_path, array( '/portfolio/', '/case-studies/' ), true ) ) {
+			wp_safe_redirect( home_url( '/projects/' ), 301, 'BarryTickle Theme' );
+			exit;
+		}
 	}
 
 	public function output_seo_meta() {
