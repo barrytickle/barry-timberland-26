@@ -43,6 +43,9 @@ class Timberland extends Timber\Site {
 		add_filter( 'pre_get_document_title', array( $this, 'filter_document_title' ) );
 		add_filter( 'wp_robots', array( $this, 'filter_robots' ) );
 		add_filter( 'wp_sitemaps_posts_query_args', array( $this, 'filter_sitemap_posts' ), 10, 2 );
+		add_filter( 'wp_sitemaps_taxonomies', array( $this, 'filter_sitemap_taxonomies' ) );
+		add_filter( 'wp_sitemaps_add_provider', array( $this, 'filter_sitemap_providers' ), 10, 2 );
+		add_action( 'template_redirect', array( $this, 'hide_non_content_archives' ), 0 );
 		add_action( 'template_redirect', array( $this, 'redirect_legacy_project_urls' ), 1 );
 		add_action( 'wp_head', array( $this, 'output_seo_meta' ), 5 );
 		add_action( 'wp_head', array( $this, 'output_homepage_schema' ), 20 );
@@ -116,6 +119,28 @@ class Timberland extends Timber\Site {
 		}
 
 		return $args;
+	}
+
+	public function filter_sitemap_taxonomies( $taxonomies ) {
+		unset( $taxonomies['category'], $taxonomies['project_category'] );
+
+		return $taxonomies;
+	}
+
+	public function filter_sitemap_providers( $provider, $name ) {
+		return 'users' === $name ? false : $provider;
+	}
+
+	public function hide_non_content_archives() {
+		if ( ! is_author() && ! is_category() && ! is_tax( 'project_category' ) ) {
+			return;
+		}
+
+		global $wp_query;
+
+		$wp_query->set_404();
+		status_header( 404 );
+		nocache_headers();
 	}
 
 	public function redirect_legacy_project_urls() {
