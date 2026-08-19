@@ -2,3 +2,153 @@
 @import "tailwindcss/components";
 @import "./theme.scss";
 @import "tailwindcss/utilities";
+
+.accessibility-menu {
+	position: fixed;
+	right: clamp(1rem, 3vw, 2rem);
+	bottom: clamp(1rem, 3vw, 2rem);
+	z-index: 45;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 0.75rem;
+}
+
+.accessibility-menu__panel {
+	width: min(20rem, calc(100vw - 2rem));
+	border: 1px solid #d1d5db;
+	border-radius: 1rem;
+	background: #fff;
+	padding: 1rem;
+	box-shadow: 0 1rem 3rem rgb(3 7 18 / 0.16);
+}
+
+.accessibility-menu__panel[hidden] {
+	display: none;
+}
+
+.accessibility-menu__title {
+	margin-bottom: 0.75rem;
+	color: #030712;
+	font-size: 0.875rem;
+	font-weight: 700;
+}
+
+.accessibility-menu__option {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	text-align: left;
+}
+
+.accessibility-menu__option strong,
+.accessibility-menu__option small {
+	display: block;
+}
+
+.accessibility-menu__option strong {
+	color: #030712;
+	font-size: 0.9375rem;
+}
+
+.accessibility-menu__option small {
+	margin-top: 0.2rem;
+	color: #4b5563;
+	font-size: 0.75rem;
+	line-height: 1.4;
+}
+
+.accessibility-menu__switch {
+	position: relative;
+	width: 2.75rem;
+	height: 1.5rem;
+	flex: 0 0 auto;
+	border-radius: 999px;
+	background: #d1d5db;
+	transition: background-color 150ms ease;
+}
+
+.accessibility-menu__switch::after {
+	content: "";
+	position: absolute;
+	top: 0.1875rem;
+	left: 0.1875rem;
+	width: 1.125rem;
+	height: 1.125rem;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 1px 3px rgb(3 7 18 / 0.25);
+	transition: transform 150ms ease;
+}
+
+.accessibility-menu__option[aria-checked="true"] .accessibility-menu__switch {
+	background: #030712;
+}
+
+.accessibility-menu__option[aria-checked="true"] .accessibility-menu__switch::after {
+	transform: translateX(1.25rem);
+}
+
+.accessibility-menu__trigger {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border: 1px solid #030712;
+	border-radius: 999px;
+	background: #030712;
+	padding: 0.75rem 1rem;
+	color: #fff;
+	font-size: 0.875rem;
+	font-weight: 650;
+	box-shadow: 0 0.5rem 1.5rem rgb(3 7 18 / 0.2);
+}
+
+.accessibility-menu__trigger:hover {
+	background: #1f2937;
+}
+
+.accessibility-menu__trigger:focus-visible,
+.accessibility-menu__option:focus-visible {
+	outline: 3px solid #2563eb;
+	outline-offset: 3px;
+}
+
+html[data-readability] body,
+html[data-readability] [data-component="navbar"] {
+	background-color: #fff8dc;
+}
+
+html[data-readability] [data-component="navbar"] {
+	background-color: rgb(255 248 220 / 0.92);
+}
+
+html[data-readability] :where(.rich-text-content, .article-prose),
+html[data-readability] :where(p, li, blockquote, figcaption):not([class*="text-white"]):not([class*="bg-ink"] *) {
+	color: #111827;
+}
+
+html[data-readability] .accessibility-menu__panel {
+	background: #fff8dc;
+}
+
+@media (max-width: 479px) {
+	.accessibility-menu__trigger span {
+		display: none;
+	}
+
+	.accessibility-menu__trigger {
+		width: 3rem;
+		height: 3rem;
+		justify-content: center;
+		padding: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.accessibility-menu__switch,
+	.accessibility-menu__switch::after {
+		transition: none;
+	}
+}
