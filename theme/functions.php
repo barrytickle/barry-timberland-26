@@ -39,8 +39,124 @@ class Timberland extends Timber\Site {
 		add_action( 'admin_menu', array( $this, 'hide_default_posts_menu' ) );
 		add_action( 'admin_menu', array( $this, 'add_view_insights_menu_item' ) );
 		add_action( 'admin_bar_menu', array( $this, 'hide_default_posts_admin_bar_item' ), 999 );
+		add_filter( 'pre_get_document_title', array( $this, 'filter_document_title' ) );
+		add_filter( 'wp_robots', array( $this, 'filter_robots' ) );
+		add_action( 'wp_head', array( $this, 'output_seo_meta' ), 5 );
+		add_action( 'wp_head', array( $this, 'output_homepage_schema' ), 20 );
 
 		parent::__construct();
+	}
+
+	private function get_current_seo_field( $field_name ) {
+		if ( ! is_singular() ) {
+			return null;
+		}
+
+		$post_id = get_queried_object_id();
+
+		if ( ! $post_id ) {
+			return null;
+		}
+
+		if ( function_exists( 'get_field' ) ) {
+			return get_field( $field_name, $post_id );
+		}
+
+		return get_post_meta( $post_id, $field_name, true );
+	}
+
+	public function filter_document_title( $title ) {
+		$seo_title = trim( (string) $this->get_current_seo_field( 'seo_title' ) );
+
+		return $seo_title !== '' ? $seo_title : $title;
+	}
+
+	public function filter_robots( $robots ) {
+		if ( $this->get_current_seo_field( 'seo_noindex' ) ) {
+			$robots['noindex'] = true;
+			$robots['follow']  = true;
+		}
+
+		return $robots;
+	}
+
+	public function output_seo_meta() {
+		$description = trim( wp_strip_all_tags( (string) $this->get_current_seo_field( 'seo_meta_description' ) ) );
+
+		if ( $description === '' ) {
+			return;
+		}
+
+		echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+	}
+
+	public function output_homepage_schema() {
+		if ( ! is_front_page() ) {
+			return;
+		}
+
+		$home_url = home_url( '/' );
+		$location = function_exists( 'get_field' )
+			? get_field( 'location_label', 'option' )
+			: get_option( 'options_location_label' );
+		$location = trim( (string) ( $location ?: get_option( 'options_location_label' ) ) );
+		$social_links = function_exists( 'get_field' )
+			? get_field( 'social_links', 'option' )
+			: array();
+		$same_as = array();
+
+		foreach ( (array) $social_links as $social_link ) {
+			$url = esc_url_raw( $social_link['url'] ?? '' );
+
+			if ( $url !== '' ) {
+				$same_as[] = $url;
+			}
+		}
+
+		$person = array(
+			'@type'     => 'Person',
+			'@id'       => $home_url . '#person',
+			'name'      => 'Barry Tickle',
+			'url'       => $home_url,
+			'jobTitle'  => 'Web Developer',
+			'knowsAbout' => array(
+				'WordPress development',
+				'Front-end development',
+				'Conversion rate optimisation',
+			),
+		);
+
+		if ( $location !== '' ) {
+			$person['homeLocation'] = array(
+				'@type'   => 'Place',
+				'name'    => $location,
+				'address' => array(
+					'@type'          => 'PostalAddress',
+					'addressCountry' => 'GB',
+				),
+			);
+		}
+
+		if ( $same_as ) {
+			$person['sameAs'] = array_values( array_unique( $same_as ) );
+		}
+
+		$schema = array(
+			'@context' => 'https://schema.org',
+			'@graph'   => array(
+				array(
+					'@type'     => 'WebSite',
+					'@id'       => $home_url . '#website',
+					'name'      => get_bloginfo( 'name' ),
+					'url'       => $home_url,
+					'inLanguage' => get_bloginfo( 'language' ),
+					'publisher' => array( '@id' => $home_url . '#person' ),
+				),
+				$person,
+			),
+		);
+
+		echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
 	}
 
 	public function load_frontend_script_as_module( $tag, $handle ) {

@@ -302,6 +302,26 @@
             ]
         },
         {
+            "key": "field_bt26_settings_location",
+            "label": "Location",
+            "name": "location_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Used for location references such as homepage structured data.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Oswestry, Shropshire",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_site_footer_col1_title",
             "label": "Footer Link Title",
             "name": "footer_link_title",

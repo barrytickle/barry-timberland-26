@@ -1,0 +1,113 @@
+{
+    "key": "group_bt26_seo",
+    "title": "SEO",
+    "fields": [
+        {
+            "key": "field_bt26_seo_title",
+            "label": "SEO Title",
+            "name": "seo_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Optional. Replaces the generated browser and search-result title.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": 70,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_bt26_seo_meta_description",
+            "label": "Meta Description",
+            "name": "seo_meta_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Optional. Aim for a clear summary of roughly 150–160 characters.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": 170,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_bt26_seo_noindex",
+            "label": "Noindex",
+            "name": "seo_noindex",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Ask search engines not to index this page while still following its links.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Output noindex,follow",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Noindex",
+            "ui_off_text": "Index"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "project"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "service"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "insight"
+            }
+        ]
+    ],
+    "menu_order": 20,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "Lightweight native SEO controls.",
+    "show_in_rest": 1,
+    "modified": 1787097600
+}
