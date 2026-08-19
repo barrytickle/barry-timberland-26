@@ -33,36 +33,6 @@ if ( is_post_type_archive( 'insight' ) ) {
 		? ( get_fields( 'insights_options' ) ?: array() )
 		: array();
 
-	$featured_article = $insights_options['featured_article']['article'] ?? null;
-	$featured_article = $featured_article instanceof WP_Post
-		? $featured_article
-		: get_post( $featured_article );
-
-	if ( $featured_article instanceof WP_Post && 'insight' === $featured_article->post_type ) {
-		$thumbnail_id = get_post_thumbnail_id( $featured_article );
-		$categories   = get_the_category( $featured_article->ID );
-		$image        = $thumbnail_id
-			? array(
-				'url' => wp_get_attachment_image_url( $thumbnail_id, 'large' ),
-				'alt' => get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ),
-			)
-			: null;
-
-		$insights_options['featured_article'] = array(
-			'eyebrow' => $categories ? $categories[0]->name : '',
-			'heading' => get_the_title( $featured_article ),
-			'excerpt' => get_the_excerpt( $featured_article ),
-			'image'   => $image,
-			'button'  => array(
-				'url'    => get_permalink( $featured_article ),
-				'title'  => 'Read insight',
-				'target' => '',
-			),
-		);
-	} else {
-		$insights_options['featured_article'] = array();
-	}
-
 	$insight_posts = get_posts(
 		array(
 			'post_type'      => 'insight',
@@ -86,10 +56,15 @@ if ( is_post_type_archive( 'insight' ) ) {
 
 			return array(
 				'eyebrow' => $categories ? $categories[0]->name : '',
-				'title'   => get_the_title( $insight ),
-				'excerpt' => wp_trim_words( wp_strip_all_tags( get_the_excerpt( $insight ) ), 24, '...' ),
-				'href'    => get_permalink( $insight ),
+				'heading' => get_the_title( $insight ),
+				'excerpt' => wp_trim_words( wp_strip_all_tags( get_the_excerpt( $insight ) ), 18, '...' ),
 				'image'   => $image,
+				'button'  => array(
+					'url'    => get_permalink( $insight ),
+					'title'  => 'Read insight',
+					'target' => '',
+				),
+				'compact_heading' => true,
 			);
 		},
 		$insight_posts

@@ -54,32 +54,6 @@
             ]
         },
         {
-            "key": "field_insights_archive_featured_article",
-            "label": "Featured Article",
-            "name": "featured_article",
-            "type": "group",
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_insights_archive_featured_post",
-                    "label": "Insight",
-                    "name": "article",
-                    "type": "post_object",
-                    "instructions": "Select the Insight whose title, excerpt, featured image and URL should be displayed.",
-                    "post_type": [
-                        "insight"
-                    ],
-                    "post_status": [
-                        "publish"
-                    ],
-                    "return_format": "object",
-                    "multiple": 0,
-                    "allow_null": 1,
-                    "ui": 1
-                }
-            ]
-        },
-        {
             "key": "field_insights_archive_insights_group",
             "label": "Insights Group",
             "name": "insights_group",

@@ -7,19 +7,21 @@
 		preview_image: null
 	} only %}
 
-	{% if insights_options.featured_article.heading|default(false) %}
-		{% include 'blocks/featured-article/index.twig' with {
-			fields: insights_options.featured_article,
-			is_preview: false,
-			preview_image: null
-		} only %}
-	{% endif %}
-
 	{% if insights_options.insights_group.articles|default([]) %}
-		{% include 'blocks/insights-group/index.twig' with {
-			fields: insights_options.insights_group|merge({ columns: 2 }),
-			is_preview: false,
-			preview_image: null
-		} only %}
+		{% if insights_options.insights_group.heading|default(false) %}
+			<div class="mx-auto max-w-[1200px] px-6 pt-16 lg:px-[72px]">
+				<h2 class="h3">{{ insights_options.insights_group.heading }}</h2>
+			</div>
+		{% endif %}
+
+		<div data-component="insights-archive-list">
+			{% for article in insights_options.insights_group.articles %}
+				{% include 'blocks/featured-article/index.twig' with {
+					fields: article,
+					is_preview: false,
+					preview_image: null
+				} only %}
+			{% endfor %}
+		</div>
 	{% endif %}
 {% endblock %}
