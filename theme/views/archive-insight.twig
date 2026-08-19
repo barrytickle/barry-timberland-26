@@ -8,12 +8,6 @@
 	} only %}
 
 	{% if insights_options.insights_group.articles|default([]) %}
-		{% if insights_options.insights_group.heading|default(false) %}
-			<div class="mx-auto max-w-[1200px] px-6 pt-16 lg:px-[72px]">
-				<h2 class="h3">{{ insights_options.insights_group.heading }}</h2>
-			</div>
-		{% endif %}
-
 		<div data-component="insights-archive-list">
 			{% for article in insights_options.insights_group.articles %}
 				{% include 'blocks/featured-article/index.twig' with {

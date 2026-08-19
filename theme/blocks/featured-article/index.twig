@@ -8,16 +8,19 @@
 {% set image = fields.image %}
 {% set button = fields.button %}
 {% set heading_class = fields.compact_heading|default(false) ? 'h5' : 'h4' %}
+{% set content_href = fields.link_content|default(false) and button.url ? button.url : null %}
 <section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]" data-component="featured-article">
 <div class="grid items-center gap-8 rounded-3xl  bg-white/60 p-6 lg:grid-cols-2 lg:p-8" >
 	{% if image %}
-		<div class="aspect-[4/3] overflow-hidden rounded-card bg-muted"><img src="{{ image.url }}" alt="{{ image.alt }}" class="h-full w-full object-cover"/></div>
+		{% if content_href %}<a class="group block aspect-[4/3] overflow-hidden rounded-card bg-muted" href="{{ content_href }}">{% else %}<div class="aspect-[4/3] overflow-hidden rounded-card bg-muted">{% endif %}
+			<img src="{{ image.url }}" alt="{{ image.alt }}" class="h-full w-full object-cover transition duration-250 group-hover:scale-105"/>
+		{% if content_href %}</a>{% else %}</div>{% endif %}
 	{% else %}
 		<div class="grid aspect-[4/3] place-items-center overflow-hidden rounded-card bg-muted"><svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg></div>
 	{% endif %}
 	<div>
 		{% if eyebrow %}<p class="body-14 mb-3 text-ink-500">{{ eyebrow }}</p>{% endif %}
-		<h3 class="{{ heading_class }}">{{ heading }}</h3>
+		<h3 class="{{ heading_class }}">{% if content_href %}<a class="transition hover:text-ink-600" href="{{ content_href }}">{{ heading }}</a>{% else %}{{ heading }}{% endif %}</h3>
 		<p class="body-18 mt-5 text-ink-500">{{ excerpt }}</p>
 		{% if button %}
 

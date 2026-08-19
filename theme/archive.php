@@ -65,6 +65,7 @@ if ( is_post_type_archive( 'insight' ) ) {
 					'target' => '',
 				),
 				'compact_heading' => true,
+				'link_content'    => true,
 			);
 		},
 		$insight_posts
