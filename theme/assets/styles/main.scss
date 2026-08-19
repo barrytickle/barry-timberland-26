@@ -230,6 +230,81 @@ html[data-dark-theme] :where(a, button):focus-visible {
 	outline-color: #93c5fd;
 }
 
+html[data-dark-theme] .rich-text-content.article-prose,
+html[data-dark-theme] .rich-text-content.article-prose > p:first-child,
+html[data-dark-theme] .insight-reader__chapter:first-child > p:first-child {
+	color: #e5e7eb;
+}
+
+html[data-dark-theme] .rich-text-content.article-prose blockquote {
+	border-color: #6b7280;
+	color: #d1d5db;
+}
+
+html[data-dark-theme] .rich-text-content.article-prose figcaption,
+html[data-dark-theme] .insight-reader__status {
+	color: #9ca3af;
+}
+
+html[data-dark-theme] .rich-text-content.article-prose hr {
+	border-color: #4b5563;
+}
+
+html[data-dark-theme] .insight-reader__modes {
+	border-color: #4b5563;
+}
+
+html[data-dark-theme] .insight-reader__modes button {
+	color: #d1d5db;
+}
+
+html[data-dark-theme] .insight-reader__modes button:hover {
+	color: #fff;
+}
+
+html[data-dark-theme] .insight-reader__modes button[aria-pressed="true"] {
+	background: #f9fafb;
+	color: #111827;
+}
+
+html[data-dark-theme] .insight-reader__modes button:focus-visible {
+	outline-color: #93c5fd;
+}
+
+html[data-dark-theme] .insight-reader__contents {
+	color: #d1d5db;
+}
+
+html[data-dark-theme] .insight-reader__contents ol {
+	border-color: #4b5563;
+}
+
+html[data-dark-theme] .insight-reader__contents a {
+	color: #cbd5e1;
+}
+
+html[data-dark-theme] .insight-reader__contents a:hover,
+html[data-dark-theme] .insight-reader__contents a[aria-current="location"] {
+	color: #fff;
+}
+
+html[data-dark-theme] .insight-reader__progress {
+	background: #374151;
+}
+
+html[data-dark-theme] .insight-reader__progress span {
+	background: #f9fafb;
+}
+
+html[data-dark-theme] .insight-reader__navigation {
+	border-color: #4b5563;
+	color: #d1d5db;
+}
+
+html[data-dark-theme] .insight-reader__navigation button {
+	color: #f9fafb;
+}
+
 html[data-dark-theme] .accessibility-menu__panel {
 	border-color: #4b5563;
 	background: #1f2937;
