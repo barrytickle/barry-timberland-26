@@ -187,6 +187,49 @@ html[data-dark-theme] :where(a.bg-ink, button.bg-ink) {
 	color: #111827;
 }
 
+html[data-dark-theme] [data-component="navbar"] nav a:hover,
+html[data-dark-theme] :where([class~="hover:text-ink"], [class~="hover:text-ink-500"], [class~="hover:text-ink-600"]):hover,
+html[data-dark-theme] .group:hover :where([class~="group-hover:text-ink-500"], [class~="group-hover:text-ink-600"]) {
+	color: #fff;
+}
+
+html[data-dark-theme] :where([class~="hover:bg-ink"], [class~="hover:bg-ink-800"]):hover,
+html[data-dark-theme] .group:hover [class~="group-hover:bg-ink"] {
+	border-color: #f9fafb;
+	background-color: #f9fafb;
+	color: #111827;
+}
+
+html[data-dark-theme] :where(a.bg-ink, button.bg-ink):hover {
+	background-color: #d1d5db;
+	color: #030712;
+}
+
+html[data-dark-theme] [class~="hover:bg-ink-100"]:hover,
+html[data-dark-theme] .group:hover [class~="group-hover:bg-ink-100"] {
+	background-color: #374151;
+}
+
+html[data-dark-theme] :where([class~="hover:border-ink-400"], [class~="hover:border-ink"]):hover {
+	border-color: #f9fafb;
+}
+
+html[data-dark-theme] [class~="hover:decoration-ink"]:hover {
+	text-decoration-color: #f9fafb;
+}
+
+html[data-dark-theme] .group:hover [class~="group-hover:bg-white"] {
+	background-color: #f9fafb;
+}
+
+html[data-dark-theme] .group:hover [class~="group-hover:text-ink"] {
+	color: #111827;
+}
+
+html[data-dark-theme] :where(a, button):focus-visible {
+	outline-color: #93c5fd;
+}
+
 html[data-dark-theme] .accessibility-menu__panel {
 	border-color: #4b5563;
 	background: #1f2937;
