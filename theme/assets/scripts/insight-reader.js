@@ -93,9 +93,16 @@ if (readerRoot) {
     `;
 
     readerRoot.prepend(controls);
+
+    const contents = controls.querySelector(".insight-reader__contents");
+    const articleContainer = article.closest('[data-component="body-text"]');
+    const layout = document.createElement("div");
+    layout.className = "insight-reader__layout";
+    controls.after(layout);
+    layout.append(contents, articleContainer);
     readerRoot.append(footer);
 
-    const contentsList = controls.querySelector("ol");
+    const contentsList = contents.querySelector("ol");
     chapters.forEach((item, index) => {
       const listItem = document.createElement("li");
       const link = document.createElement("a");
@@ -111,7 +118,6 @@ if (readerRoot) {
     const nextButton = footer.querySelector("[data-reader-next]");
     const status = controls.querySelector("[data-reader-status]");
     const progress = controls.querySelector(".insight-reader__progress span");
-    const contents = controls.querySelector(".insight-reader__contents");
     const contentsLinks = [...contentsList.querySelectorAll("a")];
     const storageKey = "insight-reader-mode";
     let currentIndex = 0;
@@ -169,6 +175,10 @@ if (readerRoot) {
       nextButton.hidden = mode !== "chapter" || currentIndex === chapters.length - 1;
       footer.hidden = mode !== "chapter";
 
+      if (mode === "full") {
+        contents.open = true;
+      }
+
       if (scroll) {
         scrollToReader();
       }
@@ -203,7 +213,6 @@ if (readerRoot) {
       if (mode === "full") {
         currentIndex = index;
         updateHash(chapters[index].dataset.chapterSlug);
-        contents.open = false;
         render();
         const heading = chapters[index].querySelector("h2") || chapters[index];
         heading.tabIndex = -1;
@@ -217,6 +226,7 @@ if (readerRoot) {
     modeButtons.forEach((button) => {
       button.addEventListener("click", () => {
         mode = button.dataset.readerMode;
+        if (mode === "chapter") contents.open = false;
         try {
           sessionStorage.setItem(storageKey, mode);
         } catch (error) {
@@ -224,6 +234,12 @@ if (readerRoot) {
         }
         render();
       });
+    });
+
+    contents.addEventListener("toggle", () => {
+      if (mode === "full" && !contents.open) {
+        contents.open = true;
+      }
     });
 
     const handleHistory = () => {
