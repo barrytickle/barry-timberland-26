@@ -8,18 +8,26 @@
 	const trigger = menu.querySelector("[data-accessibility-trigger]");
 	const panel = menu.querySelector("[data-accessibility-panel]");
 	const readabilityToggle = menu.querySelector("[data-readability-toggle]");
-	const storageKey = "barrytickle-readability-mode";
+	const darkThemeToggle = menu.querySelector("[data-dark-theme-toggle]");
+	const storageKey = "barrytickle-display-mode";
+	const legacyStorageKey = "barrytickle-readability-mode";
 
-	if (!trigger || !panel || !readabilityToggle) {
+	if (!trigger || !panel || !readabilityToggle || !darkThemeToggle) {
 		return;
 	}
 
-	const setReadabilityMode = (enabled) => {
-		document.documentElement.toggleAttribute("data-readability", enabled);
-		readabilityToggle.setAttribute("aria-checked", String(enabled));
+	const setDisplayMode = (mode) => {
+		const readabilityEnabled = mode === "readability";
+		const darkThemeEnabled = mode === "dark";
+
+		document.documentElement.toggleAttribute("data-readability", readabilityEnabled);
+		document.documentElement.toggleAttribute("data-dark-theme", darkThemeEnabled);
+		readabilityToggle.setAttribute("aria-checked", String(readabilityEnabled));
+		darkThemeToggle.setAttribute("aria-checked", String(darkThemeEnabled));
 
 		try {
-			window.localStorage.setItem(storageKey, enabled ? "true" : "false");
+			window.localStorage.setItem(storageKey, mode);
+			window.localStorage.removeItem(legacyStorageKey);
 		} catch (error) {
 			// The mode still works when storage is unavailable.
 		}
@@ -35,15 +43,21 @@
 		}
 	};
 
-	let storedPreference = false;
+	let storedMode = "default";
 
 	try {
-		storedPreference = window.localStorage.getItem(storageKey) === "true";
+		const savedMode = window.localStorage.getItem(storageKey);
+
+		if (["default", "readability", "dark"].includes(savedMode)) {
+			storedMode = savedMode;
+		} else if (window.localStorage.getItem(legacyStorageKey) === "true") {
+			storedMode = "readability";
+		}
 	} catch (error) {
 		// Use the default when storage is unavailable.
 	}
 
-	setReadabilityMode(storedPreference);
+	setDisplayMode(storedMode);
 
 	trigger.addEventListener("click", () => {
 		const isOpen = trigger.getAttribute("aria-expanded") === "true";
@@ -60,7 +74,11 @@
 	});
 
 	readabilityToggle.addEventListener("click", () => {
-		setReadabilityMode(readabilityToggle.getAttribute("aria-checked") !== "true");
+		setDisplayMode(readabilityToggle.getAttribute("aria-checked") === "true" ? "default" : "readability");
+	});
+
+	darkThemeToggle.addEventListener("click", () => {
+		setDisplayMode(darkThemeToggle.getAttribute("aria-checked") === "true" ? "default" : "dark");
 	});
 
 	document.addEventListener("click", (event) => {

@@ -43,6 +43,12 @@
 	text-align: left;
 }
 
+.accessibility-menu__option + .accessibility-menu__option {
+	margin-top: 0.875rem;
+	border-top: 1px solid #e5e7eb;
+	padding-top: 0.875rem;
+}
+
 .accessibility-menu__option strong,
 .accessibility-menu__option small {
 	display: block;
@@ -131,6 +137,85 @@ html[data-readability] :where(p, li, blockquote, figcaption):not([class*="text-w
 
 html[data-readability] .accessibility-menu__panel {
 	background: #fff8dc;
+}
+
+html[data-dark-theme] {
+	color-scheme: dark;
+}
+
+html[data-dark-theme] body,
+html[data-dark-theme] [data-component="navbar"] {
+	background-color: #111827;
+	color: #f9fafb;
+}
+
+html[data-dark-theme] [data-component="navbar"] {
+	background-color: rgb(17 24 39 / 0.92);
+}
+
+html[data-dark-theme] :where(.bg-white, [class~="bg-white/60"], [class~="bg-white/85"]) {
+	background-color: #111827;
+}
+
+html[data-dark-theme] :where(.bg-muted, .bg-ink-100, .bg-ink-200, [class~="bg-ink-200/70"]) {
+	background-color: #1f2937;
+}
+
+html[data-dark-theme] :where(.text-ink, .text-ink-700) {
+	color: #f9fafb;
+}
+
+html[data-dark-theme] :where(.text-ink-600, .text-ink-500) {
+	color: #e5e7eb;
+}
+
+html[data-dark-theme] :where(.text-ink-400, .text-ink-300, .text-ink-200) {
+	color: #cbd5e1;
+}
+
+html[data-dark-theme] :where(.rich-text-content, .article-prose),
+html[data-dark-theme] :where(p, li, blockquote, figcaption):not([class*="text-white"]) {
+	color: #e5e7eb;
+}
+
+html[data-dark-theme] :where([class*="border-ink"], .border-gray-200, .border-gray-300) {
+	border-color: #4b5563;
+}
+
+html[data-dark-theme] :where(a.bg-ink, button.bg-ink) {
+	background-color: #f9fafb;
+	color: #111827;
+}
+
+html[data-dark-theme] .accessibility-menu__panel {
+	border-color: #4b5563;
+	background: #1f2937;
+	box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.35);
+}
+
+html[data-dark-theme] .accessibility-menu__title,
+html[data-dark-theme] .accessibility-menu__option strong {
+	color: #f9fafb;
+}
+
+html[data-dark-theme] .accessibility-menu__option small {
+	color: #d1d5db;
+}
+
+html[data-dark-theme] .accessibility-menu__option + .accessibility-menu__option {
+	border-color: #4b5563;
+}
+
+html[data-dark-theme] .accessibility-menu__switch {
+	background: #6b7280;
+}
+
+html[data-dark-theme] .accessibility-menu__option[aria-checked="true"] .accessibility-menu__switch {
+	background: #f9fafb;
+}
+
+html[data-dark-theme] .accessibility-menu__option[aria-checked="true"] .accessibility-menu__switch::after {
+	background: #111827;
 }
 
 @media (max-width: 479px) {
