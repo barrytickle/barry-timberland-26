@@ -3,6 +3,62 @@
 @import "./theme.scss";
 @import "tailwindcss/utilities";
 
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+	html.has-custom-cursor,
+	html.has-custom-cursor body,
+	html.has-custom-cursor a,
+	html.has-custom-cursor button,
+	html.has-custom-cursor summary,
+	html.has-custom-cursor select,
+	html.has-custom-cursor label[for],
+	html.has-custom-cursor [role="button"],
+	html.has-custom-cursor [role="link"],
+	html.has-custom-cursor [role="switch"] {
+		cursor: none;
+	}
+
+	html.has-custom-cursor :where(input, textarea, [contenteditable="true"]) {
+		cursor: text;
+	}
+}
+
+.custom-cursor {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	width: 1.25rem;
+	height: 1.25rem;
+	pointer-events: none;
+	border: 2px solid #ef4444;
+	border-radius: 50%;
+	background: transparent;
+	opacity: 0;
+	transition:
+		width 180ms cubic-bezier(0.22, 1, 0.36, 1),
+		height 180ms cubic-bezier(0.22, 1, 0.36, 1),
+		border-color 180ms ease,
+		background-color 180ms ease,
+		opacity 140ms ease;
+	will-change: transform, width, height;
+}
+
+.custom-cursor.is-visible {
+	opacity: 1;
+}
+
+.custom-cursor.is-interactive {
+	width: 1.75rem;
+	height: 1.75rem;
+	border-color: #ef4444;
+	background: #ef4444;
+}
+
+.custom-cursor.is-pressed {
+	width: 1rem;
+	height: 1rem;
+}
+
 .accessibility-menu {
 	position: fixed;
 	right: clamp(1rem, 3vw, 2rem);
