@@ -58,6 +58,7 @@ class Timberland extends Timber\Site {
 		add_action( 'wp_head', array( $this, 'output_service_schema' ), 21 );
 		add_action( 'wp_head', array( $this, 'output_insight_schema' ), 22 );
 		add_action( 'wp_head', array( $this, 'output_breadcrumb_schema' ), 23 );
+		add_action( 'wp_head', array( $this, 'output_faq_schema' ), 24 );
 		add_filter( 'pings_open', '__return_false' );
 		add_filter( 'xmlrpc_methods', array( $this, 'disable_pingback_xmlrpc_methods' ) );
 		add_action( 'send_headers', array( $this, 'output_security_headers' ) );
@@ -656,6 +657,65 @@ class Timberland extends Timber\Site {
 				$schema['image'] = $image->src( 'large' );
 			}
 		}
+
+		echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+	}
+
+	/**
+	 * FAQPage schema is optional, semantic-only structured data (Google retired the
+	 * FAQ rich result in May 2026) — read directly from the same numbered-accordion
+	 * block data the front end renders, so the schema can never say something the
+	 * visible page doesn't.
+	 */
+	public function output_faq_schema() {
+		if ( ! is_singular() ) {
+			return;
+		}
+
+		$post = get_post();
+
+		if ( ! $post ) {
+			return;
+		}
+
+		$questions = array();
+
+		foreach ( parse_blocks( $post->post_content ) as $block ) {
+			if ( ( $block['blockName'] ?? '' ) !== 'acf/numbered-accordion' ) {
+				continue;
+			}
+
+			$data  = $block['attrs']['data'] ?? array();
+			$count = (int) ( $data['items'] ?? 0 );
+
+			for ( $i = 0; $i < $count; $i++ ) {
+				$question = trim( wp_strip_all_tags( (string) ( $data[ "items_{$i}_title" ] ?? '' ) ) );
+				$answer   = trim( wp_strip_all_tags( (string) ( $data[ "items_{$i}_content" ] ?? '' ) ) );
+
+				if ( $question === '' || $answer === '' ) {
+					continue;
+				}
+
+				$questions[] = array(
+					'@type'          => 'Question',
+					'name'           => $question,
+					'acceptedAnswer' => array(
+						'@type' => 'Answer',
+						'text'  => $answer,
+					),
+				);
+			}
+		}
+
+		if ( ! $questions ) {
+			return;
+		}
+
+		$schema = array(
+			'@context'   => 'https://schema.org',
+			'@type'      => 'FAQPage',
+			'mainEntity' => $questions,
+		);
 
 		echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
 	}
