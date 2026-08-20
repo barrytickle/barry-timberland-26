@@ -13,7 +13,19 @@
 		{% for column in columns %}
 			<div class="{{ not loop.first ? 'lg:border-l lg:border-ink-300 lg:pl-16' : '' }}">
 				{% if column.heading %}<h2 class="h4">{{ column.heading }}</h2>{% endif %}
-				{% if column.body %}<p class="body-18 {{ column.heading ? 'mt-5' : '' }} text-ink-500">{{ column.body|nl2br }}</p>{% endif %}
+				{% if column.body %}
+					{% set column_body = column.body %}
+					{% if post.post_name == 'about-me' %}
+						{# Links the existing "Oswestry, Shropshire" mention to the dedicated
+						   local-SEO page, at render time rather than stored HTML — see
+						   hero/index.twig for why (WPVibe's editor rejects angle brackets
+						   inside a block's stored JSON attributes). #}
+						{% set column_body = column_body|replace({
+							'Oswestry, Shropshire': '<a href="' ~ site.url ~ '/web-developer-oswestry/" class="underline decoration-ink-300 underline-offset-4 hover:text-ink">Oswestry, Shropshire</a>'
+						}) %}
+					{% endif %}
+					<p class="body-18 {{ column.heading ? 'mt-5' : '' }} text-ink-500">{{ column_body|nl2br }}</p>
+				{% endif %}
 				{% if column.cta_link.url %}
 					<div class="mt-6">{% include 'components/button.twig' with { href: column.cta_link.url, label: column.cta_link.title, target: column.cta_link.target, variant: 'text' } %}</div>
 				{% endif %}
