@@ -3,6 +3,173 @@
 @import "./theme.scss";
 @import "tailwindcss/utilities";
 
+.insights-featured__grid {
+	display: grid;
+	gap: 1rem;
+}
+
+.insights-featured__card {
+	position: relative;
+	display: block;
+	min-height: 22rem;
+	overflow: hidden;
+	border-radius: 1.5rem;
+	background: #030712;
+	color: #fff;
+}
+
+.insights-featured__card:first-child {
+	min-height: 30rem;
+}
+
+.insights-featured__image,
+.insights-featured__placeholder,
+.insights-featured__shade {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.insights-featured__image {
+	object-fit: cover;
+	transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.insights-featured__card:hover .insights-featured__image {
+	transform: scale(1.035);
+}
+
+.insights-featured__placeholder {
+	display: grid;
+	place-items: center;
+	background: #1f2937;
+	color: #9ca3af;
+}
+
+.insights-featured__shade {
+	background: linear-gradient(180deg, rgb(3 7 18 / 0.04) 25%, rgb(3 7 18 / 0.9) 100%);
+}
+
+.insights-featured__content {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.insights-browser__controls {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-top: 2rem;
+}
+
+.insights-browser__search {
+	display: flex;
+	width: min(100%, 26rem);
+	align-items: center;
+	gap: 0.75rem;
+	border: 1px solid #d1d5db;
+	border-radius: 999px;
+	padding: 0.75rem 1rem;
+	color: #4b5563;
+}
+
+.insights-browser__search:focus-within {
+	border-color: #030712;
+	box-shadow: 0 0 0 1px #030712;
+}
+
+.insights-browser__search input {
+	width: 100%;
+	border: 0;
+	background: transparent;
+	padding: 0;
+	color: #030712;
+	font-size: 1rem;
+	line-height: 1.5;
+	outline: none;
+	box-shadow: none;
+}
+
+.insights-browser__search input::placeholder {
+	color: #6b7280;
+}
+
+.insights-browser__filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.insights-browser__filters button {
+	border: 1px solid #d1d5db;
+	border-radius: 999px;
+	padding: 0.55rem 0.9rem;
+	color: #4b5563;
+	font-size: 0.875rem;
+	font-weight: 600;
+	line-height: 1.25;
+	transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.insights-browser__filters button:hover {
+	border-color: #030712;
+	color: #030712;
+}
+
+.insights-browser__filters button[aria-pressed="true"] {
+	border-color: #030712;
+	background: #030712;
+	color: #fff;
+}
+
+.insights-browser__filters button:focus-visible,
+.insights-browser__search:focus-within {
+	outline: 2px solid #2563eb;
+	outline-offset: 2px;
+}
+
+.insights-browser__status {
+	margin-top: 1rem;
+	color: #6b7280;
+	font-size: 0.8125rem;
+	font-weight: 600;
+}
+
+.insights-browser__empty {
+	margin-top: 2.5rem;
+	border-top: 1px solid #d1d5db;
+	padding-top: 2.5rem;
+	text-align: center;
+}
+
+@media (min-width: 1024px) {
+	.insights-featured__grid {
+		grid-template-rows: repeat(2, minmax(0, 1fr));
+		grid-template-columns: minmax(0, 1.85fr) minmax(18rem, 1fr);
+		height: clamp(36rem, 52vw, 42rem);
+	}
+
+	.insights-featured__card,
+	.insights-featured__card:first-child {
+		min-height: 0;
+	}
+
+	.insights-featured__card:first-child {
+		grid-row: 1 / 3;
+	}
+
+	.insights-browser__controls {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+}
+
 .accessibility-menu {
 	position: fixed;
 	right: clamp(1rem, 3vw, 2rem);
@@ -303,6 +470,48 @@ html[data-dark-theme] .insight-reader__navigation {
 
 html[data-dark-theme] .insight-reader__navigation button {
 	color: #f9fafb;
+}
+
+html[data-dark-theme] .insights-browser__search {
+	border-color: #4b5563;
+	color: #cbd5e1;
+}
+
+html[data-dark-theme] .insights-browser__search:focus-within {
+	border-color: #f9fafb;
+	box-shadow: 0 0 0 1px #f9fafb;
+}
+
+html[data-dark-theme] .insights-browser__search input {
+	color: #f9fafb;
+}
+
+html[data-dark-theme] .insights-browser__search input::placeholder {
+	color: #9ca3af;
+}
+
+html[data-dark-theme] .insights-browser__filters button {
+	border-color: #4b5563;
+	color: #d1d5db;
+}
+
+html[data-dark-theme] .insights-browser__filters button:hover {
+	border-color: #f9fafb;
+	color: #fff;
+}
+
+html[data-dark-theme] .insights-browser__filters button[aria-pressed="true"] {
+	border-color: #f9fafb;
+	background: #f9fafb;
+	color: #111827;
+}
+
+html[data-dark-theme] .insights-browser__status {
+	color: #9ca3af;
+}
+
+html[data-dark-theme] .insights-browser__empty {
+	border-color: #4b5563;
 }
 
 html[data-dark-theme] .accessibility-menu__panel {

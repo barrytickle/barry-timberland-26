@@ -43,7 +43,7 @@ if ( is_post_type_archive( 'insight' ) ) {
 		)
 	);
 
-	$insights_options['insights_group']['articles'] = array_map(
+	$formatted_insights = array_map(
 		static function ( $insight ) {
 			$categories   = get_the_category( $insight->ID );
 			$thumbnail_id = get_post_thumbnail_id( $insight );
@@ -55,10 +55,18 @@ if ( is_post_type_archive( 'insight' ) ) {
 				: null;
 
 			return array(
+				'id'      => $insight->ID,
 				'eyebrow' => $categories ? $categories[0]->name : '',
+				'category_slugs' => array_map(
+					static function ( $category ) {
+						return $category->slug;
+					},
+					$categories
+				),
 				'heading' => get_the_title( $insight ),
-				'excerpt' => wp_trim_words( wp_strip_all_tags( get_the_excerpt( $insight ) ), 18, '...' ),
+				'excerpt' => wp_trim_words( wp_strip_all_tags( get_the_excerpt( $insight ) ), 16, '…' ),
 				'image'   => $image,
+				'date'    => get_the_date( 'j M Y', $insight ),
 				'button'  => array(
 					'url'    => get_permalink( $insight ),
 					'title'  => 'Read insight',
@@ -70,9 +78,27 @@ if ( is_post_type_archive( 'insight' ) ) {
 		},
 		$insight_posts
 	);
-	$insights_options['insights_group']['cta_link'] = null;
 
-	$context['insights_options'] = $insights_options;
+	$featured_insights = array_slice( $formatted_insights, 0, 3 );
+	$archive_insights  = array_slice( $formatted_insights, 3 );
+	$archive_categories = array();
+
+	foreach ( $archive_insights as $insight ) {
+		foreach ( $insight['category_slugs'] as $category_slug ) {
+			$category = get_category_by_slug( $category_slug );
+
+			if ( $category ) {
+				$archive_categories[ $category_slug ] = $category->name;
+			}
+		}
+	}
+
+	asort( $archive_categories, SORT_NATURAL | SORT_FLAG_CASE );
+
+	$context['insights_options']    = $insights_options;
+	$context['featured_insights']  = $featured_insights;
+	$context['archive_insights']   = $archive_insights;
+	$context['insight_categories'] = $archive_categories;
 }
 
 $context['posts'] = Timber::get_posts();

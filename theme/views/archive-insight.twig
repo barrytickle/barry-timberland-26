@@ -7,15 +7,86 @@
 		preview_image: null
 	} only %}
 
-	{% if insights_options.insights_group.articles|default([]) %}
-		<div data-component="insights-archive-list">
-			{% for article in insights_options.insights_group.articles %}
-				{% include 'blocks/featured-article/index.twig' with {
-					fields: article,
-					is_preview: false,
-					preview_image: null
-				} only %}
-			{% endfor %}
-		</div>
+	{% if featured_insights|default([]) %}
+		<section class="mx-auto max-w-[1200px] px-6 pb-12 pt-4 lg:px-[72px] lg:pb-20" data-component="insights-featured">
+			<div class="mb-7 flex items-end justify-between gap-6">
+				<div>
+					<p class="body-14 font-semibold uppercase tracking-[0.12em] text-ink-500">Start here</p>
+					<h2 class="h5 mt-2">Featured insights</h2>
+				</div>
+			</div>
+
+			<div class="insights-featured__grid">
+				{% for article in featured_insights %}
+					<a class="insights-featured__card group" href="{{ article.button.url }}">
+						{% if article.image %}
+							<img class="insights-featured__image" src="{{ article.image.url }}" alt="{{ article.image.alt }}">
+						{% else %}
+							<div class="insights-featured__placeholder" aria-hidden="true">
+								<svg class="h-12 w-12" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
+							</div>
+						{% endif %}
+						<div class="insights-featured__shade"></div>
+						<div class="insights-featured__content">
+							<div class="mb-3 flex flex-wrap items-center gap-2 body-12 font-semibold uppercase tracking-[0.08em]">
+								{% if article.eyebrow %}<span class="rounded-full border border-white/60 px-3 py-1">{{ article.eyebrow }}</span>{% endif %}
+								<span>{{ article.date }}</span>
+							</div>
+							{% if loop.first %}<h3 class="h5 max-w-3xl">{{ article.heading }}</h3>{% else %}<h3 class="text-[1.35rem] font-semibold leading-tight tracking-tight sm:text-[1.55rem]">{{ article.heading }}</h3>{% endif %}
+						</div>
+					</a>
+				{% endfor %}
+			</div>
+		</section>
+	{% endif %}
+
+	{% if archive_insights|default([]) %}
+		<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px] lg:py-20" data-component="insights-browser" data-insights-browser>
+			<div class="max-w-2xl">
+				<p class="body-14 font-semibold uppercase tracking-[0.12em] text-ink-500">The archive</p>
+				<h2 class="h5 mt-2">Explore all insights</h2>
+				<p class="body-18 mt-4 text-ink-500">Search by topic or filter the archive by category.</p>
+			</div>
+
+			<div class="insights-browser__controls" data-insights-controls hidden>
+				<label class="insights-browser__search">
+					<span class="sr-only">Search insights</span>
+					<svg aria-hidden="true" class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+					<input type="search" placeholder="Search insights" autocomplete="off" data-insights-search>
+				</label>
+
+				<div class="insights-browser__filters" aria-label="Filter insights by category">
+					<button type="button" aria-pressed="true" data-insights-filter="all">All</button>
+					{% for slug, name in insight_categories %}
+						<button type="button" aria-pressed="false" data-insights-filter="{{ slug|e('html_attr') }}">{{ name }}</button>
+					{% endfor %}
+				</div>
+			</div>
+
+			<p class="insights-browser__status" data-insights-status aria-live="polite" hidden></p>
+
+			<div class="mt-10 grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3" data-insights-grid>
+				{% for article in archive_insights %}
+					<article data-insight-card data-categories="{{ article.category_slugs|join(' ')|e('html_attr') }}">
+						{% include 'components/blog-card.twig' with {
+							eyebrow: article.eyebrow,
+							title: article.heading,
+							excerpt: article.excerpt,
+							href: article.button.url,
+							image: article.image
+						} only %}
+					</article>
+				{% endfor %}
+			</div>
+
+			<div class="mt-12 flex justify-center">
+				<button class="rounded-full border border-ink px-7 py-4 body-16 font-semibold text-ink transition hover:bg-ink hover:text-white" type="button" data-insights-more hidden>Show more</button>
+			</div>
+
+			<div class="insights-browser__empty" data-insights-empty hidden>
+				<p class="h6">No matching insights</p>
+				<p class="body-16 mt-2 text-ink-500">Try another search or category.</p>
+			</div>
+		</section>
 	{% endif %}
 {% endblock %}
