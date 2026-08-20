@@ -2,19 +2,20 @@
 	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/testimonial-carousel.html #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set testimonials = fields.testimonials %}
 
 {% macro person(t) %}
 	<blockquote class="mx-auto max-w-3xl h5 font-medium leading-snug">“{{ t.quote }}”</blockquote>
 	<div class="mt-8 flex flex-col items-center">
 		{% if t.photo %}
-			<img class="h-16 w-16 rounded-full object-cover" src="{{ t.photo.url }}" alt="{{ t.photo.alt }}">
+			{{ responsive_image.tag(t.photo, { alt: t.photo.alt, class: 'h-16 w-16 rounded-full object-cover', sizes: '100vw' }) }}
 		{% else %}
 			<span class="grid h-16 w-16 place-items-center rounded-full bg-ink-400 body-16 font-semibold text-white">{{ t.initials }}</span>
 		{% endif %}
 		<p class="mt-3 body-16 font-semibold">{{ t.name }}</p>
 		<p class="body-14 text-ink-500">{{ t.role }}</p>
-		{% if t.logo %}<img class="mt-3 h-6 w-auto max-w-[100px] object-contain" src="{{ t.logo.url }}" alt="{{ t.logo.alt }}">{% endif %}
+		{% if t.logo %}{{ responsive_image.tag(t.logo, { alt: t.logo.alt, class: 'mt-3 h-6 w-auto max-w-[100px] object-contain', sizes: '100vw' }) }}{% endif %}
 	</div>
 {% endmacro %}
 

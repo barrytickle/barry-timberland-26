@@ -2,6 +2,7 @@
 	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/work-list-row.html #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set items = fields.items %}
 
 <section class="mx-auto max-w-[1200px] px-6 py-8 lg:px-[72px]" data-component="work-list-row">
@@ -16,7 +17,7 @@
 				{% include 'components/tag-list.twig' with { tags: item.tags|split(',')|map(t => t|trim) } %}
 				{% if item.image %}
 					<div class="pointer-events-none absolute right-0 top-1/2 z-10 hidden aspect-[4/3] w-64 -translate-y-1/2 overflow-hidden rounded-card opacity-0 shadow-lg transition duration-200 group-hover:opacity-100 lg:block">
-						<img class="h-full w-full object-cover" src="{{ item.image.url }}" alt="{{ item.image.alt }}">
+						{{ responsive_image.tag(item.image, { class: 'h-full w-full object-cover', sizes: '256px' }) }}
 					</div>
 				{% endif %}
 			</a>

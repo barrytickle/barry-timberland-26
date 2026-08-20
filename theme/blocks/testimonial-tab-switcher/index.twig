@@ -4,6 +4,7 @@
 {# Converted from the barrys-spectacular-site Webflow export: home-pages/home-v1.html ".home-v1-testimonial-tabs".
    One large quote shown at a time; clicking a client below swaps which quote displays above.
    Implemented with Alpine.js (already loaded globally via theme/assets/main.js) rather than Webflow's w-tabs. #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set heading = fields.heading %}
 {% set testimonials = fields.testimonials %}
 
@@ -20,7 +21,7 @@
 		{% for t in testimonials %}
 			<button type="button" @click="active = {{ loop.index0 }}" class="flex items-center gap-3 text-left transition duration-200" :class="active === {{ loop.index0 }} ? 'opacity-100' : 'opacity-40 hover:opacity-70'">
 				{% if t.avatar %}
-					<img class="h-12 w-12 rounded-full object-cover" src="{{ t.avatar.url }}" alt="{{ t.name }}">
+					{{ responsive_image.tag(t.avatar, { alt: t.avatar.alt|default(t.name), class: 'h-12 w-12 rounded-full object-cover', sizes: '100vw' }) }}
 				{% else %}
 					<span class="grid h-12 w-12 place-items-center rounded-full bg-ink-300 body-14 font-semibold text-ink-700">{{ t.initials }}</span>
 				{% endif %}

@@ -3,7 +3,6 @@
 	<head>
 		<meta charset="{{ site.charset }}"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="pingback" href="{{ site.pingback_url }}"/>
 		<link rel="icon" type="image/png" href="{{options.favicon.url}}"/>
 		<style>
 			[x-cloak] {
@@ -14,11 +13,14 @@
 	</head>
 
 	<body class="{{body_class}} bg-white text-ink" data-template="base.twig">
+		<a class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-4 focus:rounded-full focus:bg-ink focus:px-6 focus:py-3 focus:text-white" href="#main">Skip to content</a>
 		{% include 'header.twig' %}
 
-		{% block content %}
-			Sorry, no content
-		{% endblock %}
+		<main id="main">
+			{% block content %}
+				Sorry, no content
+			{% endblock %}
+		</main>
 
 		{% block footer %}
 			{% include 'footer.twig' %}

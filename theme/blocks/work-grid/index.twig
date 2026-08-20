@@ -37,7 +37,7 @@
 	<div class="grid gap-x-8 gap-y-14 sm:grid-cols-2">
 		{% for project in projects %}
 			{% set category = project.terms('project_category')|first %}
-			{% include 'components/work-card.twig' with { title: project.title, category: category ? category.name : '', href: project.link, image: project.thumbnail ? project.thumbnail.src : null, mockup: mockup } %}
+			{% include 'components/work-card.twig' with { title: project.title, category: category ? category.name : '', href: project.link, image: project.thumbnail, mockup: mockup } %}
 		{% endfor %}
 	</div>
 </section>

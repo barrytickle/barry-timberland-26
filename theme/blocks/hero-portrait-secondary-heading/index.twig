@@ -2,6 +2,7 @@
 	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: home-v3.html hero section #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set eyebrow = fields.eyebrow %}
 {% set heading = fields.heading %}
 {% set heading_highlight = fields.heading_highlight %}
@@ -15,7 +16,7 @@
 	<h1 class="h1 mt-6 max-w-6xl">{{ heading }} <span class="text-ink-400">{{ heading_highlight }}</span></h1>
 	<div class="mt-12 grid items-end gap-8 lg:grid-cols-[320px_1fr]">
 		{% if image %}
-			<img class="aspect-[4/3] w-full rounded-3xl object-cover" src="{{ image.url }}" alt="{{ image.alt }}">
+			{{ responsive_image.tag(image, { class: 'aspect-[4/3] w-full rounded-3xl object-cover', sizes: '(min-width: 1024px) 320px, 100vw' }) }}
 		{% else %}
 			<div class="grid aspect-[4/3] w-full place-items-center rounded-3xl bg-muted">
 				<svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>

@@ -1,9 +1,10 @@
 {# Params: label, name, type (text|email|textarea), placeholder, required (default true), rows #}
 <div class="mb-8">
-	<label class="body-14 mb-3 block font-semibold text-ink">{{ label }}{% if required is not defined or required %}<span class="text-ink-400">*</span>{% endif %}</label>
+	{% set is_required = required is not defined or required %}
+	<label class="body-14 mb-3 block font-semibold text-ink" for="{{ name }}">{{ label }}{% if is_required %}<span class="text-ink-400" aria-hidden="true">*</span><span class="sr-only"> (required)</span>{% endif %}</label>
 	{% if type == 'textarea' %}
-		<textarea class="w-full resize-none border-0 border-b border-ink-300 bg-transparent pb-3 body-18 text-ink placeholder:text-ink-400 focus:border-ink focus:outline-none focus:ring-0" name="{{ name }}" placeholder="{{ placeholder }}" rows="{{ rows|default(3) }}"{% if required is not defined or required %} required{% endif %}></textarea>
+		<textarea class="w-full resize-none border-0 border-b border-ink-300 bg-transparent pb-3 body-18 text-ink placeholder:text-ink-400 focus:border-ink focus:outline-none focus:ring-0" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" rows="{{ rows|default(3) }}"{% if is_required %} required aria-required="true"{% endif %}></textarea>
 	{% else %}
-		<input class="w-full border-0 border-b border-ink-300 bg-transparent pb-3 body-18 text-ink placeholder:text-ink-400 focus:border-ink focus:outline-none focus:ring-0" name="{{ name }}" placeholder="{{ placeholder }}" type="{{ type|default('text') }}"{% if required is not defined or required %} required{% endif %}/>
+		<input class="w-full border-0 border-b border-ink-300 bg-transparent pb-3 body-18 text-ink placeholder:text-ink-400 focus:border-ink focus:outline-none focus:ring-0" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" type="{{ type|default('text') }}"{% if is_required %} required aria-required="true"{% endif %}/>
 	{% endif %}
 </div>

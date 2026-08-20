@@ -2,6 +2,7 @@
 	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Barry's Spectacular Site export: home-v2.html "Selected works" dark 2-up showcase #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set eyebrow = fields.eyebrow %}
 {% set heading = fields.heading %}
 {% set cta = fields.cta_link %}
@@ -25,7 +26,7 @@
 			{% for project in projects %}
 				<a class="group block rounded-3xl bg-white/5 p-5" href="{{ project.href }}">
 					{% if project.image %}
-						<img class="aspect-[4/3] w-full rounded-2xl bg-white object-contain p-4 transition group-hover:scale-[1.01]" src="{{ project.image.url }}" alt="{{ project.title }}">
+						{{ responsive_image.tag(project.image, { alt: project.title|default(''), class: 'aspect-[4/3] w-full rounded-2xl bg-white object-contain p-4 transition group-hover:scale-[1.01]', sizes: '(min-width: 1024px) 50vw, 100vw' }) }}
 					{% else %}
 						<div class="grid aspect-[4/3] w-full place-items-center rounded-2xl bg-white p-4">
 							<svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>

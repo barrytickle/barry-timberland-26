@@ -1,6 +1,7 @@
 {% extends "base.twig" %}
 
 {% block content %}
+	{% include 'components/breadcrumbs.twig' with { trail: breadcrumb_trail } %}
 	{% set category = post.terms('category')|first %}
 
 	{% include 'blocks/hero-small/index.twig' with {
@@ -21,10 +22,7 @@
 		<div class="mt-10 lg:mt-16">
 			{% include 'blocks/image-full/index.twig' with {
 				fields: {
-					image: {
-						url: featured_image.src,
-						alt: featured_image.alt
-					},
+					image: featured_image,
 					mockup: false,
 					width: 'wide'
 				},

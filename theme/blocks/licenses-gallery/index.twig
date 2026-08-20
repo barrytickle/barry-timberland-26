@@ -2,6 +2,7 @@
 	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/licenses-gallery.html #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set heading = fields.heading %}
 {% set description = fields.description %}
 {% set gallery_heading = fields.gallery_heading %}
@@ -23,7 +24,7 @@
 				{% set well %}
 					<div class="grid {{ item.aspect }} place-items-center overflow-hidden rounded-card bg-muted">
 						{% if item.image %}
-							<img class="h-full w-full object-cover" src="{{ item.image.url }}" alt="{{ item.image.alt }}">
+							{{ responsive_image.tag(item.image, { class: 'h-full w-full object-cover', sizes: '(min-width: 768px) 33vw, 50vw' }) }}
 						{% else %}
 							{{ placeholder_icon }}
 						{% endif %}

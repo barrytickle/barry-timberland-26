@@ -47,12 +47,10 @@ if ( is_post_type_archive( 'insight' ) ) {
 		static function ( $insight ) {
 			$categories   = get_the_category( $insight->ID );
 			$thumbnail_id = get_post_thumbnail_id( $insight );
-			$image        = $thumbnail_id
-				? array(
-					'url' => wp_get_attachment_image_url( $thumbnail_id, 'large' ),
-					'alt' => get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ),
-				)
-				: null;
+			// Pass the attachment ID through (not a flattened url/alt array) so
+			// Timber::get_image() in the Twig templates can resolve it to a real
+			// Timber\Image and derive srcset/sizes/width/height/alt itself.
+			$image        = $thumbnail_id ? $thumbnail_id : null;
 
 			return array(
 				'id'      => $insight->ID,

@@ -2,6 +2,7 @@
 	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Converted from Showcasy UI kit: components/testimonials-stack.html #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set heading = fields.heading %}
 {% set testimonials = fields.testimonials %}
 
@@ -15,14 +16,14 @@
 					<div class="mt-6 flex items-center justify-between">
 						<div class="flex items-center gap-4">
 							{% if t.photo %}
-								<img class="h-12 w-12 rounded-full object-cover" src="{{ t.photo.url }}" alt="{{ t.photo.alt }}">
+								{{ responsive_image.tag(t.photo, { alt: t.photo.alt, class: 'h-12 w-12 rounded-full object-cover', sizes: '100vw' }) }}
 							{% else %}
 								<span class="grid h-12 w-12 place-items-center rounded-full bg-ink-300 body-14 font-semibold text-ink-700">{{ t.initials }}</span>
 							{% endif %}
 							<div><p class="body-16 font-semibold">{{ t.name }}</p><p class="body-14 text-ink-500">{{ t.role }}</p></div>
 						</div>
 						{% if t.logo %}
-							<img class="h-6 w-auto max-w-[100px] object-contain" src="{{ t.logo.url }}" alt="{{ t.logo.alt }}">
+							{{ responsive_image.tag(t.logo, { alt: t.logo.alt, class: 'h-6 w-auto max-w-[100px] object-contain', sizes: '100vw' }) }}
 						{% else %}
 							<span class="body-18 font-semibold text-ink-400">{{ t.brand }}<span class="text-ink-300">.</span></span>
 						{% endif %}

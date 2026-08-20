@@ -1,0 +1,17 @@
+{# Params: trail — array of { name, url }, from Timberland::get_breadcrumb_trail() via the global `breadcrumb_trail` context variable. Renders nothing below 2 items (i.e. the homepage itself). #}
+{% if trail|default([])|length > 1 %}
+	<nav class="mx-auto max-w-[1200px] px-6 pt-6 lg:px-[72px]" aria-label="Breadcrumb">
+		<ol class="flex flex-wrap items-center gap-2 body-14 text-ink-500">
+			{% for crumb in trail %}
+				<li class="flex items-center gap-2">
+					{% if not loop.last %}
+						<a class="hover:text-ink-700" href="{{ crumb.url }}">{{ crumb.name }}</a>
+						<span aria-hidden="true">/</span>
+					{% else %}
+						<span aria-current="page" class="text-ink-700">{{ crumb.name }}</span>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ol>
+	</nav>
+{% endif %}

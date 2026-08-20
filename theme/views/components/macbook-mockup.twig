@@ -2,31 +2,42 @@
   MacBook Pro frame with a transparent screen cutout; screenshot is positioned behind it.
 
   Params:
-    image      - ACF image array { url, alt } or a plain image URL string
-    alt        - alt text when image is a plain URL string
+    image      - anything Timber::get_image() accepts (ACF image array, attachment
+                 ID, Timber\Image), or a plain image URL string as a last resort
+    alt        - explicit alt override; wins over image's own alt text if set
     max_width  - max width class for the mockup (default: max-w-[900px])
     class      - optional extra classes on the mockup wrapper
 #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set max_width = max_width|default('max-w-[900px]') %}
-{% set frame_src = theme.link ~ '/assets/images/macbook-pro-mockup.png' %}
-
-{% if image and image.url is defined %}
-	{% set image_src = image.url %}
-	{% set image_alt = image.alt %}
-{% elseif image %}
-	{% set image_src = image %}
-	{% set image_alt = alt|default('') %}
-{% endif %}
+{% set resolved_image = image ? get_image(image) : null %}
+{% set resolved_alt = alt is defined and alt is not empty ? alt : (image.alt is defined ? image.alt : '') %}
 
 <div class="relative mx-auto aspect-square w-full {{ max_width }} {{ class|default('') }}" data-component="macbook-mockup">
 	<div class="absolute overflow-hidden rounded-[1.5%]" style="left:9.5%;top:21.9%;width:80.9%;height:52%">
-		{% if image_src is defined %}
-			<img class="h-full w-full object-cover object-top" src="{{ image_src }}" alt="{{ image_alt }}">
+		{% if resolved_image %}
+			{{ responsive_image.tag(resolved_image, { alt: resolved_alt, class: 'h-full w-full object-cover object-top', sizes: '(min-width: 1024px) 40vw, 90vw' }) }}
+		{% elseif image %}
+			{# Degraded path: image didn't resolve to a real attachment (e.g. a bare
+			   URL string) — no attachment data to build srcset/width/height from. #}
+			<img class="h-full w-full object-cover object-top" src="{{ image }}" alt="{{ resolved_alt }}" loading="lazy" decoding="async">
 		{% else %}
 			<div class="grid h-full w-full place-items-center bg-ink-950">
 				<svg class="h-10 w-10 text-ink-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
 			</div>
 		{% endif %}
 	</div>
-	<img class="pointer-events-none relative z-10 w-full select-none" src="{{ frame_src }}" alt="" aria-hidden="true">
+	<svg class="pointer-events-none relative z-10 w-full select-none text-ink-700" viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false">
+		<path
+			fill="currentColor"
+			fill-rule="evenodd"
+			clip-rule="evenodd"
+			d="M5.5 17.9h84.9a4 4 0 0 1 4 4v52a4 4 0 0 1-4 4H5.5a4 4 0 0 1-4-4v-52a4 4 0 0 1 4-4Zm4 4.4a1 1 0 0 0-1 1v50.6a1 1 0 0 0 1 1h76.9a1 1 0 0 0 1-1V22.9a1 1 0 0 0-1-1H9.5Z"
+		/>
+		<path
+			fill="currentColor"
+			d="M2 77.9h96a2 2 0 0 1 2 2v6a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6v-6a2 2 0 0 1 2-2Z"
+		/>
+		<rect fill="currentColor" opacity="0.35" x="46" y="77.9" width="8" height="2" rx="1" />
+	</svg>
 </div>

@@ -1,5 +1,6 @@
 {% extends "base.twig" %}
 
 {% block content %}
+    {% include 'components/breadcrumbs.twig' with { trail: breadcrumb_trail } %}
     {{ post.content }}
 {% endblock %}

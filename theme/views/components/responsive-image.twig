@@ -1,0 +1,36 @@
+{#
+	Shared responsive <img> output. Accepts anything Timber::get_image() accepts
+	(an ACF image array, attachment ID, WP_Post, or Timber\Image).
+
+	Usage:
+		{% import 'components/responsive-image.twig' as responsive_image %}
+		{{ responsive_image.tag(fields.photo, { alt: 'Override alt text', class: 'h-full w-full object-cover' }) }}
+
+	opts:
+		size    — WP registered size for src/srcset base (default 'large')
+		sizes   — sizes attribute (default '100vw')
+		alt     — override alt text; pass '' explicitly for decorative images
+		class   — class attribute string
+		lcp     — true for the page's LCP image: loading="eager" instead of "lazy"
+		attrs   — raw extra attribute string, e.g. 'aria-hidden="true"'
+#}
+{% macro tag(image, opts) %}
+	{% set opts = opts|default({}) %}
+	{% set img = get_image(image) %}
+	{% if img %}
+		{% set size = opts.size|default('large') %}
+		{% set alt = opts.alt is defined ? opts.alt : img.alt|default('') %}
+		<img
+			src="{{ img.src(size) }}"
+			srcset="{{ img.srcset(size) }}"
+			sizes="{{ opts.sizes|default('100vw') }}"
+			width="{{ img.width() }}"
+			height="{{ img.height() }}"
+			alt="{{ alt }}"
+			loading="{{ opts.lcp|default(false) ? 'eager' : 'lazy' }}"
+			decoding="async"
+			{% if opts.class is defined %}class="{{ opts.class }}"{% endif %}
+			{% if opts.attrs is defined %}{{ opts.attrs }}{% endif %}
+		>
+	{% endif %}
+{% endmacro %}

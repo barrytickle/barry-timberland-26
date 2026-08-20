@@ -4,6 +4,7 @@
 {# Converted from Barry's Spectacular Site export: home-v2.html designs-marquee-section.
    Reuses the same .marquee / .marquee-track CSS as the logo-marquee block, but with square
    project screenshots instead of text logos. #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set images = fields.images|default([]) %}
 
 <section class="py-10" data-component="work-image-marquee">
@@ -12,7 +13,7 @@
 			{% for item in images|merge(images) %}
 				<div class="h-40 w-40 shrink-0 overflow-hidden rounded-card bg-muted">
 					{% if item.image %}
-						<img class="h-full w-full object-cover" src="{{ item.image.url }}" alt="{{ item.image.alt }}">
+						{{ responsive_image.tag(item.image, { class: 'h-full w-full object-cover', sizes: '160px' }) }}
 					{% else %}
 						<div class="grid h-full w-full place-items-center">
 							<svg class="h-8 w-8 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>

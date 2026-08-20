@@ -1,5 +1,7 @@
 {# Converted from Showcasy UI kit: components/work-card.html
-   Params: title, category, href, image (optional — plain URL), mockup (optional bool) #}
+   Params: title, category, href, image (optional — anything Timber::get_image()
+   accepts: ACF image array, attachment ID, or Timber\Image), mockup (optional bool) #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 <a class="group block " data-component="work-card" href="{{ href|default('#') }}" data-filter="{{to_snake_case(category)}}">
 	{% if mockup %}
 		<div class="mb-6 ">
@@ -8,7 +10,7 @@
 	{% else %}
 	<div class="mb-6 grid aspect-[16/11] place-items-center shadow-lg overflow-hidden rounded-card bg-muted">
 		{% if image %}
-			<img class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105" src="{{ image }}" alt="{{ title|default('') }}">
+			{{ responsive_image.tag(image, { alt: title|default(''), class: 'h-full w-full object-cover transition-transform duration-200 group-hover:scale-105', sizes: '(min-width: 640px) 50vw, 100vw' }) }}
 		{% else %}
 			<svg class="h-12 w-12 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
 		{% endif %}

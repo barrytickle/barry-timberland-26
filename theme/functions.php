@@ -41,16 +41,110 @@ class Timberland extends Timber\Site {
 		add_action( 'admin_menu', array( $this, 'add_view_insights_menu_item' ) );
 		add_action( 'admin_bar_menu', array( $this, 'hide_default_posts_admin_bar_item' ), 999 );
 		add_filter( 'pre_get_document_title', array( $this, 'filter_document_title' ) );
+		add_filter( 'language_attributes', array( $this, 'filter_language_attributes' ) );
 		add_filter( 'wp_robots', array( $this, 'filter_robots' ) );
 		add_filter( 'wp_sitemaps_posts_query_args', array( $this, 'filter_sitemap_posts' ), 10, 2 );
 		add_filter( 'wp_sitemaps_taxonomies', array( $this, 'filter_sitemap_taxonomies' ) );
 		add_filter( 'wp_sitemaps_add_provider', array( $this, 'filter_sitemap_providers' ), 10, 2 );
 		add_action( 'template_redirect', array( $this, 'hide_non_content_archives' ), 0 );
 		add_action( 'template_redirect', array( $this, 'redirect_legacy_project_urls' ), 1 );
+		add_action( 'template_redirect', array( $this, 'redirect_duplicate_insight_post' ), 1 );
+		add_action( 'wp_head', array( $this, 'output_resource_hints' ), 2 );
+		add_action( 'wp_head', array( $this, 'output_canonical_for_insight_archive' ), 4 );
 		add_action( 'wp_head', array( $this, 'output_seo_meta' ), 5 );
+		add_action( 'wp_head', array( $this, 'output_social_meta' ), 6 );
 		add_action( 'wp_head', array( $this, 'output_homepage_schema' ), 20 );
+		add_action( 'wp_head', array( $this, 'output_service_schema' ), 21 );
+		add_action( 'wp_head', array( $this, 'output_insight_schema' ), 22 );
+		add_action( 'wp_head', array( $this, 'output_breadcrumb_schema' ), 23 );
+		add_filter( 'pings_open', '__return_false' );
+		add_filter( 'xmlrpc_methods', array( $this, 'disable_pingback_xmlrpc_methods' ) );
+		add_action( 'send_headers', array( $this, 'output_security_headers' ) );
 
 		parent::__construct();
+	}
+
+	public function output_resource_hints() {
+		echo '<link rel="preconnect" href="https://www.googletagmanager.com">' . "\n";
+		echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+		echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+
+		if ( ! is_front_page() ) {
+			return;
+		}
+
+		$lcp_image_id = $this->get_homepage_lcp_image_id();
+
+		if ( ! $lcp_image_id ) {
+			return;
+		}
+
+		$image = Timber\Timber::get_image( $lcp_image_id );
+
+		if ( ! $image ) {
+			return;
+		}
+
+		echo '<link rel="preload" as="image" href="' . esc_url( $image->src( 'large' ) ) . '" imagesrcset="' . esc_attr( $image->srcset( 'large' ) ) . '" imagesizes="(min-width: 1024px) 50vw, 100vw">' . "\n";
+	}
+
+	/**
+	 * Finds the image feeding the homepage's featured-article block (currently the
+	 * page's LCP element — hero is text-only) by reading the front page's block
+	 * data directly, so the preload target self-corrects if that block's image, or
+	 * the homepage layout itself, changes later.
+	 */
+	private function get_homepage_lcp_image_id() {
+		$front_page_id = (int) get_option( 'page_on_front' );
+
+		if ( ! $front_page_id ) {
+			return 0;
+		}
+
+		$front_page = get_post( $front_page_id );
+
+		if ( ! $front_page ) {
+			return 0;
+		}
+
+		foreach ( parse_blocks( $front_page->post_content ) as $block ) {
+			if ( 'acf/featured-article' === ( $block['blockName'] ?? '' ) ) {
+				return (int) ( $block['attrs']['data']['image'] ?? 0 );
+			}
+		}
+
+		return 0;
+	}
+
+	public function disable_pingback_xmlrpc_methods( $methods ) {
+		unset( $methods['pingback.ping'], $methods['pingback.extensions.getPingbacks'] );
+
+		return $methods;
+	}
+
+	/**
+	 * Emitted via PHP header() rather than .htaccess — survives GoDaddy Managed
+	 * WordPress regenerating .htaccess, and works regardless of their Apache
+	 * config. Known limitation: doesn't cover static assets Apache serves
+	 * directly (images, built CSS/JS) without passing through PHP.
+	 */
+	public function output_security_headers() {
+		header( 'X-Content-Type-Options: nosniff' );
+		header( 'Referrer-Policy: strict-origin-when-cross-origin' );
+		header( 'Strict-Transport-Security: max-age=63072000; includeSubDomains' );
+		// Reflects known integrations (gtag, Google Fonts, the inline x-cloak style/
+		// GA config script) so report-only mode surfaces real anomalies instead of
+		// flooding the console with our own first-party resources. A stricter
+		// nonce-based policy is a worthwhile follow-on, not attempted here.
+		header(
+			"Content-Security-Policy-Report-Only: default-src 'self'; " .
+			"script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; " .
+			"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " .
+			"font-src 'self' https://fonts.gstatic.com; " .
+			"img-src 'self' data: https://www.google-analytics.com; " .
+			"connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com"
+		);
+		header_remove( 'X-Powered-By' );
 	}
 
 	public function output_google_analytics() {
@@ -82,7 +176,45 @@ class Timberland extends Timber\Site {
 	public function filter_document_title( $title ) {
 		$seo_title = trim( (string) $this->get_current_seo_field( 'seo_title' ) );
 
-		return $seo_title !== '' ? $seo_title : $title;
+		if ( $seo_title !== '' ) {
+			return $seo_title;
+		}
+
+		if ( is_singular( 'project' ) ) {
+			return $this->build_fallback_title( get_the_title(), 'Case Study | Barry Tickle' );
+		}
+
+		if ( is_singular( 'insight' ) ) {
+			return $this->build_fallback_title( get_the_title(), 'Barry Tickle' );
+		}
+
+		return $title;
+	}
+
+	/**
+	 * Builds a "{title} — {suffix}" fallback title, dropping the suffix (and, if
+	 * still too long, truncating the bare title) rather than emitting anything over
+	 * 60 characters. Used when a post has no explicit seo_title.
+	 */
+	private function build_fallback_title( $post_title, $suffix ) {
+		$post_title = trim( wp_strip_all_tags( (string) $post_title ) );
+		$with_suffix = $post_title . ' — ' . $suffix;
+
+		if ( mb_strlen( $with_suffix ) <= 60 ) {
+			return $with_suffix;
+		}
+
+		if ( mb_strlen( $post_title ) <= 60 ) {
+			return $post_title;
+		}
+
+		$truncated = rtrim( mb_substr( $post_title, 0, 59 ), " \t\n\r\0\x0B-–—" );
+
+		return $truncated . '…';
+	}
+
+	public function filter_language_attributes( $output ) {
+		return preg_replace( '/lang="[^"]*"/', 'lang="en-GB"', $output );
 	}
 
 	public function filter_robots( $robots ) {
@@ -153,14 +285,200 @@ class Timberland extends Timber\Site {
 		}
 	}
 
+	/**
+	 * One-off fix: post #1249 ("WordPress development without the unnecessary
+	 * complexity", post_type `post`) is a near-duplicate of the real insight at
+	 * /insights/wordpress-development-without-the-unnecessary-complexity/. Catches
+	 * every access path (pretty URL, ?p=1249) rather than string-matching the URL.
+	 */
+	public function redirect_duplicate_insight_post() {
+		if ( is_singular( 'post' ) && 1249 === get_queried_object_id() ) {
+			wp_safe_redirect( home_url( '/insights/wordpress-development-without-the-unnecessary-complexity/' ), 301, 'BarryTickle Theme' );
+			exit;
+		}
+	}
+
 	public function output_seo_meta() {
-		$description = trim( wp_strip_all_tags( (string) $this->get_current_seo_field( 'seo_meta_description' ) ) );
+		$description = $this->resolve_seo_meta_description();
 
 		if ( $description === '' ) {
 			return;
 		}
 
 		echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+	}
+
+	/**
+	 * seo_meta_description first; for singular posts with that field empty, falls
+	 * back to the post excerpt (WP auto-generates one from content if none is set),
+	 * truncated to ~155 chars. No fallback for archives — those need drafted copy,
+	 * not an auto-generated stand-in.
+	 */
+	private function resolve_seo_meta_description() {
+		if ( ! is_singular() ) {
+			return '';
+		}
+
+		$description = trim( wp_strip_all_tags( (string) $this->get_current_seo_field( 'seo_meta_description' ) ) );
+
+		if ( $description !== '' ) {
+			return $description;
+		}
+
+		$post_id = get_queried_object_id();
+
+		if ( ! $post_id ) {
+			return '';
+		}
+
+		$excerpt = trim( wp_strip_all_tags( get_the_excerpt( $post_id ) ) );
+
+		if ( $excerpt === '' ) {
+			$post    = get_post( $post_id );
+			$excerpt = $post ? $this->extract_text_from_acf_blocks( $post->post_content ) : '';
+		}
+
+		return $excerpt !== '' ? $this->truncate_to_length( $excerpt, 155 ) : '';
+	}
+
+	/**
+	 * get_the_excerpt() comes back empty for this theme's content — every block
+	 * here is a self-closing `acf/*` block (`<!-- wp:acf/x {"data":{...}} /-->`),
+	 * and rendering it via ACF's callback outside the normal page-render flow
+	 * (which is what wp_trim_excerpt()'s the_content pass does) doesn't produce
+	 * usable HTML. The real copy lives directly in the block's JSON `data`
+	 * attributes, so read it from there instead of relying on rendered output.
+	 */
+	private function extract_text_from_acf_blocks( $post_content ) {
+		$text_parts = array();
+
+		foreach ( parse_blocks( $post_content ) as $block ) {
+			$data = $block['attrs']['data'] ?? null;
+
+			if ( ! is_array( $data ) ) {
+				continue;
+			}
+
+			foreach ( $data as $key => $value ) {
+				// ACF pairs every "field_name" with a "_field_name" => field key
+				// entry in block data — skip those, and skip non-text values.
+				if ( ! is_string( $value ) || strpos( $key, '_' ) === 0 ) {
+					continue;
+				}
+
+				$text_parts[] = wp_strip_all_tags( $value );
+			}
+		}
+
+		return trim( implode( ' ', array_filter( $text_parts ) ) );
+	}
+
+	private function truncate_to_length( $text, $max_length ) {
+		$text = trim( $text );
+
+		if ( mb_strlen( $text ) <= $max_length ) {
+			return $text;
+		}
+
+		$truncated  = mb_substr( $text, 0, $max_length - 1 );
+		$last_space = mb_strrpos( $truncated, ' ' );
+
+		if ( $last_space !== false ) {
+			$truncated = mb_substr( $truncated, 0, $last_space );
+		}
+
+		return rtrim( $truncated, " \t\n\r\0\x0B.,;:" ) . '…';
+	}
+
+	/**
+	 * Core's rel_canonical() only fires on is_singular() — the insight archive
+	 * (/insights/) has no canonical at all without this.
+	 */
+	public function output_canonical_for_insight_archive() {
+		if ( ! is_post_type_archive( 'insight' ) ) {
+			return;
+		}
+
+		echo '<link rel="canonical" href="' . esc_url( $this->get_current_url() ) . '">' . "\n";
+	}
+
+	private function get_current_url() {
+		if ( is_singular() ) {
+			return get_permalink();
+		}
+
+		if ( is_post_type_archive( 'insight' ) ) {
+			$paged = max( 1, (int) get_query_var( 'paged' ) );
+
+			return $paged > 1 ? get_pagenum_link( $paged ) : get_post_type_archive_link( 'insight' );
+		}
+
+		if ( is_front_page() ) {
+			return home_url( '/' );
+		}
+
+		global $wp;
+
+		return home_url( add_query_arg( array(), $wp->request ?? '' ) );
+	}
+
+	/**
+	 * og:image/twitter:image: featured image on singulars, else the sitewide
+	 * fallback (Site Settings → SEO & Social → Social Share Fallback Image).
+	 */
+	private function resolve_social_image() {
+		if ( is_singular() && has_post_thumbnail() ) {
+			$image = Timber\Timber::get_image( get_post_thumbnail_id() );
+
+			if ( $image ) {
+				return $image->src( 'large' );
+			}
+		}
+
+		$fallback = function_exists( 'get_field' ) ? get_field( 'og_fallback_image', 'option' ) : null;
+
+		if ( ! empty( $fallback['ID'] ) ) {
+			$image = Timber\Timber::get_image( $fallback['ID'] );
+
+			if ( $image ) {
+				return $image->src();
+			}
+		}
+
+		return '';
+	}
+
+	public function output_social_meta() {
+		$title       = wp_get_document_title();
+		$description = $this->resolve_seo_meta_description();
+		$url         = $this->get_current_url();
+		$image       = $this->resolve_social_image();
+		$type        = is_singular( 'insight' ) ? 'article' : 'website';
+
+		echo '<meta property="og:title" content="' . esc_attr( $title ) . '">' . "\n";
+
+		if ( $description !== '' ) {
+			echo '<meta property="og:description" content="' . esc_attr( $description ) . '">' . "\n";
+		}
+
+		echo '<meta property="og:url" content="' . esc_url( $url ) . '">' . "\n";
+		echo '<meta property="og:type" content="' . esc_attr( $type ) . '">' . "\n";
+		echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '">' . "\n";
+
+		if ( $image !== '' ) {
+			echo '<meta property="og:image" content="' . esc_url( $image ) . '">' . "\n";
+		}
+
+		echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+		echo '<meta name="twitter:title" content="' . esc_attr( $title ) . '">' . "\n";
+
+		if ( $description !== '' ) {
+			echo '<meta name="twitter:description" content="' . esc_attr( $description ) . '">' . "\n";
+		}
+
+		if ( $image !== '' ) {
+			echo '<meta name="twitter:image" content="' . esc_url( $image ) . '">' . "\n";
+		}
 	}
 
 	public function output_homepage_schema() {
@@ -222,11 +540,116 @@ class Timberland extends Timber\Site {
 					'@id'       => $home_url . '#website',
 					'name'      => get_bloginfo( 'name' ),
 					'url'       => $home_url,
-					'inLanguage' => get_bloginfo( 'language' ),
+					'inLanguage' => 'en-GB',
 					'publisher' => array( '@id' => $home_url . '#person' ),
 				),
 				$person,
 			),
+		);
+
+		echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+	}
+
+	/**
+	 * Ordered { name, url } trail for the current request. Shared by the visible
+	 * breadcrumbs.twig component and output_breadcrumb_schema() so the two can't
+	 * drift apart — the schema only ever marks up what's actually on the page.
+	 */
+	public function get_breadcrumb_trail() {
+		$trail = array(
+			array( 'name' => 'Home', 'url' => home_url( '/' ) ),
+		);
+
+		if ( is_singular( 'project' ) ) {
+			$trail[] = array( 'name' => 'Projects', 'url' => home_url( '/projects/' ) );
+			$trail[] = array( 'name' => get_the_title(), 'url' => get_permalink() );
+		} elseif ( is_singular( 'service' ) ) {
+			$trail[] = array( 'name' => 'Services', 'url' => home_url( '/services/' ) );
+			$trail[] = array( 'name' => get_the_title(), 'url' => get_permalink() );
+		} elseif ( is_singular( 'insight' ) ) {
+			$trail[] = array( 'name' => 'Insights', 'url' => get_post_type_archive_link( 'insight' ) );
+			$trail[] = array( 'name' => get_the_title(), 'url' => get_permalink() );
+		} elseif ( is_post_type_archive( 'insight' ) ) {
+			$trail[] = array( 'name' => 'Insights', 'url' => get_post_type_archive_link( 'insight' ) );
+		} elseif ( is_page() && ! is_front_page() ) {
+			$trail[] = array( 'name' => get_the_title(), 'url' => get_permalink() );
+		}
+
+		return $trail;
+	}
+
+	public function output_service_schema() {
+		if ( ! is_singular( 'service' ) ) {
+			return;
+		}
+
+		$schema = array(
+			'@context' => 'https://schema.org',
+			'@type'    => 'Service',
+			'name'     => get_the_title(),
+			'url'      => get_permalink(),
+			'provider' => array( '@id' => home_url( '/' ) . '#person' ),
+		);
+
+		$description = $this->resolve_seo_meta_description();
+
+		if ( $description !== '' ) {
+			$schema['description'] = $description;
+		}
+
+		echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+	}
+
+	public function output_insight_schema() {
+		if ( ! is_singular( 'insight' ) ) {
+			return;
+		}
+
+		$post_id = get_queried_object_id();
+		$schema  = array(
+			'@context'         => 'https://schema.org',
+			'@type'            => 'BlogPosting',
+			'headline'         => get_the_title( $post_id ),
+			'datePublished'    => get_the_date( 'c', $post_id ),
+			'dateModified'     => get_the_modified_date( 'c', $post_id ),
+			'author'           => array( '@id' => home_url( '/' ) . '#person' ),
+			'mainEntityOfPage' => get_permalink( $post_id ),
+			'inLanguage'       => 'en-GB',
+		);
+
+		if ( has_post_thumbnail( $post_id ) ) {
+			$image = Timber\Timber::get_image( get_post_thumbnail_id( $post_id ) );
+
+			if ( $image ) {
+				$schema['image'] = $image->src( 'large' );
+			}
+		}
+
+		echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+	}
+
+	public function output_breadcrumb_schema() {
+		$trail = $this->get_breadcrumb_trail();
+
+		if ( count( $trail ) < 2 ) {
+			return;
+		}
+
+		$items = array();
+
+		foreach ( $trail as $index => $crumb ) {
+			$items[] = array(
+				'@type'    => 'ListItem',
+				'position' => $index + 1,
+				'name'     => $crumb['name'],
+				'item'     => $crumb['url'],
+			);
+		}
+
+		$schema = array(
+			'@context'         => 'https://schema.org',
+			'@type'            => 'BreadcrumbList',
+			'itemListElement'  => $items,
 		);
 
 		echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
@@ -243,6 +666,7 @@ class Timberland extends Timber\Site {
 	public function add_twig_functions( $twig ) {
 		$twig->addFunction( new TwigFunction( 'check_url_match', array( $this, 'check_url_match' ) ) );
 		$twig->addFunction( new TwigFunction( 'to_snake_case', array( $this, 'to_snake_case' ) ) );
+		$twig->addFunction( new TwigFunction( 'is_front_page', 'is_front_page' ) );
 		$twig->addFilter( new TwigFilter( 'nl2br', 'nl2br' ) );
 		$twig->addFilter(
 			new TwigFilter(
@@ -303,6 +727,7 @@ class Timberland extends Timber\Site {
 		$context['pathname'] = $_SERVER['REQUEST_URI'];
 
 		$context['options'] = get_fields('options');
+		$context['breadcrumb_trail'] = $this->get_breadcrumb_trail();
 		foreach ($menus as $menu) {
 			$context['menus'][$menu->slug] = Timber::get_menu($menu->term_id);
 		}
@@ -745,12 +1170,7 @@ function timberland_prepare_insights_group_fields( $fields ) {
 		static function ( $insight ) {
 			$categories   = get_the_category( $insight->ID );
 			$thumbnail_id = get_post_thumbnail_id( $insight );
-			$image        = $thumbnail_id
-				? array(
-					'url' => wp_get_attachment_image_url( $thumbnail_id, 'large' ),
-					'alt' => get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ),
-				)
-				: null;
+			$image        = $thumbnail_id ?: null;
 
 			return array(
 				'eyebrow' => $categories ? $categories[0]->name : '',

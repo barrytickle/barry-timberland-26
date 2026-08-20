@@ -2,6 +2,7 @@
 	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
 {% else %}
 {# Horizontal image-left/text-right card for cross-promoting an article mid-content. #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set image = fields.image %}
 {% set title = fields.title %}
 {% set excerpt = fields.excerpt %}
@@ -10,7 +11,7 @@
 <a class="group mx-auto grid max-w-[1200px] gap-6 px-6 py-4 sm:grid-cols-[220px_1fr] lg:px-[72px]" data-component="blog-promo-inline" href="{{ href }}"{% if fields.link.target %} target="{{ fields.link.target }}"{% endif %}>
 	<div class="grid aspect-[4/3] place-items-center overflow-hidden rounded-card bg-muted">
 		{% if image %}
-			<img class="h-full w-full object-cover transition duration-200 group-hover:scale-105" src="{{ image.url }}" alt="{{ image.alt }}">
+			{{ responsive_image.tag(image, { class: 'h-full w-full object-cover transition duration-200 group-hover:scale-105', sizes: '(min-width: 640px) 220px, 100vw' }) }}
 		{% else %}
 			<svg class="h-10 w-10 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
 		{% endif %}

@@ -4,6 +4,7 @@
 {# Converted from Showcasy UI kit: components/work-list-featured.html
    Note: the source fragment shows a single featured item; this block loops
    the same markup over a list so multiple case studies can be featured. #}
+{% import 'components/responsive-image.twig' as responsive_image %}
 {% set items = fields.items %}
 
 <section class="mx-auto max-w-[1200px] px-6 pb-10 lg:px-[72px]" data-component="work-list-featured">
@@ -21,7 +22,7 @@
 				<a class="group relative mt-8 block" href="{{ item.href }}">
 					{% if item.image %}
 						<div class="aspect-[16/7] overflow-hidden rounded-card">
-							<img class="h-full w-full object-cover" src="{{ item.image.url }}" alt="{{ item.image.alt }}">
+							{{ responsive_image.tag(item.image, { class: 'h-full w-full object-cover', sizes: '100vw' }) }}
 						</div>
 					{% else %}
 						<div class="grid aspect-[16/7] place-items-center overflow-hidden rounded-card bg-muted">

@@ -75,7 +75,8 @@
 			<div class="lg:w-80">
 				<p class="body-18 mb-4 font-semibold text-ink-400">{{ newsletter_heading }}</p>
 				<form class="relative" method="post" action="">
-					<input class="w-full border-0 border-b border-ink-700 bg-transparent py-3 pr-10 body-16 text-white placeholder:text-ink-500 focus:border-white focus:outline-none focus:ring-0" placeholder="Enter your email" type="email" name="email"/>
+					<label class="sr-only" for="newsletter-email">Email address</label>
+					<input class="w-full border-0 border-b border-ink-700 bg-transparent py-3 pr-10 body-16 text-white placeholder:text-ink-500 focus:border-white focus:outline-none focus:ring-0" placeholder="Enter your email" type="email" name="email" id="newsletter-email"/>
 					<button aria-label="Subscribe" type="submit" class="absolute right-0 top-1/2 -translate-y-1/2 text-white">
 						<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
 					</button>
