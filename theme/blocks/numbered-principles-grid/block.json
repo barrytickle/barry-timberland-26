@@ -2,7 +2,7 @@
   "apiVersion": 2,
   "name": "acf/numbered-principles-grid",
   "title": "Numbered Principles Grid",
-  "description": "A heading beside numbered (01/02/03…) cards, each with a title and description.",
+  "description": "A heading above a responsive grid of numbered cards, with four-column support.",
   "category": "content-about",
   "acf": {
     "mode": "preview",
