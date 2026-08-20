@@ -3,6 +3,7 @@
 {% else %}
 
 {% set eyebrow = fields.eyebrow %}
+{% set eyebrow_secondary = fields.eyebrow_secondary|default('') %}
 {% set heading = fields.heading %}
 {% set heading_highlight = fields.heading_highlight %}
 {% set supporting_text = fields.supporting_text %}
@@ -10,7 +11,14 @@
 {% set heading_class = fields.compact_heading|default(false) ? 'h2' : 'h1' %}
 
 <section class="mx-auto max-w-[1200px] px-6 {{ padding_bottom }} pt-10 lg:px-[72px] lg:pt-16" data-component="hero-small">
-<p class="body-22 mb-6 text-ink-700">{{ eyebrow }}</p>
+{% if eyebrow_secondary %}
+	<div class="mb-6 flex flex-wrap items-center gap-2 body-12 font-semibold uppercase tracking-[0.08em] text-ink-500">
+		{% if eyebrow %}<span class="rounded-full border border-ink-300 px-3 py-1">{{ eyebrow }}</span>{% endif %}
+		<span>{{ eyebrow_secondary }}</span>
+	</div>
+{% else %}
+	<p class="body-22 mb-6 text-ink-700">{{ eyebrow }}</p>
+{% endif %}
 <h1 class="{{ heading_class }} max-w-4xl">{{ heading }} <span class="text-ink-400">{{ heading_highlight }}</span></h1>
 {% if supporting_text %}<p class="body-18 mt-8 max-w-xl text-ink-500">{{ supporting_text }}</p>{% endif %}
 </section>
