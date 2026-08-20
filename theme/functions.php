@@ -542,6 +542,27 @@ class Timberland extends Timber\Site {
 			$person['sameAs'] = array_values( array_unique( $same_as ) );
 		}
 
+		$professional_service = array(
+			'@type'      => 'ProfessionalService',
+			'@id'        => $home_url . '#business',
+			'name'       => 'Barry Tickle',
+			'url'        => $home_url,
+			'founder'    => array( '@id' => $home_url . '#person' ),
+			'address'    => array(
+				'@type'           => 'PostalAddress',
+				'addressLocality' => 'Oswestry',
+				'addressRegion'   => 'Shropshire',
+				'postalCode'      => 'SY11',
+				'addressCountry'  => 'GB',
+			),
+			'areaServed' => array( 'Shropshire', 'United Kingdom' ),
+			'knowsAbout' => array(
+				'WordPress development',
+				'Front-end development',
+				'Conversion rate optimisation',
+			),
+		);
+
 		$schema = array(
 			'@context' => 'https://schema.org',
 			'@graph'   => array(
@@ -554,6 +575,7 @@ class Timberland extends Timber\Site {
 					'publisher' => array( '@id' => $home_url . '#person' ),
 				),
 				$person,
+				$professional_service,
 			),
 		);
 

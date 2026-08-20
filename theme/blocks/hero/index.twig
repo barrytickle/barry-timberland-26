@@ -10,8 +10,19 @@
 {% set text_alignment = fields.text_alignment %}
 {% set padding_bottom = fields.padding_bottom == 'no-padding' ? 'pb-0 lg:pb-0' : 'pb-16 lg:pb-24' %}
 
+{# Homepage-only: link the existing "Oswestry, Shropshire" mention to the dedicated
+   local-SEO page, which currently has no in-content inbound links anywhere on the
+   site. Done at render time rather than stored HTML in the ACF field so the field
+   stays plain text and this can't corrupt the block's stored JSON attributes. #}
+{% set eyebrow_output = eyebrow %}
+{% if is_front_page() and eyebrow %}
+	{% set eyebrow_output = eyebrow|replace({
+		'Oswestry, Shropshire': '<a href="' ~ site.url ~ '/web-developer-oswestry/" class="underline decoration-ink-300 underline-offset-4 hover:text-ink-400">Oswestry, Shropshire</a>'
+	}) %}
+{% endif %}
+
 <section class="mx-auto max-w-[1200px] px-6 pt-16 {{ padding_bottom }} lg:px-[72px] lg:pt-24" data-component="hero">
-	<p class="body-22 mb-6 text-ink-700">{{ eyebrow }}</p>
+	<p class="body-22 mb-6 text-ink-700">{{ eyebrow_output }}</p>
 	<h1 class="h1 max-w-5xl">{{ heading }} 
 	{% if heading_highlight %}
 		<span class="text-ink-400">{{ heading_highlight }}</span>
