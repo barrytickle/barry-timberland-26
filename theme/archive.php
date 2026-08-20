@@ -66,7 +66,6 @@ if ( is_post_type_archive( 'insight' ) ) {
 				'heading' => get_the_title( $insight ),
 				'excerpt' => wp_trim_words( wp_strip_all_tags( get_the_excerpt( $insight ) ), 16, '…' ),
 				'image'   => $image,
-				'date'    => get_the_date( 'j M Y', $insight ),
 				'button'  => array(
 					'url'    => get_permalink( $insight ),
 					'title'  => 'Read insight',
