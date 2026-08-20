@@ -41,6 +41,7 @@ class Timberland extends Timber\Site {
 		add_action( 'admin_menu', array( $this, 'add_view_insights_menu_item' ) );
 		add_action( 'admin_bar_menu', array( $this, 'hide_default_posts_admin_bar_item' ), 999 );
 		add_filter( 'pre_get_document_title', array( $this, 'filter_document_title' ) );
+		add_filter( 'document_title_separator', array( $this, 'filter_document_title_separator' ) );
 		add_filter( 'language_attributes', array( $this, 'filter_language_attributes' ) );
 		add_filter( 'wp_robots', array( $this, 'filter_robots' ) );
 		add_filter( 'wp_sitemaps_posts_query_args', array( $this, 'filter_sitemap_posts' ), 10, 2 );
@@ -211,6 +212,15 @@ class Timberland extends Timber\Site {
 		$truncated = rtrim( mb_substr( $post_title, 0, 59 ), " \t\n\r\0\x0B-–—" );
 
 		return $truncated . '…';
+	}
+
+	/**
+	 * Every title on the site should end "... | Barry Tickle" — WP core's default
+	 * separator is a hyphen, which pages with no seo_title (Services, Projects,
+	 * Contact Me, Privacy Policy, etc.) would otherwise fall through to.
+	 */
+	public function filter_document_title_separator() {
+		return '|';
 	}
 
 	public function filter_language_attributes( $output ) {
