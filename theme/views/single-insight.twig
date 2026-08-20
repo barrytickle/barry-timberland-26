@@ -34,13 +34,6 @@
 		</div>
 	{% endif %}
 
-	<div class="mx-auto w-[calc(100%_-_2rem)] max-w-[65ch] pt-8 lg:pt-10">
-		<a class="group inline-flex items-center gap-2 body-16 font-semibold text-ink transition hover:text-ink-600" href="{{ site.url }}/insights/">
-			<svg aria-hidden="true" class="h-4 w-4 transition duration-200 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5"></path><path d="m11 18-6-6 6-6"></path></svg>
-			Back to insights
-		</a>
-	</div>
-
 	<div data-insight-reader>
 		{% include 'blocks/body-text/index.twig' with {
 			fields: { content: post.content },
@@ -48,4 +41,21 @@
 			preview_image: null
 		} only %}
 	</div>
+
+	<a class="insight-back-link" href="{{ site.url }}/insights/" aria-label="Back to all insights" data-insight-back-link>
+		<svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5"></path><path d="m11 18-6-6 6-6"></path></svg>
+		<span>Back to insights</span>
+	</a>
+
+	<dialog class="insight-back-dialog" aria-labelledby="insight-back-dialog-title" data-insight-back-dialog>
+		<div class="insight-back-dialog__content">
+			<h2 class="h6" id="insight-back-dialog-title">Want to go back to all insights?</h2>
+			<div class="insight-back-dialog__actions">
+				<form method="dialog">
+					<button type="submit">Stay here</button>
+				</form>
+				<a href="{{ site.url }}/insights/">Yes, go back</a>
+			</div>
+		</div>
+	</dialog>
 {% endblock %}

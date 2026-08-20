@@ -3,6 +3,97 @@
 @import "./theme.scss";
 @import "tailwindcss/utilities";
 
+.insight-back-link {
+	position: fixed;
+	bottom: clamp(1rem, 3vw, 2rem);
+	left: clamp(1rem, 3vw, 2rem);
+	z-index: 45;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border: 1px solid #030712;
+	border-radius: 999px;
+	background: #030712;
+	padding: 0.75rem 1rem;
+	color: #fff;
+	font-size: 0.875rem;
+	font-weight: 650;
+	box-shadow: 0 0.5rem 1.5rem rgb(3 7 18 / 0.2);
+	transition: background-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.insight-back-link:hover {
+	background: #1f2937;
+	transform: translateY(-2px);
+}
+
+.insight-back-link:focus-visible {
+	outline: 3px solid #2563eb;
+	outline-offset: 3px;
+}
+
+.insight-back-dialog {
+	width: min(28rem, calc(100% - 2rem));
+	border: 1px solid #d1d5db;
+	border-radius: 1.25rem;
+	background: #fff;
+	padding: 0;
+	color: #030712;
+	box-shadow: 0 1.5rem 4rem rgb(3 7 18 / 0.24);
+}
+
+.insight-back-dialog::backdrop {
+	background: rgb(3 7 18 / 0.64);
+	backdrop-filter: blur(3px);
+}
+
+.insight-back-dialog__content {
+	padding: 1.5rem;
+}
+
+.insight-back-dialog__actions {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	margin-top: 1.5rem;
+}
+
+.insight-back-dialog__actions button,
+.insight-back-dialog__actions a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #030712;
+	border-radius: 999px;
+	padding: 0.7rem 1rem;
+	font-size: 0.875rem;
+	font-weight: 650;
+}
+
+.insight-back-dialog__actions button {
+	background: transparent;
+	color: #030712;
+}
+
+.insight-back-dialog__actions a {
+	background: #030712;
+	color: #fff;
+}
+
+@media (max-width: 639px) {
+	.insight-back-link {
+		width: 3rem;
+		height: 3rem;
+		justify-content: center;
+		padding: 0;
+	}
+
+	.insight-back-link span {
+		display: none;
+	}
+}
+
 .insights-featured__grid {
 	display: grid;
 	gap: 1rem;
@@ -511,6 +602,23 @@ html[data-dark-theme] .insights-browser__status {
 
 html[data-dark-theme] .insights-browser__empty {
 	border-color: #4b5563;
+}
+
+html[data-dark-theme] .insight-back-dialog {
+	border-color: #4b5563;
+	background: #1f2937;
+	color: #f9fafb;
+}
+
+html[data-dark-theme] .insight-back-dialog__actions button {
+	border-color: #d1d5db;
+	color: #f9fafb;
+}
+
+html[data-dark-theme] .insight-back-dialog__actions a {
+	border-color: #f9fafb;
+	background: #f9fafb;
+	color: #111827;
 }
 
 html[data-dark-theme] .accessibility-menu__panel {
