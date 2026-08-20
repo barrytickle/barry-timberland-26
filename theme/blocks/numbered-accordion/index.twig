@@ -1,0 +1,32 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{% set items = fields.items|default([]) %}
+
+{% if items %}
+	<section class="numbered-accordion mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px] lg:py-16" data-component="numbered-accordion">
+		<div class="numbered-accordion__items">
+			{% for item in items %}
+				<details class="numbered-accordion__item" name="numbered-accordion-{{ block.id }}"{% if loop.first %} open{% endif %}>
+					<summary class="numbered-accordion__summary">
+						<span class="numbered-accordion__number" aria-hidden="true">{{ '%02d'|format(loop.index) }}.</span>
+						<h3 class="numbered-accordion__title">{{ item.title }}</h3>
+						<span class="numbered-accordion__toggle" aria-hidden="true">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+								<path d="M12 5v14"></path>
+								<path d="M5 12h14"></path>
+							</svg>
+						</span>
+					</summary>
+
+					{% if item.content %}
+						<div class="numbered-accordion__content rich-text-content">
+							{{ item.content }}
+						</div>
+					{% endif %}
+				</details>
+			{% endfor %}
+		</div>
+	</section>
+{% endif %}
+{% endif %}

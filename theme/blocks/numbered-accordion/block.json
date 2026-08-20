@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/numbered-accordion",
+  "title": "Numbered Accordion",
+  "description": "A clean numbered accordion with a title and rich-text content for each item.",
+  "category": "content-about",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}
