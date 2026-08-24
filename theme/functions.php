@@ -48,7 +48,7 @@ class Timberland extends Timber\Site {
 		add_filter( 'wp_sitemaps_taxonomies', array( $this, 'filter_sitemap_taxonomies' ) );
 		add_filter( 'wp_sitemaps_add_provider', array( $this, 'filter_sitemap_providers' ), 10, 2 );
 		add_filter( 'upload_mimes', array( $this, 'allow_jfif_uploads' ) );
-		add_filter( 'wp_handle_upload_prefilter', array( $this, 'convert_jfif_upload_to_jpeg' ) );
+		add_filter( 'wp_handle_upload', array( $this, 'convert_jfif_upload_to_jpeg' ), 10, 2 );
 		add_action( 'template_redirect', array( $this, 'hide_non_content_archives' ), 0 );
 		add_action( 'template_redirect', array( $this, 'redirect_legacy_project_urls' ), 1 );
 		add_action( 'template_redirect', array( $this, 'redirect_duplicate_insight_post' ), 1 );
@@ -136,45 +136,58 @@ class Timberland extends Timber\Site {
 	}
 
 	/**
-	 * Convert JFIF uploads to JPEG before WordPress creates the attachment.
+	 * Convert an accepted JFIF upload to JPEG before WordPress creates its attachment.
+	 *
+	 * Conversion happens after the HTTP upload check so the replacement file does
+	 * not fail PHP's is_uploaded_file() validation.
 	 */
-	public function convert_jfif_upload_to_jpeg( $file ) {
-		$extension = strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) );
+	public function convert_jfif_upload_to_jpeg( $upload, $context = 'upload' ) {
+		unset( $context );
 
-		if ( 'jfif' !== $extension || ! empty( $file['error'] ) ) {
-			return $file;
+		if ( ! empty( $upload['error'] ) || empty( $upload['file'] ) ) {
+			return $upload;
 		}
 
-		$image = wp_get_image_editor( $file['tmp_name'] );
+		$extension = strtolower( pathinfo( $upload['file'], PATHINFO_EXTENSION ) );
+
+		if ( 'jfif' !== $extension ) {
+			return $upload;
+		}
+
+		$image = wp_get_image_editor( $upload['file'] );
 
 		if ( is_wp_error( $image ) ) {
-			$file['error'] = __( 'WordPress could not read this JFIF image. Please convert it to JPG and try again.', 'barry-portfolio' );
+			wp_delete_file( $upload['file'] );
 
-			return $file;
+			return array(
+				'error' => __( 'WordPress could not read this JFIF image. Please convert it to JPG and try again.', 'barry-portfolio' ),
+			);
 		}
 
-		$directory    = dirname( $file['tmp_name'] );
+		$directory     = dirname( $upload['file'] );
+		$jfif_filename = basename( $upload['file'] );
 		$jpg_filename = wp_unique_filename(
 			$directory,
-			pathinfo( $file['name'], PATHINFO_FILENAME ) . '.jpg'
+			pathinfo( $jfif_filename, PATHINFO_FILENAME ) . '.jpg'
 		);
 		$jpg_path     = trailingslashit( $directory ) . $jpg_filename;
 		$saved        = $image->save( $jpg_path, 'image/jpeg' );
 
 		if ( is_wp_error( $saved ) || empty( $saved['path'] ) ) {
-			$file['error'] = __( 'WordPress could not convert this JFIF image to JPG. Please convert it manually and try again.', 'barry-portfolio' );
+			wp_delete_file( $upload['file'] );
 
-			return $file;
+			return array(
+				'error' => __( 'WordPress could not convert this JFIF image to JPG. Please convert it manually and try again.', 'barry-portfolio' ),
+			);
 		}
 
-		wp_delete_file( $file['tmp_name'] );
+		wp_delete_file( $upload['file'] );
 
-		$file['name']     = pathinfo( $file['name'], PATHINFO_FILENAME ) . '.jpg';
-		$file['tmp_name'] = $saved['path'];
-		$file['type']     = 'image/jpeg';
-		$file['size']     = filesize( $saved['path'] );
+		$upload['file'] = $saved['path'];
+		$upload['url']  = str_replace( $jfif_filename, $jpg_filename, $upload['url'] );
+		$upload['type'] = 'image/jpeg';
 
-		return $file;
+		return $upload;
 	}
 
 	/**
