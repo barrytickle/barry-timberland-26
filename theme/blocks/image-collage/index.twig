@@ -1,0 +1,25 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{% import 'components/responsive-image.twig' as responsive_image %}
+{% set images = fields.images|default([])|slice(0, 3) %}
+
+<section class="mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px] lg:py-20" data-component="image-collage">
+	<div class="image-collage__grid">
+		{% for item in images %}
+			<figure class="image-collage__item">
+				{% if item.image %}
+					{{ responsive_image.tag(item.image, {
+						class: 'image-collage__image',
+						sizes: loop.first ? '(min-width: 1024px) 60vw, 100vw' : '(min-width: 1024px) 33vw, 100vw'
+					}) }}
+				{% else %}
+					<div class="image-collage__placeholder" aria-hidden="true">
+						<svg class="h-12 w-12" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-3 0L5 21"></path></svg>
+					</div>
+				{% endif %}
+			</figure>
+		{% endfor %}
+	</div>
+</section>
+{% endif %}

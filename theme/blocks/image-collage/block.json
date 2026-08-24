@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/image-collage",
+  "title": "Image Collage",
+  "description": "Three-image collage using the same layout as Featured Insights, without text or links.",
+  "category": "images-media",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}
