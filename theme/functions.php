@@ -48,6 +48,7 @@ class Timberland extends Timber\Site {
 		add_filter( 'wp_sitemaps_taxonomies', array( $this, 'filter_sitemap_taxonomies' ) );
 		add_filter( 'wp_sitemaps_add_provider', array( $this, 'filter_sitemap_providers' ), 10, 2 );
 		add_filter( 'upload_mimes', array( $this, 'allow_jfif_uploads' ) );
+		add_filter( 'wp_handle_upload_prefilter', array( $this, 'convert_jfif_upload_to_jpeg' ) );
 		add_action( 'template_redirect', array( $this, 'hide_non_content_archives' ), 0 );
 		add_action( 'template_redirect', array( $this, 'redirect_legacy_project_urls' ), 1 );
 		add_action( 'template_redirect', array( $this, 'redirect_duplicate_insight_post' ), 1 );
@@ -132,6 +133,48 @@ class Timberland extends Timber\Site {
 		$mimes['jfif'] = 'image/jpeg';
 
 		return $mimes;
+	}
+
+	/**
+	 * Convert JFIF uploads to JPEG before WordPress creates the attachment.
+	 */
+	public function convert_jfif_upload_to_jpeg( $file ) {
+		$extension = strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) );
+
+		if ( 'jfif' !== $extension || ! empty( $file['error'] ) ) {
+			return $file;
+		}
+
+		$image = wp_get_image_editor( $file['tmp_name'] );
+
+		if ( is_wp_error( $image ) ) {
+			$file['error'] = __( 'WordPress could not read this JFIF image. Please convert it to JPG and try again.', 'barry-portfolio' );
+
+			return $file;
+		}
+
+		$directory    = dirname( $file['tmp_name'] );
+		$jpg_filename = wp_unique_filename(
+			$directory,
+			pathinfo( $file['name'], PATHINFO_FILENAME ) . '.jpg'
+		);
+		$jpg_path     = trailingslashit( $directory ) . $jpg_filename;
+		$saved        = $image->save( $jpg_path, 'image/jpeg' );
+
+		if ( is_wp_error( $saved ) || empty( $saved['path'] ) ) {
+			$file['error'] = __( 'WordPress could not convert this JFIF image to JPG. Please convert it manually and try again.', 'barry-portfolio' );
+
+			return $file;
+		}
+
+		wp_delete_file( $file['tmp_name'] );
+
+		$file['name']     = pathinfo( $file['name'], PATHINFO_FILENAME ) . '.jpg';
+		$file['tmp_name'] = $saved['path'];
+		$file['type']     = 'image/jpeg';
+		$file['size']     = filesize( $saved['path'] );
+
+		return $file;
 	}
 
 	/**
