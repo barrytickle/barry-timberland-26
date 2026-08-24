@@ -224,14 +224,34 @@ function timberland_strip_wp_classes( $html ) {
 		return $html;
 	}
 
-	$processor = new WP_HTML_Tag_Processor( $html );
+	$processor             = new WP_HTML_Tag_Processor( $html );
+	$section_stack         = array();
+	$component_depth       = 0;
 
-	while ( $processor->next_tag() ) {
+	while ( $processor->next_token() ) {
+		if ( '#tag' !== $processor->get_token_type() ) {
+			continue;
+		}
+
+		if ( $processor->is_tag_closer() ) {
+			if ( 'SECTION' === $processor->get_tag() && $section_stack ) {
+				$is_component_section = array_pop( $section_stack );
+				$component_depth     -= $is_component_section ? 1 : 0;
+			}
+
+			continue;
+		}
+
 		$is_component_section = 'SECTION' === $processor->get_tag()
 			&& null !== $processor->get_attribute( 'data-component' );
 
-		if ( ! $is_component_section ) {
+		if ( 0 === $component_depth && ! $is_component_section ) {
 			$processor->remove_attribute( 'class' );
+		}
+
+		if ( 'SECTION' === $processor->get_tag() ) {
+			$section_stack[] = $is_component_section;
+			$component_depth += $is_component_section ? 1 : 0;
 		}
 	}
 
