@@ -47,6 +47,7 @@ class Timberland extends Timber\Site {
 		add_filter( 'wp_sitemaps_posts_query_args', array( $this, 'filter_sitemap_posts' ), 10, 2 );
 		add_filter( 'wp_sitemaps_taxonomies', array( $this, 'filter_sitemap_taxonomies' ) );
 		add_filter( 'wp_sitemaps_add_provider', array( $this, 'filter_sitemap_providers' ), 10, 2 );
+		add_filter( 'upload_mimes', array( $this, 'allow_jfif_uploads' ) );
 		add_action( 'template_redirect', array( $this, 'hide_non_content_archives' ), 0 );
 		add_action( 'template_redirect', array( $this, 'redirect_legacy_project_urls' ), 1 );
 		add_action( 'template_redirect', array( $this, 'redirect_duplicate_insight_post' ), 1 );
@@ -122,6 +123,15 @@ class Timberland extends Timber\Site {
 		unset( $methods['pingback.ping'], $methods['pingback.extensions.getPingbacks'] );
 
 		return $methods;
+	}
+
+	/**
+	 * Allow JPEG File Interchange Format images in the media library.
+	 */
+	public function allow_jfif_uploads( $mimes ) {
+		$mimes['jfif'] = 'image/jpeg';
+
+		return $mimes;
 	}
 
 	/**
