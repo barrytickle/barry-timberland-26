@@ -224,5 +224,16 @@ function timberland_strip_wp_classes( $html ) {
 		return $html;
 	}
 
-	return preg_replace( '/\sclass=(["\'])[^"\']*\1/i', '', $html );
+	$processor = new WP_HTML_Tag_Processor( $html );
+
+	while ( $processor->next_tag() ) {
+		$is_component_section = 'SECTION' === $processor->get_tag()
+			&& null !== $processor->get_attribute( 'data-component' );
+
+		if ( ! $is_component_section ) {
+			$processor->remove_attribute( 'class' );
+		}
+	}
+
+	return $processor->get_updated_html();
 }
