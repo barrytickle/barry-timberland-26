@@ -34,6 +34,10 @@
 }
 
 /* Keep long-form article image rules from overriding the collage layout. */
+.rich-text-content [data-component="image-collage"] {
+	padding: 0;
+}
+
 .rich-text-content.article-prose [data-component="image-collage"] .image-collage__item {
 	margin: 0;
 }
