@@ -951,6 +951,24 @@ class Timberland extends Timber\Site {
 		return json_decode( file_get_contents( $manifest_path ), true );
 	}
 
+	/**
+	 * Return CSS emitted for a Vite entry and each of its imported chunks.
+	 */
+	private function get_vite_entry_css( $manifest, $entry, &$visited = array() ) {
+		if ( isset( $visited[ $entry ] ) || empty( $manifest[ $entry ] ) ) {
+			return array();
+		}
+
+		$visited[ $entry ] = true;
+		$css               = $manifest[ $entry ]['css'] ?? array();
+
+		foreach ( $manifest[ $entry ]['imports'] ?? array() as $import ) {
+			$css = array_merge( $css, $this->get_vite_entry_css( $manifest, $import, $visited ) );
+		}
+
+		return array_values( array_unique( $css ) );
+	}
+
 	public function enqueue_frontend_assets() {
 		wp_dequeue_style( 'wp-block-library' );
 		wp_dequeue_style( 'wp-block-library-theme' );
@@ -964,7 +982,12 @@ class Timberland extends Timber\Site {
 
 		if ( is_array( $manifest ) && $vite_env === 'production' ) {
 			$js_file = 'theme/assets/main.js';
-			wp_enqueue_style( 'main', $dist_uri . '/' . $manifest[ $js_file ]['css'][0] );
+
+			foreach ( $this->get_vite_entry_css( $manifest, $js_file ) as $index => $css_file ) {
+				$handle = 0 === $index ? 'main' : 'main-' . $index;
+				wp_enqueue_style( $handle, $dist_uri . '/' . $css_file );
+			}
+
 			wp_enqueue_script(
 				'main',
 				$dist_uri . '/' . $manifest[ $js_file ]['file'],
@@ -996,7 +1019,11 @@ class Timberland extends Timber\Site {
 
 		if ( is_array( $manifest ) && $vite_env === 'production' ) {
 			$editor_js_file = 'theme/assets/editor.js';
-			add_editor_style( $dist_uri . '/' . $manifest[ $editor_js_file ]['css'][0] );
+
+			foreach ( $this->get_vite_entry_css( $manifest, $editor_js_file ) as $css_file ) {
+				add_editor_style( $dist_uri . '/' . $css_file );
+			}
+
 			return;
 		}
 
@@ -1005,7 +1032,10 @@ class Timberland extends Timber\Site {
 			// the admin runs on https://*.local but Vite serves http://localhost:3000.
 			if ( is_array( $manifest ) ) {
 				$editor_js_file = 'theme/assets/editor.js';
-				add_editor_style( $dist_uri . '/' . $manifest[ $editor_js_file ]['css'][0] );
+
+				foreach ( $this->get_vite_entry_css( $manifest, $editor_js_file ) as $css_file ) {
+					add_editor_style( $dist_uri . '/' . $css_file );
+				}
 			}
 
 			// Live Tailwind rebuilds when Vite dev is running (http-only admin setups).
