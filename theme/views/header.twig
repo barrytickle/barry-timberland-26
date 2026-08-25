@@ -111,6 +111,12 @@
 				{% endif %}
 			{% endfor %}
 		</nav>
+		{% if cta.url and cta.title %}
+			<a class="group mt-8 flex w-full items-center justify-between rounded-full bg-white px-6 py-4 body-18 font-semibold text-ink transition duration-200 hover:bg-ink-200" href="{{ cta.url }}"{% if cta.target %} target="{{ cta.target }}"{% endif %}{% if cta.target == '_blank' %} rel="noopener noreferrer"{% endif %}>
+				{{ cta.title }}
+				<svg class="h-5 w-5 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+			</a>
+		{% endif %}
 		<div class="mt-10 border-t border-ink-800 pt-8">
 			<div>
 				<p class="body-18 mb-4 font-semibold text-ink-400">Follow me.</p>
