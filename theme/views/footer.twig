@@ -26,6 +26,7 @@
 {% endif %}
 
 {% set explore_title = options.footer_link_title|default('Explore') %}
+{% if explore_title == 'Page List' %}{% set explore_title = 'Explore' %}{% endif %}
 {% set source_explore_links = options.footer_links|default(default_explore_links) %}
 {% set writing_title = options.footer_writing_title|default('Writing') %}
 {% set writing_links = options.footer_writing_links|default([]) %}
