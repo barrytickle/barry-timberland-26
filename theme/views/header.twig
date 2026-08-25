@@ -85,9 +85,9 @@
 				{% set is_active = check_url_match(item_url) %}
 				{% if children %}
 					<div data-mobile-submenu>
-						<button class="flex w-full items-center justify-between py-6 text-left" type="button" aria-expanded="false" aria-controls="mobile-submenu-{{ loop.index }}" data-mobile-submenu-button>
+						<button class="group flex w-full items-center justify-between py-6 text-left" type="button" aria-expanded="false" aria-controls="mobile-submenu-{{ loop.index }}" data-mobile-submenu-button>
 							<span class="h2 text-white">{{ item_label }} <span class="h6 align-top text-ink-500">({{ '%02d'|format(loop.index) }})</span></span>
-							<span class="grid h-14 w-16 place-items-center rounded-full border border-ink-700">
+							<span class="grid h-16 w-20 place-items-center rounded-full border border-ink-700 transition duration-200 group-hover:bg-white group-hover:text-ink">
 								<svg aria-hidden="true" class="h-5 w-5 transition-transform" data-mobile-chevron fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 							</span>
 						</button>

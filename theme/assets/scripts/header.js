@@ -132,7 +132,6 @@
 			const panel = submenu.querySelector("[data-mobile-submenu-panel]");
 			button?.setAttribute("aria-expanded", "false");
 			panel?.classList.add("hidden");
-			button?.querySelector("[data-mobile-chevron]")?.classList.remove("rotate-180");
 		});
 		if (returnFocus) openButton.focus();
 	};
@@ -145,7 +144,6 @@
 			const willOpen = button.getAttribute("aria-expanded") !== "true";
 			button.setAttribute("aria-expanded", String(willOpen));
 			panel.classList.toggle("hidden", !willOpen);
-			button.querySelector("[data-mobile-chevron]")?.classList.toggle("rotate-180", willOpen);
 		});
 	});
 
