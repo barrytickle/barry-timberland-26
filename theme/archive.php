@@ -33,6 +33,7 @@ if ( is_post_type_archive( 'insight' ) ) {
 		? ( get_fields( 'insights_options' ) ?: array() )
 		: array();
 
+	$lifestyle_category = get_category_by_slug( 'lifestyle' );
 	$insight_posts = get_posts(
 		array(
 			'post_type'      => 'insight',
@@ -40,6 +41,7 @@ if ( is_post_type_archive( 'insight' ) ) {
 			'posts_per_page' => -1,
 			'orderby'        => 'date',
 			'order'          => 'DESC',
+			'category__not_in' => $lifestyle_category ? array( $lifestyle_category->term_id ) : array(),
 		)
 	);
 

@@ -666,7 +666,10 @@ class Timberland extends Timber\Site {
 			$trail[] = array( 'name' => 'Services', 'url' => home_url( '/services/' ) );
 			$trail[] = array( 'name' => get_the_title(), 'url' => get_permalink() );
 		} elseif ( is_singular( 'insight' ) ) {
-			$trail[] = array( 'name' => 'Insights', 'url' => get_post_type_archive_link( 'insight' ) );
+			$lifestyle = has_category( 'lifestyle', get_queried_object_id() );
+			$trail[] = $lifestyle
+				? array( 'name' => 'Journal', 'url' => home_url( '/journal/' ) )
+				: array( 'name' => 'Insights', 'url' => get_post_type_archive_link( 'insight' ) );
 			$trail[] = array( 'name' => get_the_title(), 'url' => get_permalink() );
 		} elseif ( is_post_type_archive( 'insight' ) ) {
 			$trail[] = array( 'name' => 'Insights', 'url' => get_post_type_archive_link( 'insight' ) );

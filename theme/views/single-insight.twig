@@ -3,6 +3,8 @@
 {% block content %}
 	{% include 'components/breadcrumbs.twig' with { trail: breadcrumb_trail } %}
 	{% set category = post.terms('category')|first %}
+	{% set archive_url = is_lifestyle ? site.url ~ '/journal/' : site.url ~ '/insights/' %}
+	{% set archive_label = is_lifestyle ? 'journal' : 'insights' %}
 
 	{% include 'blocks/hero-small/index.twig' with {
 		fields: {
@@ -40,19 +42,19 @@
 		} only %}
 	</div>
 
-	<a class="insight-back-link" href="{{ site.url }}/insights/" aria-label="Back to all insights" data-insight-back-link>
+	<a class="insight-back-link" href="{{ archive_url }}" aria-label="Back to {{ archive_label }}" data-insight-back-link>
 		<svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5"></path><path d="m11 18-6-6 6-6"></path></svg>
-		<span>Back to insights</span>
+		<span>Back to {{ archive_label }}</span>
 	</a>
 
 	<dialog class="insight-back-dialog" aria-labelledby="insight-back-dialog-title" data-insight-back-dialog>
 		<div class="insight-back-dialog__content">
-			<h2 class="h6" id="insight-back-dialog-title">Want to go back to all insights?</h2>
+			<h2 class="h6" id="insight-back-dialog-title">Want to go back to the {{ archive_label }}?</h2>
 			<div class="insight-back-dialog__actions">
 				<form method="dialog">
 					<button type="submit">Stay here</button>
 				</form>
-				<a href="{{ site.url }}/insights/">Yes, go back</a>
+				<a href="{{ archive_url }}">Yes, go back</a>
 			</div>
 		</div>
 	</dialog>
