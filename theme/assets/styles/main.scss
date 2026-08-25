@@ -850,3 +850,29 @@ html[data-dark-theme] .back-to-top__orbit::before {
 		display: none;
 	}
 }
+/* Keep the header in normal document flow at the top, then pin it for the rest of the page. */
+.navbar-shell {
+	position: relative;
+	z-index: 40;
+}
+
+.site-navbar {
+	width: 100%;
+}
+
+.site-navbar.is-fixed {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+}
+
+.admin-bar .site-navbar.is-fixed {
+	top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	.admin-bar .site-navbar.is-fixed {
+		top: 46px;
+	}
+}

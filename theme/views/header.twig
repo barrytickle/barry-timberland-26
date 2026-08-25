@@ -16,7 +16,8 @@
 ]) %}
 {% set newsletter_heading = options.newsletter_heading|default('Stay connected w/ me.') %}
 
-<header class="sticky top-0 z-40 bg-white/85 backdrop-blur" data-component="navbar" id="navbar">
+<div class="navbar-shell" data-component="navbar-shell">
+<header class="site-navbar z-40 bg-white/85 backdrop-blur" data-component="navbar" id="navbar">
 	<div class="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-5 lg:px-[72px]">
 		<a class="text-2xl font-semibold tracking-tightest text-ink" href="{{ site.url }}"><span class="text-ink-400">{{ logo_text_highlight }}</span>{{ logo_text }}</a>
 		<nav class="hidden items-center gap-8 body-16 font-medium lg:flex" aria-label="Primary navigation">
@@ -43,6 +44,7 @@
 		</div>
 	</div>
 </header>
+</div>
 
 <div class="fixed inset-0 z-50 hidden overflow-y-auto bg-ink px-6 py-10 text-white lg:hidden" data-component="mobile-menu" id="mobile-menu">
 	<div class="mx-auto max-w-[1200px]">
