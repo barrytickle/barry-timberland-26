@@ -31,7 +31,7 @@
 		<nav class="hidden items-center gap-5 body-14 font-medium lg:flex" aria-label="Primary navigation">
 			{% set menu_items = (header_menu and header_menu.items) ? header_menu.items : fallback_links %}
 			{% for item in menu_items %}
-				{% set item_url = item.link|default(item.url) %}
+				{% set item_url = item.link|default(item.url)|replace({'http://www.barrytickle.com': 'https://www.barrytickle.com'}) %}
 				{% set item_label = item.title|default(item.label) %}
 				{% set children = item.children|default([]) %}
 				{% set is_active = item.current|default(false) or item.current_item_ancestor|default(false) or (not children and check_url_match(item_url)) %}
@@ -44,7 +44,7 @@
 						<div class="absolute left-1/2 top-full hidden min-w-52 -translate-x-1/2 pt-2" id="nav-dropdown-{{ loop.index }}" data-nav-dropdown-menu>
 							<div class="rounded-2xl border border-ink-200 bg-white p-2 shadow-[0_1rem_3rem_rgb(3_7_18/0.14)]">
 								{% for child in children %}
-									{% set child_url = child.link|default(child.url) %}
+									{% set child_url = child.link|default(child.url)|replace({'http://www.barrytickle.com': 'https://www.barrytickle.com'}) %}
 									{% set child_active = child.current|default(false) or check_url_match(child_url) %}
 									<a class="block rounded-xl px-4 py-3 transition {{ child_active ? 'bg-ink-100 font-semibold text-ink' : 'text-ink-600 hover:bg-ink-100 hover:text-ink' }}" href="{{ child_url }}"{% if child_active %} aria-current="page"{% endif %}>{{ child.title|default(child.label) }}</a>
 								{% endfor %}
@@ -80,7 +80,7 @@
 		<nav class="divide-y divide-ink-800" aria-label="Mobile navigation">
 			{% set menu_items = (header_menu and header_menu.items) ? header_menu.items : fallback_links %}
 			{% for item in menu_items %}
-				{% set item_url = item.link|default(item.url) %}
+				{% set item_url = item.link|default(item.url)|replace({'http://www.barrytickle.com': 'https://www.barrytickle.com'}) %}
 				{% set item_label = item.title|default(item.label) %}
 				{% set children = item.children|default([]) %}
 				{% set is_active = check_url_match(item_url) %}
@@ -94,7 +94,7 @@
 						</button>
 						<div class="hidden pb-6 pl-4" id="mobile-submenu-{{ loop.index }}" data-mobile-submenu-panel>
 							{% for child in children %}
-								{% set child_url = child.link|default(child.url) %}
+								{% set child_url = child.link|default(child.url)|replace({'http://www.barrytickle.com': 'https://www.barrytickle.com'}) %}
 								<a class="flex items-center justify-between border-t border-ink-800 py-4 body-18 font-semibold text-ink-200 hover:text-white" href="{{ child_url }}">
 									{{ child.title|default(child.label) }}
 									<svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
