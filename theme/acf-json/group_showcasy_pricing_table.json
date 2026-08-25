@@ -1,0 +1,188 @@
+{
+    "key": "group_showcasy_pricing_table",
+    "title": "Pricing Table",
+    "fields": [
+        {
+            "key": "field_showcasy_pricing_table_eyebrow",
+            "label": "Eyebrow",
+            "name": "eyebrow",
+            "type": "text",
+            "default_value": "Pricing",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "50", "class": "", "id": "" }
+        },
+        {
+            "key": "field_showcasy_pricing_table_heading",
+            "label": "Heading",
+            "name": "heading",
+            "type": "text",
+            "default_value": "Straightforward pricing",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "50", "class": "", "id": "" }
+        },
+        {
+            "key": "field_showcasy_pricing_table_introduction",
+            "label": "Introduction",
+            "name": "introduction",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" }
+        },
+        {
+            "key": "field_showcasy_pricing_table_plans",
+            "label": "Plans",
+            "name": "plans",
+            "type": "repeater",
+            "instructions": "Plans stack on smaller screens. Mark one plan as featured to give it extra emphasis.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "layout": "block",
+            "min": 1,
+            "max": 3,
+            "button_label": "Add pricing plan",
+            "rows_per_page": 20,
+            "collapsed": "field_showcasy_pricing_table_plan_name",
+            "sub_fields": [
+                {
+                    "key": "field_showcasy_pricing_table_plan_name",
+                    "label": "Plan name",
+                    "name": "name",
+                    "type": "text",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": { "width": "50", "class": "", "id": "" },
+                    "parent_repeater": "field_showcasy_pricing_table_plans"
+                },
+                {
+                    "key": "field_showcasy_pricing_table_plan_price",
+                    "label": "Price",
+                    "name": "price",
+                    "type": "text",
+                    "instructions": "Include the currency symbol, for example £950.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": { "width": "25", "class": "", "id": "" },
+                    "parent_repeater": "field_showcasy_pricing_table_plans"
+                },
+                {
+                    "key": "field_showcasy_pricing_table_plan_billing_note",
+                    "label": "Billing note",
+                    "name": "billing_note",
+                    "type": "text",
+                    "instructions": "For example: per project or per month.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": { "width": "25", "class": "", "id": "" },
+                    "parent_repeater": "field_showcasy_pricing_table_plans"
+                },
+                {
+                    "key": "field_showcasy_pricing_table_plan_description",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "rows": 2,
+                    "new_lines": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": { "width": "", "class": "", "id": "" },
+                    "parent_repeater": "field_showcasy_pricing_table_plans"
+                },
+                {
+                    "key": "field_showcasy_pricing_table_plan_features",
+                    "label": "Features",
+                    "name": "features",
+                    "type": "repeater",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": { "width": "", "class": "", "id": "" },
+                    "layout": "table",
+                    "min": 0,
+                    "max": 0,
+                    "button_label": "Add feature",
+                    "rows_per_page": 20,
+                    "parent_repeater": "field_showcasy_pricing_table_plans",
+                    "sub_fields": [
+                        {
+                            "key": "field_showcasy_pricing_table_plan_feature_text",
+                            "label": "Feature",
+                            "name": "text",
+                            "type": "text",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": { "width": "", "class": "", "id": "" },
+                            "parent_repeater": "field_showcasy_pricing_table_plan_features"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_showcasy_pricing_table_plan_cta",
+                    "label": "Call to action",
+                    "name": "cta",
+                    "type": "link",
+                    "return_format": "array",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": { "width": "60", "class": "", "id": "" },
+                    "parent_repeater": "field_showcasy_pricing_table_plans"
+                },
+                {
+                    "key": "field_showcasy_pricing_table_plan_featured",
+                    "label": "Featured plan",
+                    "name": "featured",
+                    "type": "true_false",
+                    "message": "Give this plan extra emphasis",
+                    "default_value": 0,
+                    "ui": 1,
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": { "width": "20", "class": "", "id": "" },
+                    "parent_repeater": "field_showcasy_pricing_table_plans"
+                },
+                {
+                    "key": "field_showcasy_pricing_table_plan_featured_label",
+                    "label": "Featured label",
+                    "name": "featured_label",
+                    "type": "text",
+                    "default_value": "Most popular",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_showcasy_pricing_table_plan_featured",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": { "width": "20", "class": "", "id": "" },
+                    "parent_repeater": "field_showcasy_pricing_table_plans"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/pricing-table"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1787760000
+}

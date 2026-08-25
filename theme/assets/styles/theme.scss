@@ -130,6 +130,223 @@ html[data-dark-theme] .numbered-accordion__item[open] .numbered-accordion__toggl
   background: #374151;
   color: #fff;
 }
+
+/* Pricing table — intentionally lives in the shared stylesheet so the block
+   renders consistently on the front end and in Gutenberg. */
+.pricing-table__header {
+  max-width: 52rem;
+}
+
+.pricing-table__plans {
+  display: grid;
+  grid-template-columns: repeat(var(--pricing-columns, 3), minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.pricing-table__plan {
+  display: flex;
+  min-width: 0;
+  min-height: 100%;
+  flex-direction: column;
+  border: 1px solid #d1d5db;
+  border-radius: 1.5rem;
+  background: #fff;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  color: #030712;
+}
+
+.pricing-table__plan--featured {
+  border-color: #030712;
+  background: #030712;
+  color: #fff;
+}
+
+.pricing-table__plan-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pricing-table__name {
+  font-family: "Inter Tight", sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.pricing-table__badge {
+  flex: 0 0 auto;
+  border-radius: 9999px;
+  background: #fff;
+  padding: 0.4rem 0.7rem;
+  color: #030712;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pricing-table__description {
+  margin-top: 1rem;
+  color: #6b7280;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.pricing-table__plan--featured .pricing-table__description,
+.pricing-table__plan--featured .pricing-table__billing {
+  color: #d1d5db;
+}
+
+.pricing-table__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.pricing-table__amount {
+  font-family: "Inter Tight", sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.pricing-table__billing {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.pricing-table__features {
+  display: grid;
+  gap: 0.875rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.pricing-table__plan--featured .pricing-table__features {
+  border-color: #374151;
+}
+
+.pricing-table__features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: inherit;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.pricing-table__features svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: 0 0 auto;
+  margin-top: 0.125rem;
+}
+
+.pricing-table__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  margin-top: auto;
+  border: 1px solid #030712;
+  border-radius: 9999px;
+  padding: 0.9rem 1.15rem;
+  color: #030712;
+  font-size: 1rem;
+  font-weight: 650;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.pricing-table__features + .pricing-table__cta,
+.pricing-table__plan > div + .pricing-table__cta {
+  margin-top: 2rem;
+}
+
+.pricing-table__cta svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  transition: transform 180ms ease;
+}
+
+.pricing-table__cta:hover {
+  background: #030712;
+  color: #fff;
+}
+
+.pricing-table__cta:hover svg {
+  transform: translateX(0.15rem);
+}
+
+.pricing-table__plan--featured .pricing-table__cta {
+  border-color: #fff;
+  background: #fff;
+  color: #030712;
+}
+
+.pricing-table__plan--featured .pricing-table__cta:hover {
+  border-color: #d1d5db;
+  background: #d1d5db;
+}
+
+.pricing-table__cta:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+@media (max-width: 899px) {
+  .pricing-table__plans {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-table__plan {
+    min-height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing-table__cta,
+  .pricing-table__cta svg {
+    transition: none;
+  }
+}
+
+html[data-dark-theme] .pricing-table__plan:not(.pricing-table__plan--featured) {
+  border-color: #4b5563;
+  background: #1f2937;
+  color: #f9fafb;
+}
+
+html[data-dark-theme] .pricing-table__plan:not(.pricing-table__plan--featured) .pricing-table__description,
+html[data-dark-theme] .pricing-table__plan:not(.pricing-table__plan--featured) .pricing-table__billing {
+  color: #d1d5db;
+}
+
+html[data-dark-theme] .pricing-table__plan:not(.pricing-table__plan--featured) .pricing-table__features {
+  border-color: #4b5563;
+}
+
+html[data-dark-theme] .pricing-table__plan:not(.pricing-table__plan--featured) .pricing-table__cta {
+  border-color: #f9fafb;
+  color: #f9fafb;
+}
+
+html[data-dark-theme] .pricing-table__plan:not(.pricing-table__plan--featured) .pricing-table__cta:hover {
+  background: #f9fafb;
+  color: #111827;
+}
+
+html[data-readability] .pricing-table__plan:not(.pricing-table__plan--featured) {
+  background: #fff8dc;
+}
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;

@@ -1,0 +1,59 @@
+{% if is_preview and preview_image %}
+	<img src="{{ preview_image }}" alt="{{ block.title }} preview" loading="lazy" style="max-width:100%;">
+{% else %}
+{% set eyebrow = fields.eyebrow|default('Pricing') %}
+{% set heading = fields.heading|default('Straightforward pricing') %}
+{% set introduction = fields.introduction %}
+{% set plans = fields.plans|default([]) %}
+
+{% if plans %}
+	<section class="pricing-table mx-auto max-w-[1200px] px-6 py-12 lg:px-[72px] lg:py-20" data-component="pricing-table">
+		<header class="pricing-table__header">
+			{% if eyebrow %}<p class="body-14 font-semibold uppercase tracking-tightest text-ink-500">{{ eyebrow }}</p>{% endif %}
+			{% if heading %}<h2 class="h3 mt-4 max-w-3xl">{{ heading }}</h2>{% endif %}
+			{% if introduction %}<p class="body-18 mt-6 max-w-2xl text-ink-500">{{ introduction }}</p>{% endif %}
+		</header>
+
+		<div class="pricing-table__plans" style="--pricing-columns: {{ plans|length > 3 ? 3 : plans|length }};">
+			{% for plan in plans %}
+				{% set cta = plan.cta %}
+				<article class="pricing-table__plan{{ plan.featured ? ' pricing-table__plan--featured' : '' }}">
+					<div>
+						<div class="pricing-table__plan-heading">
+							<h3 class="pricing-table__name">{{ plan.name }}</h3>
+							{% if plan.featured %}<span class="pricing-table__badge">{{ plan.featured_label|default('Most popular') }}</span>{% endif %}
+						</div>
+
+						{% if plan.description %}<p class="pricing-table__description">{{ plan.description }}</p>{% endif %}
+
+						<div class="pricing-table__price">
+							{% if plan.price %}<span class="pricing-table__amount">{{ plan.price }}</span>{% endif %}
+							{% if plan.billing_note %}<span class="pricing-table__billing">{{ plan.billing_note }}</span>{% endif %}
+						</div>
+					</div>
+
+					{% if plan.features %}
+						<ul class="pricing-table__features" aria-label="What is included with {{ plan.name }}">
+							{% for feature in plan.features %}
+								{% if feature.text %}
+									<li>
+										<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" aria-hidden="true"><path d="m4 10 4 4 8-8"></path></svg>
+										<span>{{ feature.text }}</span>
+									</li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					{% endif %}
+
+					{% if cta.url and cta.title %}
+						<a class="pricing-table__cta" href="{{ cta.url }}"{% if cta.target %} target="{{ cta.target }}"{% endif %}{% if cta.target == '_blank' %} rel="noopener noreferrer"{% endif %}>
+							{{ cta.title }}
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+						</a>
+					{% endif %}
+				</article>
+			{% endfor %}
+		</div>
+	</section>
+{% endif %}
+{% endif %}

@@ -1,0 +1,23 @@
+{
+  "apiVersion": 2,
+  "name": "acf/pricing-table",
+  "title": "Pricing Table",
+  "description": "Responsive pricing plans with features, calls to action, and an optional featured plan.",
+  "category": "content-about",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "acf_block_render_callback"
+  },
+  "supports": {
+    "align": false,
+    "jsx": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "is_preview": true
+      }
+    }
+  }
+}
