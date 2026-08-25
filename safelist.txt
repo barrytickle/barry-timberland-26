@@ -2,3 +2,4 @@ w-[fit-content]
 mx-auto
 mt-8
 hidden
+-rotate-90

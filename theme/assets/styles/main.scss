@@ -3,10 +3,6 @@
 @import "./theme.scss";
 @import "tailwindcss/utilities";
 
-[data-mobile-submenu-button][aria-expanded="true"] [data-mobile-chevron] {
-	transform: rotate(-90deg);
-}
-
 .insight-back-link {
 	position: fixed;
 	bottom: clamp(1rem, 3vw, 2rem);

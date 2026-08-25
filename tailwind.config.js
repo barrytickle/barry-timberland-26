@@ -23,6 +23,7 @@ export default {
     "./theme/blocks/**/*.twig",
     "./theme/views/components/**/*.twig",
     "./theme/assets/styles/**/*.scss",
+    "./safelist.txt",
     ...safelist.map((cls) => `dummy/${cls}.html`),
   ],
   theme: {
