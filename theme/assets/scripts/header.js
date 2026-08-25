@@ -62,8 +62,8 @@
 		let openedByHover = false;
 		if (!button || !panel) return;
 
-		button.addEventListener("click", () => {
-			if (openedByHover) {
+		button.addEventListener("click", (event) => {
+			if (openedByHover || (button.getAttribute("aria-expanded") === "true" && hoverQuery.matches && event.detail > 0)) {
 				openedByHover = false;
 				return;
 			}
