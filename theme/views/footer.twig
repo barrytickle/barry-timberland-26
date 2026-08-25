@@ -7,33 +7,69 @@
 	{ label: 'Twitter', url: '#' },
 	{ label: 'Dribbble', url: '#' }
 ]) %}
-{% set default_column_1_links = [
+{% set default_explore_links = [
 	{ url: { title: 'Home', url: site.url, target: '' } },
 	{ url: { title: 'About', url: site.url ~ '/about/', target: '' } },
-	{ url: { title: 'Works', url: site.url ~ '/works/', target: '' } },
-	{ url: { title: 'Insights', url: site.url ~ '/blog/', target: '' } },
+	{ url: { title: 'Projects', url: site.url ~ '/projects/', target: '' } },
 	{ url: { title: 'Contact', url: site.url ~ '/contact/', target: '' } }
 ] %}
+{% set default_writing_links = [
+	{ url: { title: 'Insights', url: site.url ~ '/insights/', target: '' } },
+	{ url: { title: 'Journal', url: site.url ~ '/journal/', target: '' } }
+] %}
+{% set default_policy_links = [] %}
+{% set privacy_policy_url = function('get_privacy_policy_url') %}
+{% if privacy_policy_url %}
+	{% set default_policy_links = default_policy_links|merge([
+		{ url: { title: 'Privacy Policy', url: privacy_policy_url, target: '' } }
+	]) %}
+{% endif %}
 
-{% set footer_title = options.footer_link_title|default('Page List') %}
-{% set footer_links = options.footer_links|default(default_column_1_links) %}
-{% set newsletter_heading = options.newsletter_heading|default('Stay connected w/ me.') %}
+{% set explore_title = options.footer_link_title|default('Explore') %}
+{% set source_explore_links = options.footer_links|default(default_explore_links) %}
+{% set writing_title = options.footer_writing_title|default('Writing') %}
+{% set writing_links = options.footer_writing_links|default([]) %}
+{% set policy_title = options.footer_policy_title|default('Policies') %}
+{% set policy_links = options.footer_policy_links|default([]) %}
+{% set social_title = options.footer_social_title|default('Elsewhere') %}
+
+{# Keep existing Footer Links useful after this upgrade: writing and policy URLs
+   are displayed in their new columns until those repeaters are populated. #}
+{% if not writing_links %}
+	{% for item in source_explore_links %}
+		{% set item_url = item.url.url|default('') %}
+		{% if '/insights' in item_url or '/journal' in item_url or '/blog' in item_url %}
+			{% set writing_links = writing_links|merge([item]) %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% if not writing_links %}{% set writing_links = default_writing_links %}{% endif %}
+
+{% if not policy_links %}
+	{% for item in source_explore_links %}
+		{% set item_url = item.url.url|default('') %}
+		{% if '/privacy' in item_url or '/cookie' in item_url or '/terms' in item_url or '/policy' in item_url %}
+			{% set policy_links = policy_links|merge([item]) %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% if not policy_links %}{% set policy_links = default_policy_links %}{% endif %}
+
+{% set explore_links = [] %}
+{% for item in source_explore_links %}
+	{% set item_url = item.url.url|default('') %}
+	{% set is_writing = '/insights' in item_url or '/journal' in item_url or '/blog' in item_url %}
+	{% set is_policy = '/privacy' in item_url or '/cookie' in item_url or '/terms' in item_url or '/policy' in item_url %}
+	{% if not is_writing and not is_policy %}
+		{% set explore_links = explore_links|merge([item]) %}
+	{% endif %}
+{% endfor %}
 
 {% set copyright_text = options.copyright_text|default('©' ~ ("now"|date("Y")) ~ ' ' ~ site.name ~ '. All rights reserved.') %}
 
 {% set heading = options.heading|default("Want to create something") %}
 {% set heading_highlight = options.heading_highlight|default("awesome?") %}
 {% set cta = options.cta_link|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
-
-{% if footer_links is defined and footer_links|length > 4 %}
-  {% set columns = [] %}
-  {% for i in 0..((footer_links|length - 1) // 4) %}
-    {% set columns = columns|merge([footer_links|slice(i * 4, 4)]) %}
-  {% endfor %}
-{% else %}
-  {% set columns = [footer_links] %}
-{% endif %}
-
 
 <section class="mx-auto max-w-[1200px] px-6 py-16 lg:px-[72px]" data-component="cta-light">
 	<div class="rounded-3xl bg-ink-200/70 px-8 py-20 text-center">
@@ -47,43 +83,57 @@
 
 <footer class="bg-ink px-6 pb-10 pt-16 text-white lg:px-[72px]" data-component="footer">
 	<div class="mx-auto max-w-[1200px]">
-		<span class="text-3xl font-semibold tracking-tightest">
-			<span class="text-ink-500">{{logo_text_highlight}}</span>{{logo_text}}
-		</span>
+		<div class="grid gap-12 border-b border-ink-800 pb-14 lg:grid-cols-[1.1fr_2fr] lg:gap-20">
+			<div>
+				<span class="text-3xl font-semibold tracking-tightest">
+					<span class="text-ink-500">{{logo_text_highlight}}</span>{{logo_text}}
+				</span>
 
-		<p class="body-18 mt-5 max-w-md text-ink-300">
-			{{footer_tagline}}
-		</p>
-
-		<div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
-			{% for social in social_links %}<a target="_blank" rel="noopener noreferrer" class="rounded-full border border-ink-700 py-4 text-center body-16 font-medium transition hover:border-white" href="{{ social.url }}">{{ social.label }}</a>{% endfor %}
-		</div>
-
-		<div class="mt-14">
-				<p class="body-18 mb-6 font-semibold text-ink-400">{{footer_title}}</p>
-
-				<div class="grid grid-cols-2 gap-x-8 gap-y-2 lg:hidden">
-					{% for item in footer_links %}
-						{% if item.url.url %}
-							<a class="text-ink-200 hover:text-white" href="{{ item.url.url }}"{% if item.url.target %} target="{{ item.url.target }}"{% endif %}{% if item.url.target == '_blank' %} rel="noopener noreferrer"{% endif %}>{{ item.url.title }}</a>
-						{% endif %}
-					{% endfor %}
-				</div>
-
-				<div class="hidden gap-16 lg:flex">
-					{% for column in columns %}
-						<div class="flex flex-col gap-2">
-							{% for item in column %}
-								{% if item.url.url %}
-									<a class="text-ink-200 hover:text-white" href="{{ item.url.url }}"{% if item.url.target %} target="{{ item.url.target }}"{% endif %}{% if item.url.target == '_blank' %} rel="noopener noreferrer"{% endif %}>{{ item.url.title }}</a>
-								{% endif %}
-							{% endfor %}
-						</div>
-					{% endfor %}
-				</div>
+				<p class="body-18 mt-5 max-w-md text-ink-300">{{footer_tagline}}</p>
 			</div>
 
-		<p class="mt-14 border-t border-ink-800 pt-8 text-center body-14 text-ink-500">
+			<div class="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3">
+				<nav aria-label="{{ explore_title }}">
+					<p class="body-14 mb-4 font-semibold uppercase tracking-wide text-ink-500">{{ explore_title }}</p>
+					<div class="flex flex-col items-start gap-3">
+						{% for item in explore_links %}
+							{% if item.url.url %}<a class="body-16 text-ink-200 transition hover:text-white" href="{{ item.url.url }}"{% if item.url.target %} target="{{ item.url.target }}"{% endif %}{% if item.url.target == '_blank' %} rel="noopener noreferrer"{% endif %}>{{ item.url.title }}</a>{% endif %}
+						{% endfor %}
+					</div>
+				</nav>
+
+				<nav aria-label="{{ writing_title }}">
+					<p class="body-14 mb-4 font-semibold uppercase tracking-wide text-ink-500">{{ writing_title }}</p>
+					<div class="flex flex-col items-start gap-3">
+						{% for item in writing_links %}
+							{% if item.url.url %}<a class="group inline-flex items-center gap-2 body-16 font-semibold text-white" href="{{ item.url.url }}"{% if item.url.target %} target="{{ item.url.target }}"{% endif %}{% if item.url.target == '_blank' %} rel="noopener noreferrer"{% endif %}>{{ item.url.title }}<svg class="h-4 w-4 transition duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>{% endif %}
+						{% endfor %}
+					</div>
+				</nav>
+
+				{% if policy_links %}
+					<nav class="col-span-2 sm:col-span-1" aria-label="{{ policy_title }}">
+						<p class="body-14 mb-4 font-semibold uppercase tracking-wide text-ink-500">{{ policy_title }}</p>
+						<div class="flex flex-col items-start gap-3">
+							{% for item in policy_links %}
+								{% if item.url.url %}<a class="body-16 text-ink-300 transition hover:text-white" href="{{ item.url.url }}"{% if item.url.target %} target="{{ item.url.target }}"{% endif %}{% if item.url.target == '_blank' %} rel="noopener noreferrer"{% endif %}>{{ item.url.title }}</a>{% endif %}
+							{% endfor %}
+						</div>
+					</nav>
+				{% endif %}
+			</div>
+		</div>
+
+		{% if social_links %}
+			<div class="mt-10">
+				<p class="body-14 mb-4 font-semibold uppercase tracking-wide text-ink-500">{{ social_title }}</p>
+				<div class="flex flex-wrap gap-3">
+					{% for social in social_links %}<a target="_blank" rel="noopener noreferrer" class="rounded-full border border-ink-700 px-5 py-2.5 body-14 font-medium text-ink-200 transition hover:border-white hover:text-white" href="{{ social.url }}">{{ social.label }}</a>{% endfor %}
+				</div>
+			</div>
+		{% endif %}
+
+		<p class="mt-10 text-center body-14 text-ink-500">
 			{{copyright_text}}
 		</p>
 	</div>

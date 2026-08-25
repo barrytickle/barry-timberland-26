@@ -323,7 +323,7 @@
         },
         {
             "key": "field_site_footer_col1_title",
-            "label": "Footer Link Title",
+            "label": "Explore Column Heading",
             "name": "footer_link_title",
             "aria-label": "",
             "type": "text",
@@ -335,7 +335,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Page List",
+            "default_value": "Explore",
             "maxlength": "",
             "allow_in_bindings": 1,
             "placeholder": "",
@@ -344,11 +344,11 @@
         },
         {
             "key": "field_site_footer_col1_links",
-            "label": "Footer Links",
+            "label": "Explore Links",
             "name": "footer_links",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "",
+            "instructions": "General site pages. Keep Insights, Journal and legal pages in their dedicated columns below.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -384,6 +384,148 @@
                     "parent_repeater": "field_site_footer_col1_links"
                 }
             ]
+        },
+        {
+            "key": "field_site_footer_writing_title",
+            "label": "Writing Column Heading",
+            "name": "footer_writing_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Writing",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_site_footer_writing_links",
+            "label": "Writing Links",
+            "name": "footer_writing_links",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Links to Insights, Journal or any other writing archives you want to feature.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "rows_per_page": 10,
+            "min": 0,
+            "max": 8,
+            "collapsed": "",
+            "button_label": "Add writing link",
+            "sub_fields": [
+                {
+                    "key": "field_site_footer_writing_link_url",
+                    "label": "Link",
+                    "name": "url",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "parent_repeater": "field_site_footer_writing_links"
+                }
+            ]
+        },
+        {
+            "key": "field_site_footer_policy_title",
+            "label": "Policy Column Heading",
+            "name": "footer_policy_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Policies",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_site_footer_policy_links",
+            "label": "Policy Links",
+            "name": "footer_policy_links",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Privacy, cookies, terms and other legal pages.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "rows_per_page": 10,
+            "min": 0,
+            "max": 8,
+            "collapsed": "",
+            "button_label": "Add policy link",
+            "sub_fields": [
+                {
+                    "key": "field_site_footer_policy_link_url",
+                    "label": "Link",
+                    "name": "url",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "parent_repeater": "field_site_footer_policy_links"
+                }
+            ]
+        },
+        {
+            "key": "field_site_footer_social_title",
+            "label": "Social Links Heading",
+            "name": "footer_social_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Elsewhere",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_site_footer_copyright",
