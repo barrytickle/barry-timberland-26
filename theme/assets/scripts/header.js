@@ -73,6 +73,9 @@
 			if (event.key === "ArrowDown") {
 				event.preventDefault();
 				openDropdown(dropdown, true);
+			} else if (event.key === "Escape" && button.getAttribute("aria-expanded") === "true") {
+				event.preventDefault();
+				closeDropdown(dropdown, true);
 			}
 		});
 		panel.addEventListener("keydown", (event) => {
