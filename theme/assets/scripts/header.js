@@ -59,10 +59,12 @@
 	dropdowns.forEach((dropdown) => {
 		const button = dropdown.querySelector("[data-nav-dropdown-button]");
 		const panel = dropdown.querySelector("[data-nav-dropdown-menu]");
+		let openedByHover = false;
 		if (!button || !panel) return;
 
 		button.addEventListener("click", () => {
-			if (button.getAttribute("aria-expanded") === "true" && hoverQuery.matches && dropdown.matches(":hover")) {
+			if (openedByHover) {
+				openedByHover = false;
 				return;
 			}
 			button.getAttribute("aria-expanded") === "true" ? closeDropdown(dropdown) : openDropdown(dropdown);
@@ -80,10 +82,16 @@
 			}
 		});
 		dropdown.addEventListener("mouseenter", () => {
-			if (hoverQuery.matches) openDropdown(dropdown);
+			if (hoverQuery.matches) {
+				openedByHover = true;
+				openDropdown(dropdown);
+			}
 		});
 		dropdown.addEventListener("mouseleave", () => {
-			if (hoverQuery.matches) closeDropdown(dropdown);
+			if (hoverQuery.matches) {
+				openedByHover = false;
+				closeDropdown(dropdown);
+			}
 		});
 		dropdown.addEventListener("focusout", (event) => {
 			if (!dropdown.contains(event.relatedTarget)) closeDropdown(dropdown);
