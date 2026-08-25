@@ -1,11 +1,19 @@
 {% set logo_text_highlight = options.logo_text_highlight|default('show') %}
 {% set logo_text = options.logo_text|default('casy.') %}
 {% set fallback_links = [
-	{ label: 'Home', url: site.url },
-	{ label: 'About', url: site.url ~ '/about/' },
-	{ label: 'Works', url: site.url ~ '/works/' },
-	{ label: 'Insights', url: site.url ~ '/blog/' },
-	{ label: 'Contact', url: site.url ~ '/contact/' }
+	{ label: 'About Me', url: site.url ~ '/about-me/' },
+	{ label: 'Services', url: site.url ~ '/services/' },
+	{ label: 'Locations', url: '#', children: [
+		{ label: 'Telford', url: site.url ~ '/web-developer-telford/' },
+		{ label: 'Shrewsbury', url: site.url ~ '/web-developer-shrewsbury/' },
+		{ label: 'Oswestry', url: site.url ~ '/web-developer-oswestry/' }
+	] },
+	{ label: 'Projects', url: site.url ~ '/projects/' },
+	{ label: 'Blog', url: '#', children: [
+		{ label: 'Lifestyle', url: site.url ~ '/journal/' },
+		{ label: 'Insights', url: site.url ~ '/insights/' }
+	] },
+	{ label: 'Contact Me', url: site.url ~ '/contact-me/' }
 ] %}
 {% set cta = options.header_cta|default({ url: site.url ~ '/contact/', title: 'Let’s Talk' }) %}
 {% set social_links = options.social_links|default([
@@ -20,18 +28,33 @@
 <header class="site-navbar z-40 bg-white/85 backdrop-blur" data-component="navbar" id="navbar">
 	<div class="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-5 lg:px-[72px]">
 		<a class="text-2xl font-semibold tracking-tightest text-ink" href="{{ site.url }}"><span class="text-ink-400">{{ logo_text_highlight }}</span>{{ logo_text }}</a>
-		<nav class="hidden items-center gap-8 body-16 font-medium lg:flex" aria-label="Primary navigation">
-			{% if header_menu and header_menu.items %}
-				{% for item in header_menu.items %}
-					{% set is_active = check_url_match(item.link) %}
-					<a class="transition {{ is_active ? 'text-ink font-semibold underline decoration-ink underline-offset-4' : 'text-ink-600 hover:text-ink' }}" href="{{ item.link }}"{% if is_active %} aria-current="page"{% endif %}>{{ item.title }}</a>
-				{% endfor %}
-			{% else %}
-				{% for item in fallback_links %}
-					{% set is_active = check_url_match(item.url) %}
-					<a class="transition {{ is_active ? 'text-ink font-semibold underline decoration-ink underline-offset-4' : 'text-ink-600 hover:text-ink' }}" href="{{ item.url }}"{% if is_active %} aria-current="page"{% endif %}>{{ item.label }}</a>
-				{% endfor %}
-			{% endif %}
+		<nav class="hidden items-center gap-5 body-14 font-medium lg:flex" aria-label="Primary navigation">
+			{% set menu_items = (header_menu and header_menu.items) ? header_menu.items : fallback_links %}
+			{% for item in menu_items %}
+				{% set item_url = item.link|default(item.url) %}
+				{% set item_label = item.title|default(item.label) %}
+				{% set children = item.children|default([]) %}
+				{% set is_active = item.current|default(false) or item.current_item_ancestor|default(false) or (not children and check_url_match(item_url)) %}
+				{% if children %}
+					<div class="relative" data-nav-dropdown>
+						<button class="inline-flex items-center gap-1.5 py-3 transition {{ is_active ? 'font-semibold text-ink underline decoration-ink underline-offset-4' : 'text-ink-600 hover:text-ink' }}" type="button" aria-expanded="false" aria-controls="nav-dropdown-{{ loop.index }}" data-nav-dropdown-button>
+							{{ item_label }}
+							<svg aria-hidden="true" class="h-3.5 w-3.5 transition-transform" data-nav-chevron fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
+						</button>
+						<div class="absolute left-1/2 top-full hidden min-w-52 -translate-x-1/2 pt-2" id="nav-dropdown-{{ loop.index }}" data-nav-dropdown-menu>
+							<div class="rounded-2xl border border-ink-200 bg-white p-2 shadow-[0_1rem_3rem_rgb(3_7_18/0.14)]">
+								{% for child in children %}
+									{% set child_url = child.link|default(child.url) %}
+									{% set child_active = child.current|default(false) or check_url_match(child_url) %}
+									<a class="block rounded-xl px-4 py-3 transition {{ child_active ? 'bg-ink-100 font-semibold text-ink' : 'text-ink-600 hover:bg-ink-100 hover:text-ink' }}" href="{{ child_url }}"{% if child_active %} aria-current="page"{% endif %}>{{ child.title|default(child.label) }}</a>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<a class="py-3 transition {{ is_active ? 'font-semibold text-ink underline decoration-ink underline-offset-4' : 'text-ink-600 hover:text-ink' }}" href="{{ item_url }}"{% if is_active %} aria-current="page"{% endif %}>{{ item_label }}</a>
+				{% endif %}
+			{% endfor %}
 		</nav>
 		<div class="flex items-center gap-3">
 			<a class="group hidden items-center gap-2.5 rounded-full border border-ink px-6 py-3.5 body-16 font-semibold text-ink transition duration-200 hover:bg-ink hover:text-white sm:inline-flex" href="{{ cta.url }}"{% if cta.target %} target="{{ cta.target }}"{% endif %}>
@@ -58,13 +81,35 @@
 			{% set menu_items = (header_menu and header_menu.items) ? header_menu.items : fallback_links %}
 			{% for item in menu_items %}
 				{% set item_url = item.link|default(item.url) %}
+				{% set item_label = item.title|default(item.label) %}
+				{% set children = item.children|default([]) %}
 				{% set is_active = check_url_match(item_url) %}
-				<a class="group flex items-center justify-between py-6" href="{{ item_url }}"{% if is_active %} aria-current="page"{% endif %}>
-					<span class="h2 {{ is_active ? 'text-white underline decoration-white underline-offset-8' : 'text-white' }}">{{ item.title|default(item.label) }} <span class="h6 align-top text-ink-500">({{ '%02d'|format(loop.index) }})</span></span>
-					<span class="grid h-16 w-20 place-items-center rounded-full border border-ink-700 transition duration-200 group-hover:bg-white group-hover:text-ink">
-						<svg class="h-5 w-5 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
-					</span>
-				</a>
+				{% if children %}
+					<div data-mobile-submenu>
+						<button class="flex w-full items-center justify-between py-6 text-left" type="button" aria-expanded="false" aria-controls="mobile-submenu-{{ loop.index }}" data-mobile-submenu-button>
+							<span class="h2 text-white">{{ item_label }} <span class="h6 align-top text-ink-500">({{ '%02d'|format(loop.index) }})</span></span>
+							<span class="grid h-14 w-16 place-items-center rounded-full border border-ink-700">
+								<svg aria-hidden="true" class="h-5 w-5 transition-transform" data-mobile-chevron fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
+							</span>
+						</button>
+						<div class="hidden pb-6 pl-4" id="mobile-submenu-{{ loop.index }}" data-mobile-submenu-panel>
+							{% for child in children %}
+								{% set child_url = child.link|default(child.url) %}
+								<a class="flex items-center justify-between border-t border-ink-800 py-4 body-18 font-semibold text-ink-200 hover:text-white" href="{{ child_url }}">
+									{{ child.title|default(child.label) }}
+									<svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+								</a>
+							{% endfor %}
+						</div>
+					</div>
+				{% else %}
+					<a class="group flex items-center justify-between py-6" href="{{ item_url }}"{% if is_active %} aria-current="page"{% endif %}>
+						<span class="h2 {{ is_active ? 'text-white underline decoration-white underline-offset-8' : 'text-white' }}">{{ item_label }} <span class="h6 align-top text-ink-500">({{ '%02d'|format(loop.index) }})</span></span>
+						<span class="grid h-16 w-20 place-items-center rounded-full border border-ink-700 transition duration-200 group-hover:bg-white group-hover:text-ink">
+							<svg class="h-5 w-5 transition duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+						</span>
+					</a>
+				{% endif %}
 			{% endfor %}
 		</nav>
 		<div class="mt-10 flex flex-col justify-between gap-8 border-t border-ink-800 pt-8 lg:flex-row">
