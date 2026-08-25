@@ -56,7 +56,7 @@ class Timberland extends Timber\Site {
 		add_action( 'wp_head', array( $this, 'output_canonical_for_insight_archive' ), 4 );
 		add_action( 'wp_head', array( $this, 'output_seo_meta' ), 5 );
 		add_action( 'wp_head', array( $this, 'output_social_meta' ), 6 );
-		add_action( 'wp_head', array( $this, 'output_homepage_schema' ), 20 );
+		add_action( 'wp_head', array( $this, 'output_site_entity_schema' ), 20 );
 		add_action( 'wp_head', array( $this, 'output_service_schema' ), 21 );
 		add_action( 'wp_head', array( $this, 'output_insight_schema' ), 22 );
 		add_action( 'wp_head', array( $this, 'output_breadcrumb_schema' ), 23 );
@@ -558,11 +558,12 @@ class Timberland extends Timber\Site {
 		}
 	}
 
-	public function output_homepage_schema() {
-		if ( ! is_front_page() ) {
-			return;
-		}
-
+	/**
+	 * Keep the site's Person and ProfessionalService entities available on every
+	 * indexable page. Page-specific schema can reference these stable IDs without
+	 * redefining a different business or person for each URL.
+	 */
+	public function output_site_entity_schema() {
 		$home_url = home_url( '/' );
 		$location = function_exists( 'get_field' )
 			? get_field( 'location_label', 'option' )
@@ -622,7 +623,7 @@ class Timberland extends Timber\Site {
 				'postalCode'      => 'SY11',
 				'addressCountry'  => 'GB',
 			),
-			'areaServed' => array( 'Shropshire', 'United Kingdom' ),
+			'areaServed' => array( 'Oswestry', 'Shrewsbury', 'Telford', 'Shropshire', 'United Kingdom' ),
 			'knowsAbout' => array(
 				'WordPress development',
 				'Front-end development',
