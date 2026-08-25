@@ -62,6 +62,9 @@
 		if (!button || !panel) return;
 
 		button.addEventListener("click", () => {
+			if (button.getAttribute("aria-expanded") === "true" && hoverQuery.matches && dropdown.matches(":hover")) {
+				return;
+			}
 			button.getAttribute("aria-expanded") === "true" ? closeDropdown(dropdown) : openDropdown(dropdown);
 		});
 		button.addEventListener("keydown", (event) => {
