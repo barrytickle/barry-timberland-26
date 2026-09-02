@@ -1,11 +1,22 @@
 <?php
 
 /**
- * Keep ACF blocks on Block API v2 for the legacy in-canvas field editing experience.
- * ACF 6.8.9 defaults unspecified blocks to v3 on WordPress 7.1+.
+ * Keep ACF blocks on Blocks V3 and opt them into ACF's automatic inline editing.
+ * More complex field types such as Repeaters still fall back to ACF's expanded editor.
  */
-add_filter( 'acf/blocks/default_block_version', function() {
-	return 2;
+add_filter( 'block_type_metadata', function( $metadata ) {
+	if ( empty( $metadata['name'] ) || ! str_starts_with( $metadata['name'], 'acf/' ) ) {
+		return $metadata;
+	}
+
+	if ( empty( $metadata['acf'] ) || ! is_array( $metadata['acf'] ) ) {
+		$metadata['acf'] = array();
+	}
+
+	$metadata['acf']['blockVersion']      = 3;
+	$metadata['acf']['autoInlineEditing'] = true;
+
+	return $metadata;
 } );
 
 /**
