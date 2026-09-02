@@ -1,6 +1,14 @@
 <?php
 
 /**
+ * Keep ACF blocks on Block API v2 for the legacy in-canvas field editing experience.
+ * ACF 6.8.9 defaults unspecified blocks to v3 on WordPress 7.1+.
+ */
+add_filter( 'acf/blocks/default_block_version', function() {
+	return 2;
+} );
+
+/**
  * Placeholder content for ACF block inserter previews and empty editor previews.
  */
 
