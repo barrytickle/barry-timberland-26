@@ -119,6 +119,7 @@
 							{% for item in policy_links %}
 								{% if item.url.url %}<a class="body-16 text-ink-300 transition hover:text-white" href="{{ item.url.url }}"{% if item.url.target %} target="{{ item.url.target }}"{% endif %}{% if item.url.target == '_blank' %} rel="noopener noreferrer"{% endif %}>{{ item.url.title }}</a>{% endif %}
 							{% endfor %}
+							<button class="body-16 text-ink-300 transition hover:text-white" type="button" data-cookie-settings>Cookie settings</button>
 						</div>
 					</nav>
 				{% endif %}
