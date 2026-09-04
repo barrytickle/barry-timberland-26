@@ -1,3 +1,4 @@
+<!-- updated-on: 2026-09-04 14:22 BST -->
 <!doctype html>
 <html {{ site.language_attributes }}>
 	<head>
@@ -9,19 +10,33 @@
 				display: none;
 			}
 		</style>
-		{{function('wp_head')}}
 
-		<!-- Hotjar Tracking Code for https://www.barrytickle.com -->
 		<script>
-			(function(h,o,t,j,a,r){
-				h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-				h._hjSettings={hjid:613347,hjsv:6};
-				a=o.getElementsByTagName('head')[0];
-				r=o.createElement('script');r.async=1;
-				r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-				a.appendChild(r);
-			})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+			window.dataLayer = window.dataLayer || [];
+			window.gtag = window.gtag || function () {
+				window.dataLayer.push(arguments);
+			};
+
+			(function () {
+				var analyticsGranted = false;
+
+				try {
+					analyticsGranted = window.localStorage.getItem('bt_cookie_consent_v1') === 'analytics';
+				} catch (error) {
+					analyticsGranted = false;
+				}
+
+				window.gtag('consent', 'default', {
+					analytics_storage: analyticsGranted ? 'granted' : 'denied',
+					ad_storage: 'denied',
+					ad_user_data: 'denied',
+					ad_personalization: 'denied',
+					wait_for_update: 500
+				});
+			})();
 		</script>
+
+		{{function('wp_head')}}
 	</head>
 
 	<body class="{{body_class}} bg-white text-ink" data-template="base.twig">
@@ -38,6 +53,24 @@
 			{% include 'footer.twig' %}
 			{% include 'components/accessibility-menu.twig' %}
 			{% include 'components/back-to-top.twig' %}
+
+			<div class="fixed inset-x-4 bottom-4 z-[100] hidden sm:left-auto sm:max-w-xl" data-cookie-banner role="dialog" aria-labelledby="cookie-consent-title">
+				<div class="rounded-3xl border border-ink-200 bg-white p-6 shadow-2xl sm:p-7">
+					<p class="body-14 mb-2 font-semibold uppercase tracking-wide text-ink-500">Privacy choice</p>
+					<h2 class="h4 text-ink" id="cookie-consent-title">Analytics cookies</h2>
+					<p class="body-16 mt-3 text-ink-700">
+						Essential storage keeps the site working and remembers your choice. With your permission, I also use Google Analytics and Hotjar to understand visits, heatmaps and session replays. Hotjar will not load unless you allow analytics.
+					</p>
+					<p class="body-14 mt-3">
+						<a class="font-semibold text-ink underline underline-offset-4" href="{{ site.url }}/cookie-policy/">Read the Cookie Policy</a>
+					</p>
+					<div class="mt-6 grid gap-3 sm:grid-cols-2">
+						<button class="rounded-full border border-ink px-5 py-3 body-14 font-semibold text-ink transition hover:bg-ink-100" type="button" data-cookie-reject>Essential only</button>
+						<button class="rounded-full bg-ink px-5 py-3 body-14 font-semibold text-white transition hover:bg-ink-900" type="button" data-cookie-accept>Allow analytics</button>
+					</div>
+				</div>
+			</div>
+
 			{{ function('wp_footer') }}
 		{% endblock %}
 	</body>
