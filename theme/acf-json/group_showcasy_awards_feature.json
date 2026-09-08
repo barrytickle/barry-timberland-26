@@ -1,7 +1,34 @@
 {
     "key": "group_showcasy_awards_feature",
-    "title": "Awards Feature",
+    "title": "Image + Text Feature",
     "fields": [
+        {
+            "key": "field_showcasy_awards_feature_image",
+            "label": "Image",
+            "name": "image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Choose the image shown beside the content.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": "",
+            "uploader": "",
+            "acfe_thumbnail": 0
+        },
         {
             "key": "field_showcasy_awards_feature_heading",
             "label": "Heading",
@@ -16,7 +43,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Awwards Winning - Independent of The Year",
+            "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -24,30 +51,10 @@
         },
         {
             "key": "field_showcasy_awards_feature_credit",
-            "label": "Credit",
+            "label": "Body copy",
             "name": "credit",
             "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Ivan Kazarov - 2022",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_showcasy_awards_feature_href",
-            "label": "Link",
-            "name": "href",
-            "aria-label": "",
-            "type": "url",
+            "type": "textarea",
             "instructions": "",
             "required": false,
             "conditional_logic": false,
@@ -57,91 +64,11 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": ""
-        },
-        {
-            "key": "field_showcasy_awards_feature_mentions",
-            "label": "Mentions",
-            "name": "mentions",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "min": 0,
-            "max": 0,
-            "button_label": "Add mention",
-            "rows_per_page": 20,
-            "collapsed": "",
-            "acfe_repeater_stylised_button": 0,
-            "sub_fields": [
-                {
-                    "key": "field_showcasy_awards_feature_mention_title",
-                    "label": "Title",
-                    "name": "title",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_showcasy_awards_feature_mentions"
-                },
-                {
-                    "key": "field_showcasy_awards_feature_mention_meta",
-                    "label": "Meta",
-                    "name": "meta",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_showcasy_awards_feature_mentions"
-                },
-                {
-                    "key": "field_showcasy_awards_feature_mention_href",
-                    "label": "Link",
-                    "name": "href",
-                    "aria-label": "",
-                    "type": "url",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "parent_repeater": "field_showcasy_awards_feature_mentions"
-                }
-            ]
+            "rows": 6,
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": "",
+            "acfe_textarea_code": 0
         }
     ],
     "location": [
@@ -149,7 +76,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/awards-feature"
+                "value": "acf/awards-feature"
             }
         ]
     ],
