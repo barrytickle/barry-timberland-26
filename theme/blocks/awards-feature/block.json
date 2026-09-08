@@ -2,7 +2,7 @@
   "apiVersion": 2,
   "name": "acf/awards-feature",
   "title": "Image + Text Feature",
-  "description": "Image and supporting copy in a simple two-column feature layout.",
+  "description": "Two-column image and text feature for trust, editorial, and supporting content.",
   "category": "content",
   "acf": {
     "mode": "preview",
