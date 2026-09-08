@@ -1,9 +1,9 @@
 {
   "apiVersion": 2,
   "name": "acf/awards-feature",
-  "title": "Awards Feature",
-  "description": "Featured award with image well beside a divided list of further mentions.",
-  "category": "stats-credentials",
+  "title": "Image + Text Feature",
+  "description": "Image and supporting copy in a simple two-column feature layout.",
+  "category": "content",
   "acf": {
     "mode": "preview",
     "renderCallback": "acf_block_render_callback"
