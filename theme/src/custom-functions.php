@@ -276,3 +276,90 @@ function timberland_strip_wp_classes( $html ) {
 
 	return $processor->get_updated_html();
 }
+
+/**
+ * Turn an existing Case Study Body WYSIWYG into timeline steps.
+ *
+ * Older case studies already contain H4 (occasionally H2/H3) headings with
+ * paragraphs below them. Keep those posts working without requiring editors
+ * to copy all their content into the new ACF timeline repeater.
+ */
+function timberland_case_study_sections( $html ) {
+	$html = trim( (string) $html );
+
+	if ( '' === $html ) {
+		return array();
+	}
+
+	$fallback = array(
+		array(
+			'title'       => 'Project overview',
+			'description' => $html,
+		),
+	);
+
+	if ( ! class_exists( 'DOMDocument' ) ) {
+		return $fallback;
+	}
+
+	$document = new DOMDocument();
+	$previous = libxml_use_internal_errors( true );
+	$loaded   = $document->loadHTML(
+		'<!DOCTYPE html><html><head><meta charset="utf-8"></head><body><div id="case-study-source">' .
+		$html .
+		'</div></body></html>',
+		LIBXML_NONET
+	);
+	libxml_clear_errors();
+	libxml_use_internal_errors( $previous );
+
+	if ( ! $loaded ) {
+		return $fallback;
+	}
+
+	$root = $document->getElementById( 'case-study-source' );
+
+	if ( ! $root ) {
+		return $fallback;
+	}
+
+	$sections    = array();
+	$title       = null;
+	$description = '';
+	$has_heading = false;
+
+	foreach ( $root->childNodes as $node ) {
+		$is_heading = $node instanceof DOMElement
+			&& in_array( strtolower( $node->tagName ), array( 'h2', 'h3', 'h4', 'h5' ), true );
+
+		if ( $is_heading ) {
+			if ( trim( wp_strip_all_tags( $description ) ) !== '' ) {
+				$sections[] = array(
+					'title'       => $title ?: 'Project overview',
+					'description' => $description,
+				);
+			}
+
+			$title       = trim( $node->textContent );
+			$description = '';
+			$has_heading = true;
+			continue;
+		}
+
+		$description .= $document->saveHTML( $node );
+	}
+
+	if ( trim( wp_strip_all_tags( $description ) ) !== '' ) {
+		$sections[] = array(
+			'title'       => $title ?: 'Project overview',
+			'description' => $description,
+		);
+	}
+
+	return $has_heading && $sections ? $sections : $fallback;
+}
+
+add_filter( 'timber/twig', static function ( $twig ) {
+	$twig->addFunction( new \Twig\TwigFunction( 'case_study_sections', 'timberland_case_study_sections' ) );
+	return $twig;
+} );
