@@ -1,0 +1,195 @@
+{
+  "key": "group_bt26_case_study_journey",
+  "title": "Case Study Journey",
+  "fields": [
+    {
+      "key": "field_bt26_case_study_platform",
+      "label": "Platform",
+      "name": "platform",
+      "aria-label": "",
+      "type": "text",
+      "instructions": "Displayed in the fourth project detail slot. For example, WordPress or Shopify.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "WordPress",
+      "maxlength": "",
+      "placeholder": "",
+      "prepend": "",
+      "append": ""
+    },
+    {
+      "key": "field_bt26_case_study_journey_heading",
+      "label": "Journey heading",
+      "name": "journey_heading",
+      "aria-label": "",
+      "type": "text",
+      "instructions": "Heading above the timeline.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "The project journey",
+      "maxlength": "",
+      "placeholder": "",
+      "prepend": "",
+      "append": ""
+    },
+    {
+      "key": "field_bt26_case_study_journey_intro",
+      "label": "Journey introduction",
+      "name": "journey_intro",
+      "aria-label": "",
+      "type": "textarea",
+      "instructions": "Optional short sentence displayed below the timeline heading.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "",
+      "rows": 3,
+      "new_lines": "",
+      "maxlength": "",
+      "placeholder": ""
+    },
+    {
+      "key": "field_bt26_case_study_timeline_steps",
+      "label": "Timeline steps",
+      "name": "timeline_steps",
+      "aria-label": "",
+      "type": "repeater",
+      "instructions": "Optional. Leave empty to automatically turn the headings in the existing Body Content field into timeline cards. Add rows to customise the text and icons for this case study.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "block",
+      "min": 0,
+      "max": 0,
+      "collapsed": "field_bt26_case_study_step_title",
+      "button_label": "Add journey step",
+      "rows_per_page": 20,
+      "sub_fields": [
+        {
+          "key": "field_bt26_case_study_step_title",
+          "label": "Step title",
+          "name": "title",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "For example, Audit and planning.",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": "",
+          "parent_repeater": "field_bt26_case_study_timeline_steps"
+        },
+        {
+          "key": "field_bt26_case_study_step_description",
+          "label": "Step description",
+          "name": "description",
+          "aria-label": "",
+          "type": "wysiwyg",
+          "instructions": "Keep this concise: one or two short paragraphs work best.",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "tabs": "visual",
+          "toolbar": "Case Study",
+          "media_upload": 0,
+          "delay": 1,
+          "parent_repeater": "field_bt26_case_study_timeline_steps"
+        },
+        {
+          "key": "field_bt26_case_study_step_icon",
+          "label": "Icon",
+          "name": "icon",
+          "aria-label": "",
+          "type": "select",
+          "instructions": "Choose from 20 icons. Leave blank to use an automatically selected icon.",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "choices": {
+            "alert-triangle": "Warning / Challenge",
+            "search": "Search / Audit",
+            "code": "Code / Development",
+            "shield-check": "Shield / Testing",
+            "chart": "Chart / Results",
+            "calendar": "Calendar / Planning",
+            "user": "User / Client",
+            "settings": "Settings / Configuration",
+            "layers": "Layers / Platform",
+            "clipboard": "Clipboard / Checklist",
+            "lightbulb": "Lightbulb / Ideas",
+            "palette": "Palette / Design",
+            "monitor": "Monitor / Website",
+            "check-circle": "Checkmark / Completion",
+            "wrench": "Wrench / Repairs",
+            "rocket": "Rocket / Launch",
+            "target": "Target / Objectives",
+            "trending-up": "Growth / Improvement",
+            "database": "Database / Migration",
+            "refresh-cw": "Refresh / Recovery"
+          },
+          "default_value": "",
+          "return_format": "value",
+          "multiple": 0,
+          "allow_null": 1,
+          "ui": 1,
+          "ajax": 0,
+          "placeholder": "Choose an icon",
+          "parent_repeater": "field_bt26_case_study_timeline_steps"
+        }
+      ]
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "block",
+        "operator": "==",
+        "value": "acf/case-study-body"
+      }
+    ]
+  ],
+  "menu_order": 1,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": [],
+  "active": true,
+  "description": "Optional narrative timeline and icon selection for the Case Study Body block. Existing date/client/services/content/stats fields are left intact.",
+  "show_in_rest": 0,
+  "modified": 1792750000
+}
