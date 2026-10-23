@@ -12,6 +12,7 @@
 {% set journey_intro = fields.journey_intro|default('') %}
 {# New ACF steps take precedence. Otherwise existing WYSIWYG headings form the timeline. #}
 {% set manual_steps = fields.timeline_steps|default([]) %}
+{% set legacy_icon_rows = fields.legacy_icon_rows|default([]) %}
 {% set timeline_steps = manual_steps ? manual_steps : case_study_sections(content) %}
 {% set default_icons = ['alert-triangle', 'search', 'code', 'shield-check', 'chart'] %}
 {% set available_icons = ['alert-triangle', 'search', 'code', 'shield-check', 'chart', 'calendar', 'user', 'settings', 'layers', 'clipboard', 'lightbulb', 'palette', 'monitor', 'check-circle', 'wrench', 'rocket', 'target', 'trending-up', 'database', 'refresh-cw'] %}
@@ -82,6 +83,9 @@
 		<ol class="case-study-body__timeline">
 			{% for step in timeline_steps %}
 				{% set selected_icon = step.icon|default('') %}
+				{% if not manual_steps and legacy_icon_rows[loop.index0] is defined %}
+					{% set selected_icon = legacy_icon_rows[loop.index0].icon|default('') %}
+				{% endif %}
 				{% set icon = selected_icon in available_icons ? selected_icon : default_icons[loop.index0 % 5] %}
 				<li class="case-study-body__step">
 					<div class="case-study-body__step-badge" aria-hidden="true">
