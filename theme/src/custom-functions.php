@@ -14,7 +14,11 @@ add_filter( 'block_type_metadata', function( $metadata ) {
 	}
 
 	$metadata['acf']['blockVersion']      = 3;
-	$metadata['acf']['autoInlineEditing'] = true;
+	// The Case Study Body is a compound block with legacy WYSIWYG data,
+// nested repeaters, and SVG symbols. ACF's automatic inline editing can
+// switch away from its canonical field values when an existing block is
+// selected. Use the normal ACF field editor for this block instead.
+$metadata['acf']['autoInlineEditing'] = 'acf/case-study-body' !== $metadata['name'];
 
 	return $metadata;
 } );
