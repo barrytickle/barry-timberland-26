@@ -2,7 +2,7 @@
   "apiVersion": 2,
   "name": "acf/case-study-body",
   "title": "Case Study Body",
-  "description": "Sidebar (date/client/services/website) alongside the case study's narrative content and a stats row underneath.",
+  "description": "Project details strip and an icon-based journey timeline, using existing rich text or custom editable ACF steps.",
   "category": "case-studies",
   "acf": {
     "mode": "preview",
