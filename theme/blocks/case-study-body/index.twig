@@ -75,6 +75,21 @@
 		{% endif %}
 	</div>
 
+	{% if client_name|lower|trim == 'dee valley locksmiths' %}
+	<section class="case-study-body__summary" aria-labelledby="case-study-summary-title">
+		<div class="case-study-body__summary-top">
+			<div><p class="case-study-body__eyebrow">The short version</p><h2 id="case-study-summary-title">A simpler website to manage, without starting again.</h2></div>
+			<p class="case-study-body__summary-intro">Dee Valley Locksmiths had an established WordPress website, but everyday updates were unnecessarily complicated. I simplified editing, restored useful functionality and reduced dependencies while preserving the existing website.</p>
+		</div>
+		<div class="case-study-body__summary-grid">
+			<div class="case-study-body__summary-item"><span aria-hidden="true">✎</span><h3>Easier editing</h3><p>Manage everyday content directly in WordPress.</p></div>
+			<div class="case-study-body__summary-item"><span aria-hidden="true">✓</span><h3>Existing work preserved</h3><p>Keep the familiar design, content and SEO setup.</p></div>
+			<div class="case-study-body__summary-item"><span aria-hidden="true">◇</span><h3>Fewer dependencies</h3><p>Less reliance on external publishing systems.</p></div>
+			<div class="case-study-body__summary-item"><span aria-hidden="true">⚙</span><h3>More maintainable</h3><p>A clearer foundation for future updates.</p></div>
+		</div>
+	</section>
+	{% endif %}
+
 	{% if timeline_steps %}
 		<div class="case-study-body__heading">
 			<h2>{{ journey_heading|e }}</h2>
@@ -92,6 +107,7 @@
 						<svg><use href="#{{ sprite_id }}-{{ icon }}"/></svg>
 					</div>
 					<div class="case-study-body__step-card">
+						<span class="case-study-body__step-number" aria-hidden="true">{{ loop.index < 10 ? "0" ~ loop.index : loop.index }}</span>
 						{% if step.title %}<h3>{{ step.title|e }}</h3>{% endif %}
 						{% if step.description %}
 							<div class="case-study-body__step-content">{{ step.description|strip_wp_classes }}</div>
